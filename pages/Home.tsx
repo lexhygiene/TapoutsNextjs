@@ -1,0 +1,155 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from '../components/Button';
+import AnimatedHero from '../components/AnimatedHero';
+import Partners from '../components/Partners';
+import FeatureSection from '../components/FeatureSection';
+import Testimonials from '../components/Testimonials';
+
+const Home: React.FC = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="bg-white">
+      {/* Hero Section */}
+      <AnimatedHero />
+
+      {/* Partners Section */}
+      <Partners />
+
+      {/* Feature 1: Visibility */}
+      <FeatureSection
+        title="VISIBILITY"
+        description="GenAI Content Ready. Omnichannel Visibility. Drive Traffic. Ensure your brand is seen where it matters most."
+        features={[
+          "GenAI Content Ready",
+          "Omnichannel Visibility",
+          "Drive Traffic"
+        ]}
+        imageSrc="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"
+        imageAlt="Visibility Dashboard"
+        badge="Awareness"
+      />
+
+      {/* Feature 2: Interest (Reversed) */}
+      <FeatureSection
+        title="INTEREST"
+        description="GenAI Content Ready. Omnichannel Engagement. Validate Need. Capture your audience's attention and drive meaningful interactions."
+        features={[
+          "GenAI Content Ready",
+          "Omnichannel Engagement",
+          "Validate Need"
+        ]}
+        imageSrc="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
+        imageAlt="Interest Analytics"
+        reversed={true}
+        badge="Engagement"
+        className="bg-blue-50/50"
+      />
+
+      {/* Feature 3: Experiences */}
+      <FeatureSection
+        title="EXPERIENCES"
+        description="GenAI Content Ready. Omnichannel CX. Create Experiences. Deliver seamless and personalized customer journeys."
+        features={[
+          "GenAI Content Ready",
+          "Omnichannel CX",
+          "Create Experiences"
+        ]}
+        imageSrc="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1974&auto=format&fit=crop"
+        imageAlt="Customer Experiences"
+        badge="Satisfaction"
+      />
+
+      {/* Feature 4: Growth Hacking (Reversed) */}
+      <FeatureSection
+        title="Growth Hacking"
+        description="Driving 10x growth in performance. We combine the power of Search, Social & Remarketing optimised by a unique self-learning algorithm. Power by Generative BI, tapouts enable you to tap into the full potential of performance marketing."
+        features={[
+          "Visibility",
+          "Interest",
+          "Growth"
+        ]}
+        imageSrc="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=2070&auto=format&fit=crop"
+        imageAlt="Growth Hacking"
+        reversed={true}
+        badge="Performance"
+        className="bg-blue-50/50"
+      />
+
+      {/* Feature 5: Reputation Matters */}
+      <FeatureSection
+        title="Reputation Matters"
+        description="We are being judged today every step of the way by our audiences. Reputation management enables you to ensure the information which is visible everywhere is the one which you want them to see."
+        features={[
+          "Reach",
+          "Interactions",
+          "Engagements"
+        ]}
+        imageSrc="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2032&auto=format&fit=crop"
+        imageAlt="Reputation Management"
+        badge="Trust"
+      />
+
+      {/* Recommended Section */}
+      <div className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">RECOMMENDED</h2>
+            <div className="w-20 h-1 bg-red-600 mx-auto rounded-full"></div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { title: "OMNICHANNEL CX", desc: "Powered by GenAI, tapouts are 100% Personalised & Omnichannel Ready" },
+              { title: "UNLIMITED VIDEO", desc: "Powered by GenAI, tapouts are 100% content ready marketing campaigns" },
+              { title: "SOCIAL MEDIA OPTIMISATION", desc: "Powered by GenAI, tapouts automate social media optimisations" },
+              { title: "SEARCH ENGINE OPTIMISATION", desc: "Powered by GenAI, tapouts automate search engine optimisations" },
+              { title: "FACEBOOK MANAGEMENT", desc: "Powered by GenAI, tapouts automate Facebook community management." },
+              { title: "GOOGLE SEO", desc: "Powered by GenAI, tapouts automate Google SEO ranking improvements" },
+              { title: "TWITTER MANAGEMENT", desc: "Powered by GenAI, tapouts automate Twitter community management." },
+              { title: "LINKEDIN MANAGEMENT", desc: "Powered by GenAI, tapouts automate LinkedIn community management." },
+              { title: "INSTAGRAM MANAGEMENT", desc: "Powered by GenAI, tapouts automate Instagram community management." },
+              { title: "LOCAL SEO", desc: "Powered by GenAI, tapouts automate Local SEO ranking improvements" },
+              { title: "SNAPCHAT MANAGEMENT", desc: "Powered by GenAI, tapouts automate snapchat community management." },
+              { title: "PINTEREST MANAGEMENT", desc: "Powered by GenAI, tapouts automate pinterest community management." },
+              { title: "ANALYTICS", desc: "Powered by GenAI, tapouts are automated Generative BI." },
+              { title: "BRAND CX", desc: "Powered by GenAI, tapouts automate Brand community management." },
+              { title: "COMPETITOR TRACKING", desc: "Powered by GenAI, tapouts automates competitor tracking." },
+              { title: "MARKETING STRATEGY", desc: "Powered by GenAI, tapouts are automated marketing strategy" }
+            ].map((item, idx) => (
+              <div key={idx} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+                <h3 className="font-bold text-gray-900 mb-2 text-sm uppercase">{item.title}</h3>
+                <p className="text-gray-500 text-xs leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Testimonials */}
+      <Testimonials />
+
+      {/* CTA Section */}
+      <div className="bg-[#0a0f2c] text-white py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <h2 className="text-4xl md:text-5xl font-bold mb-8">Are you ready?</h2>
+          <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
+            Join thousands of businesses that are scaling faster and smarter with <span className="font-brand italic text-white">tapouts</span>. Start your journey today.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Button variant="primary" size="lg" onClick={() => navigate('/membership')} className="bg-red-600 hover:bg-red-700 border-none">
+              Get Started Now
+            </Button>
+            <Button variant="outline" className="border-white text-white hover:bg-white hover:text-nexusDark" size="lg" onClick={() => navigate('/contact')}>
+              Contact Sales
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Home;

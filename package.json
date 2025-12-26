@@ -1,0 +1,41 @@
+{
+  "name": "komak-nexus",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "build:admin": "cd admin && npm run build",
+    "build:all": "npm run build && npm run build:admin",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "server": "node server.cjs"
+  },
+  "dependencies": {
+    "@google/genai": "^1.30.0",
+    "@google/generative-ai": "^0.24.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.19.2",
+    "express-rate-limit": "^8.2.1",
+    "framer-motion": "^12.23.24",
+    "helmet": "^8.1.0",
+    "json-server": "^0.17.4",
+    "lucide-react": "^0.344.0",
+    "nodemailer": "^6.9.13",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-google-recaptcha": "^3.1.0",
+    "react-router-dom": "^6.22.3",
+    "retell-client-js-sdk": "^2.0.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@types/react-google-recaptcha": "^2.1.9",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}
