@@ -6,12 +6,21 @@ import BrandName from '@/components/BrandName';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import EnquiryForm from '@/components/EnquiryForm';
+import Link from 'next/link';
+import { Code2, Sparkles, Search, MousePointerClick, TrendingUp, Globe, Shield } from 'lucide-react';
 
+import { SERVICE_TYPE_MAP, SERVICES } from '@/lib/constants';
 
-import { SERVICE_TYPE_MAP } from '@/lib/constants';
-
-// Remove local map definition
-
+// Service icons mapping
+const SERVICE_ICONS: Record<string, React.ElementType> = {
+    'Web Development': Code2,
+    'Gen AI': Sparkles,
+    'SEO Marketing': Search,
+    'PPC Marketing': MousePointerClick,
+    'Performance Marketing': TrendingUp,
+    'Digital Marketing': Globe,
+    'Reputation Management': Shield,
+};
 
 interface Props {
     params: Promise<{
@@ -86,6 +95,9 @@ export default async function ServiceLocationPage({ params }: Props) {
         );
     }
 
+    // Get other services (excluding current one)
+    const otherServices = SERVICES.filter(s => s.name !== normalizedService);
+
     return (
         <main className="bg-white min-h-screen text-gray-900 pt-24 pb-20">
             {/* Hero Section */}
@@ -104,11 +116,37 @@ export default async function ServiceLocationPage({ params }: Props) {
                     <div className="prose prose-lg prose-indigo mx-auto text-gray-800">
                         <PortableText value={page.body} components={RichTextComponents} />
                     </div>
+
+                    {/* Other Services in this Location */}
+                    <div className="mt-16 pt-12 border-t border-gray-200">
+                        <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-6">
+                            Other Services in {page.location?.name}
+                        </h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {otherServices.map((service) => {
+                                const Icon = SERVICE_ICONS[service.name] || Globe;
+                                return (
+                                    <Link
+                                        key={service.slug}
+                                        href={`/services/${service.slug}/${location}`}
+                                        className="flex items-center gap-3 p-4 rounded-xl border border-gray-200 hover:border-tapoutsPurple hover:bg-gray-50 transition-all group"
+                                    >
+                                        <div className="w-10 h-10 rounded-lg bg-gray-100 group-hover:bg-tapoutsPurple/10 flex items-center justify-center transition-colors">
+                                            <Icon className="w-5 h-5 text-gray-600 group-hover:text-tapoutsPurple" />
+                                        </div>
+                                        <span className="font-medium text-gray-900 group-hover:text-tapoutsPurple transition-colors">
+                                            {service.title}
+                                        </span>
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                    </div>
                 </div>
 
-                {/* Sidebar */}
+                {/* Sidebar with Shadow */}
                 <aside className="lg:w-1/4 space-y-8 h-fit lg:sticky lg:top-24">
-                    <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                    <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 shadow-lg shadow-gray-200/50">
                         <h3 className="text-xl font-bold text-gray-900 mb-4">Get a Quote</h3>
                         <p className="text-sm text-gray-600 mb-6">
                             Ready to transform your business in {page.location?.name}? Fill out the form below.
@@ -116,7 +154,7 @@ export default async function ServiceLocationPage({ params }: Props) {
                         <EnquiryForm />
                     </div>
 
-                    <div className="bg-nexusDark text-white p-6 rounded-2xl">
+                    <div className="bg-nexusDark text-white p-6 rounded-2xl shadow-lg shadow-nexusDark/30">
                         <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                             Why <BrandName />?
                         </h3>
@@ -154,3 +192,4 @@ export default async function ServiceLocationPage({ params }: Props) {
         </main>
     );
 }
+
