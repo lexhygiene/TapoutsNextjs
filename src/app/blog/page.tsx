@@ -1,9 +1,15 @@
 import { client } from '@/sanity/lib/client';
 import { groq } from 'next-sanity';
 import BlogCard from '@/components/Blog/BlogCard';
+import { Metadata } from 'next';
 
-// Revalidate every 60 seconds
-export const revalidate = 60;
+export const metadata: Metadata = {
+    title: "Blog | Tapouts",
+    description: "Latest insights on digital marketing, AI, and business growth strategies from the Tapouts team.",
+};
+
+// Revalidate every 24 hours (matches blog post pages)
+export const revalidate = 86400;
 
 const query = groq`
   *[_type=='post'] {
