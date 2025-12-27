@@ -3,6 +3,7 @@
 import React from 'react';
 import { CheckCircle, Play, Globe, Server, Shield, Clock, BarChart } from 'lucide-react';
 import Button from '../../components/Button';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import BrandName from '../../components/BrandName';
 import Testimonials from '../../components/Testimonials';
@@ -34,9 +35,11 @@ const WebDevelopment: React.FC = () => {
                         </div>
                         <div className="relative">
                             <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10">
-                                <img
+                                <Image
                                     src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
                                     alt="Dashboard"
+                                    width={1000}
+                                    height={600}
                                     className="w-full h-auto"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/80 to-transparent flex items-center justify-center">
@@ -103,9 +106,11 @@ const WebDevelopment: React.FC = () => {
                             </Button>
                         </div>
                         <div className="relative">
-                            <img
+                            <Image
                                 src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop"
                                 alt="Customer Engagement"
+                                width={1000}
+                                height={600}
                                 className="rounded-2xl shadow-xl w-full"
                             />
                         </div>
@@ -139,9 +144,11 @@ const WebDevelopment: React.FC = () => {
                             </Button>
                         </div>
                         <div className="lg:order-1">
-                            <img
+                            <Image
                                 src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
                                 alt="Data Interpretation"
+                                width={1000}
+                                height={600}
                                 className="rounded-2xl shadow-xl w-full"
                             />
                         </div>
@@ -175,9 +182,11 @@ const WebDevelopment: React.FC = () => {
                             </Button>
                         </div>
                         <div className="relative">
-                            <img
+                            <Image
                                 src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"
                                 alt="Cost Effective"
+                                width={1000}
+                                height={600}
                                 className="rounded-2xl shadow-xl w-full"
                             />
                         </div>

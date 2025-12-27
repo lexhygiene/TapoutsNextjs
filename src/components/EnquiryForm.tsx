@@ -40,7 +40,15 @@ const EnquiryForm: React.FC<EnquiryFormProps> = ({ className = '', onSuccess }) 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!recaptchaToken) {
+        let token = recaptchaToken;
+
+        // Auto-bypass for development/localhost if no token is present
+        if (!token && process.env.NODE_ENV === 'development') {
+            console.log("⚠️ Development mode: Using bypass reCAPTCHA token");
+            token = 'bypass';
+        }
+
+        if (!token) {
             alert('Please complete the reCAPTCHA verification.');
             return;
         }
@@ -52,7 +60,7 @@ const EnquiryForm: React.FC<EnquiryFormProps> = ({ className = '', onSuccess }) 
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ ...formData, recaptchaToken }),
+                body: JSON.stringify({ ...formData, recaptchaToken: token }),
             });
 
             if (response.ok) {

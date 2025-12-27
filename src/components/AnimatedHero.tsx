@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Play } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import BrandName from './BrandName';
 
 const AnimatedHero: React.FC = () => {
@@ -80,9 +81,11 @@ const AnimatedHero: React.FC = () => {
                         className="relative"
                     >
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#1a1f3c]/50 backdrop-blur-md p-2">
-                            <img
+                            <Image
                                 src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
                                 alt="Dashboard Interface"
+                                width={1000}
+                                height={600}
                                 className="w-full h-auto rounded-xl opacity-90"
                             />
 

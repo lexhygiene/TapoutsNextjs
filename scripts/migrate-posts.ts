@@ -70,7 +70,7 @@ async function migrate() {
     const csvPath = path.join(process.cwd(), 'Previous Post Master Sheet - Tapouts.csv');
     const fileContent = fs.readFileSync(csvPath, 'utf-8');
 
-    const records = parse(fileContent, {
+    const records: any[] = parse(fileContent, {
         columns: true,
         skip_empty_lines: true
     });

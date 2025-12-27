@@ -14,10 +14,11 @@ export default function BlogCard({ post }: Props) {
                 <div className="relative w-full h-80 drop-shadow-xl group-hover:scale-105 transition-transform duration-200 ease-out">
                     {post.cloudinaryImage?.url ? (
                         <div className="relative w-full h-full">
-                            <img
+                            <Image
                                 src={post.cloudinaryImage.url}
                                 alt={post.cloudinaryImage.alt || post.title}
-                                className="object-cover object-left lg:object-center rounded-t-2xl w-full h-full"
+                                className="object-cover object-left lg:object-center rounded-t-2xl"
+                                fill
                             />
                         </div>
                     ) : post.mainImage ? (

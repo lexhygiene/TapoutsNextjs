@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, ArrowRight } from 'lucide-react';
+import Image from 'next/image';
 
 interface FeatureSectionProps {
     title: string;
@@ -67,9 +68,11 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
                             transition={{ duration: 0.8 }}
                             className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-100 bg-gray-50"
                         >
-                            <img
+                            <Image
                                 src={imageSrc}
                                 alt={imageAlt}
+                                width={800}
+                                height={600}
                                 className="w-full h-auto object-cover"
                             />
                             {/* Decorative blob */}

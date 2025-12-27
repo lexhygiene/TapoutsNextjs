@@ -57,10 +57,11 @@ export default async function Post({ params }: Props) {
                 <div className="relative min-h-56 flex flex-col md:flex-row justify-between">
                     <div className="absolute top-0 w-full h-full opacity-10 p-10 blur-sm">
                         {post.cloudinaryImage?.url ? (
-                            <img
-                                className="object-cover object-center mx-auto w-full h-full"
+                            <Image
+                                className="object-cover object-center mx-auto"
                                 src={post.cloudinaryImage.url}
                                 alt={post.cloudinaryImage.alt || post.title}
+                                fill
                             />
                         ) : post.mainImage ? (
                             <Image

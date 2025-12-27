@@ -6,7 +6,8 @@ import post from './post'
 import author from './author'
 import location from './location'
 import servicePage from './servicePage'
+import lead from './lead'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-    types: [post, author, category, blockContent, location, servicePage],
+    types: [post, author, category, blockContent, location, servicePage, lead],
 }

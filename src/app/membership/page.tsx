@@ -1,60 +1,10 @@
 'use client';
 
 import React from 'react';
-import { Check, Zap, Shield, Rocket } from 'lucide-react';
+import { Check, Zap, Rocket, Shield } from 'lucide-react';
 import Button from '../../components/Button';
-import { MembershipTier } from '../../types';
-
-const tiers: MembershipTier[] = [
-    {
-        name: 'Tapouts Core',
-        subtitle: '(The Foundation)',
-        price: '£97',
-        period: '/month',
-        bestFor: 'Established small businesses needing a professional, automated front office.',
-        description: 'This plan replaces your scattered tools with a single, unified system. We handle the heavy lifting of the initial build-out so you can start capturing leads on day one.',
-        benefits: [
-            'Fully Managed Onboarding: We build your initial lead-capture funnels and sync your existing customer data.',
-            'The "Missed-Call" Safety Net: Automated text-back systems so you never lose a lead.',
-            'Unified Communication: All your texts, emails, and social messages in one central "Command Center."',
-            'Automated Reputation Building: Review request system to boost your Google ranking.'
-        ],
-        icon: Zap
-    },
-    {
-        name: 'Tapouts Accelerator',
-        subtitle: '(The Growth Engine)',
-        price: '£297',
-        period: '/month',
-        bestFor: 'Scaling businesses that want to automate their sales pipeline and nurturing.',
-        description: 'This is our most popular plan. It’s designed to turn "interest" into "appointments" without you lifting a finger.',
-        recommended: true,
-        benefits: [
-            'Everything in Core, PLUS:',
-            'Advanced Workflow Design: Custom automated "nurture sequences" that follow up for months.',
-            'Smart Calendar Management: Integrated booking systems handling reminders/rescheduling.',
-            'Managed Social Ecosystem: Social channels connected to CRM for full tracking.',
-            'Monthly Performance Audits: Dedicated account manager reviews automation health every 30 days.'
-        ],
-        icon: Rocket
-    },
-    {
-        name: 'Tapouts Elite',
-        subtitle: '(The Total Hands-Off Solution)',
-        price: '£997',
-        period: '/month',
-        bestFor: 'High-growth companies and agencies wanting a full "Growth Department" as a service.',
-        description: 'For those who want to "tap out" of the technical side entirely. We act as your fractional COO/CMO, managing the entire ecosystem.',
-        benefits: [
-            'Everything in Accelerator, PLUS:',
-            'Bespoke System Architecture: Custom logic, API integrations, and advanced reporting dashboards.',
-            'AI-Powered Lead Handling: AI conversational agents to qualify leads and book appointments 24/7.',
-            'White-Glove Support: Priority "Front of the Line" technical support and unlimited workflow adjustments.',
-            'Done-For-You Content: Setup of email newsletters and recurring marketing broadcasts.'
-        ],
-        icon: Shield
-    }
-];
+import { membershipPlans } from '../../lib/stripeConfig';
+import Link from 'next/link';
 
 const Membership: React.FC = () => {
     return (
@@ -73,7 +23,7 @@ const Membership: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {tiers.map((tier) => (
+                    {membershipPlans.map((tier) => (
                         <div
                             key={tier.name}
                             className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col ${tier.recommended ? 'border-2 border-tapoutsPurple ring-4 ring-purple-50 transform scale-105 z-10' : 'border border-gray-100'
@@ -118,12 +68,25 @@ const Membership: React.FC = () => {
                             </div>
 
                             <div className="p-8 pt-0 mt-auto">
-                                <Button
-                                    variant={tier.recommended ? 'primary' : 'outline'}
-                                    className="w-full"
-                                >
-                                    Get Started
-                                </Button>
+                                {tier.stripeLink ? (
+                                    <a href={tier.stripeLink} target="_blank" rel="noopener noreferrer" className="block w-full">
+                                        <Button
+                                            variant={tier.recommended ? 'primary' : 'outline'}
+                                            className="w-full"
+                                        >
+                                            Get Started
+                                        </Button>
+                                    </a>
+                                ) : (
+                                    <Link href="/contact" className="block w-full">
+                                        <Button
+                                            variant={tier.recommended ? 'primary' : 'outline'}
+                                            className="w-full"
+                                        >
+                                            Contact Sales
+                                        </Button>
+                                    </Link>
+                                )}
                             </div>
                         </div>
                     ))}

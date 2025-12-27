@@ -27,6 +27,12 @@ export default defineType({
                 list: [
                     { title: 'Gen AI', value: 'Gen AI' },
                     { title: 'Web Development', value: 'Web Development' },
+                    { title: 'Performance Marketing', value: 'Performance Marketing' },
+                    { title: 'PPC Marketing', value: 'PPC Marketing' },
+                    { title: 'SEO Marketing', value: 'SEO Marketing' },
+                    { title: 'Reputation Management', value: 'Reputation Management' },
+                    { title: 'Digital Marketing', value: 'Digital Marketing' },
+                    { title: 'Smart Maintenance', value: 'Smart Maintenance' },
                 ],
             },
         }),

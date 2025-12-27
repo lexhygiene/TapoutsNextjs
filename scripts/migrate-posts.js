@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const { createClient } = require('next-sanity');
 const dotenv = require('dotenv');
 const fs = require('fs');

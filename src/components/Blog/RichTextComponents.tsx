@@ -6,19 +6,31 @@ import BrandName from '@/components/BrandName';
 // ...
 
 // Helper to style 'tapouts' in text
+// Helper to style 'tapouts' in text
 const styleBrandName = (children: any) => {
-    if (typeof children !== 'string' && !Array.isArray(children)) return children;
+    // If it's a simple string, process it
+    if (typeof children === 'string') {
+        const parts = children.split(/(tapouts)/gi);
+        return parts.map((part, i) =>
+            part.toLowerCase() === 'tapouts' ? <BrandName key={i} /> : part
+        );
+    }
 
-    // Flatten if array of strings (simple case)
-    const text = Array.isArray(children) ? children.join('') : children;
+    // If it's an array, map through it
+    if (Array.isArray(children)) {
+        return children.map((child, index) => {
+            if (typeof child === 'string') {
+                const parts = child.split(/(tapouts)/gi);
+                return parts.map((part, i) =>
+                    part.toLowerCase() === 'tapouts' ? <BrandName key={`${index}-${i}`} /> : part
+                );
+            }
+            return child;
+        });
+    }
 
-    if (typeof text !== 'string') return children;
-
-    const parts = text.split(/(tapouts)/gi);
-
-    return parts.map((part, i) =>
-        part.toLowerCase() === 'tapouts' ? <BrandName key={i} /> : part
-    );
+    // Otherwise return as is (e.g. React elements)
+    return children;
 };
 
 export const RichTextComponents = {

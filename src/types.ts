@@ -13,6 +13,7 @@ export interface MembershipTier {
     benefits: string[];
     recommended?: boolean;
     icon?: React.ElementType;
+    stripeLink?: string;
 }
 
 export interface ServiceCategory {
@@ -96,14 +97,4 @@ export interface Category extends Base {
     title: string;
 }
 
-export interface MembershipTier {
-    name: string;
-    subtitle?: string;
-    description?: string;
-    price: string;
-    period: string;
-    bestFor: string;
-    benefits: string[];
-    recommended?: boolean;
-    icon?: React.ElementType;
-}
+

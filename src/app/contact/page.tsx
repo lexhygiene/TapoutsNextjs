@@ -10,7 +10,7 @@ const Contact: React.FC = () => {
         name: '',
         email: '',
         phone: '',
-        topic: 'General Enquiry',
+        topic: 'Web Development',
         message: '',
         gdprConsent: false,
         newsletter: false
@@ -36,7 +36,15 @@ const Contact: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!recaptchaToken) {
+        let token = recaptchaToken;
+
+        // Auto-bypass for development/localhost if no token is present
+        if (!token && process.env.NODE_ENV === 'development') {
+            console.log("⚠️ Development mode: Using bypass reCAPTCHA token");
+            token = 'bypass';
+        }
+
+        if (!token) {
             alert('Please complete the reCAPTCHA verification.');
             return;
         }
@@ -48,7 +56,7 @@ const Contact: React.FC = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ ...formData, recaptchaToken }),
+                body: JSON.stringify({ ...formData, recaptchaToken: token }),
             });
 
             if (response.ok) {
@@ -185,11 +193,12 @@ const Contact: React.FC = () => {
                                         onChange={handleChange}
                                         className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-gray-900 placeholder:text-gray-500"
                                     >
-                                        <option>General Enquiry</option>
-                                        <option>Membership</option>
-                                        <option>Business Services</option>
-                                        <option>Education & Wellbeing</option>
-                                        <option>Legal Guidance</option>
+                                        <option>Web Development</option>
+                                        <option>Gen AI Services</option>
+                                        <option>PPC Marketing</option>
+                                        <option>Smart Maintenance</option>
+                                        <option>Reputation Management</option>
+                                        <option>Performance Marketing</option>
                                     </select>
                                 </div>
                             </div>

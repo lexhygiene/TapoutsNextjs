@@ -5,6 +5,9 @@ import "./globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SidebarForm from "../components/SidebarForm";
+import Schema from "../components/Schema";
+
+
 
 // Load fonts
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -38,6 +41,7 @@ export default function RootLayout({
 
         {/* Global Widgets */}
         <SidebarForm />
+        <Schema />
 
         {/* GoHighLevel Chat Widget */}
         <Script

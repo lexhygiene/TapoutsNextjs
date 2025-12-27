@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const { createClient } = require('next-sanity');
 const dotenv = require('dotenv');
 const fs = require('fs');
@@ -34,56 +35,68 @@ const services = [
     "Digital Marketing"
 ];
 
+// Helper to generate a random key
+const generateKey = () => Math.random().toString(36).substring(2, 10);
+
 // Content Templates
 const generateBody = (service, location) => {
     return [
         {
             _type: 'block',
+            _key: generateKey(),
             style: 'h2',
-            children: [{ _type: 'span', text: `Best ${service} Services in ${location}` }]
+            children: [{ _type: 'span', _key: generateKey(), text: `Best ${service} Services in ${location}` }]
         },
         {
             _type: 'block',
+            _key: generateKey(),
             style: 'normal',
-            children: [{ _type: 'span', text: `Are you looking for top-tier ${service} solutions in ${location}? At Tapouts, we specialize in delivering cutting-edge strategies tailored for businesses in ${location}. whether you are a startup or an established enterprise, our expert team helps you achieve measurable growth.` }]
+            children: [{ _type: 'span', _key: generateKey(), text: `Are you looking for top-tier ${service} solutions in ${location}? At Tapouts, we specialize in delivering cutting-edge strategies tailored for businesses in ${location}. whether you are a startup or an established enterprise, our expert team helps you achieve measurable growth.` }]
         },
         {
             _type: 'block',
+            _key: generateKey(),
             style: 'h3',
-            children: [{ _type: 'span', text: `Why Choose Tapouts for ${service} in ${location}?` }]
+            children: [{ _type: 'span', _key: generateKey(), text: `Why Choose Tapouts for ${service} in ${location}?` }]
         },
         {
             _type: 'block',
+            _key: generateKey(),
             style: 'normal',
-            children: [{ _type: 'span', text: `We understand the local market dynamics of ${location}. Our data-driven approach ensures that your ${service} campaigns resonate with your target audience. We combine creativity with technology to drive results that matter.` }]
+            children: [{ _type: 'span', _key: generateKey(), text: `We understand the local market dynamics of ${location}. Our data-driven approach ensures that your ${service} campaigns resonate with your target audience. We combine creativity with technology to drive results that matter.` }]
         },
         {
             _type: 'block',
-            style: 'bullet',
+            _key: generateKey(),
+            style: 'normal',
             listItem: 'bullet',
-            children: [{ _type: 'span', text: `Customized ${service} strategies for ${location} businesses.` }]
+            children: [{ _type: 'span', _key: generateKey(), text: `Customized ${service} strategies for ${location} businesses.` }]
         },
         {
             _type: 'block',
-            style: 'bullet',
+            _key: generateKey(),
+            style: 'normal',
             listItem: 'bullet',
-            children: [{ _type: 'span', text: `Proven track record of success in ${location}.` }]
+            children: [{ _type: 'span', _key: generateKey(), text: `Proven track record of success in ${location}.` }]
         },
         {
             _type: 'block',
-            style: 'bullet',
+            _key: generateKey(),
+            style: 'normal',
             listItem: 'bullet',
-            children: [{ _type: 'span', text: `Dedicated support and transparent reporting.` }]
+            children: [{ _type: 'span', _key: generateKey(), text: `Dedicated support and transparent reporting.` }]
         },
         {
             _type: 'block',
+            _key: generateKey(),
             style: 'h3',
-            children: [{ _type: 'span', text: `Transform Your Business in ${location} Today` }]
+            children: [{ _type: 'span', _key: generateKey(), text: `Transform Your Business in ${location} Today` }]
         },
         {
             _type: 'block',
+            _key: generateKey(),
             style: 'normal',
-            children: [{ _type: 'span', text: `Don't let your competitors get ahead. Partner with Tapouts for the best ${service} in ${location}. Contact us today for a free consultation and let's discuss how we can elevate your brand.` }]
+            children: [{ _type: 'span', _key: generateKey(), text: `Don't let your competitors get ahead. Partner with Tapouts for the best ${service} in ${location}. Contact us today for a free consultation and let's discuss how we can elevate your brand.` }]
         }
     ];
 };

@@ -14,6 +14,7 @@ export const SERVICES: ServiceDef[] = [
     { name: 'Performance Marketing', title: 'Performance Marketing', slug: 'performance-marketing' },
     { name: 'Digital Marketing', title: 'Digital Marketing', slug: 'digital-marketing' },
     { name: 'Reputation Management', title: 'Reputation Management', slug: 'reputation-management' },
+    { name: 'Smart Maintenance', title: 'Smart Maintenance', slug: 'smart-maintenance' },
 ];
 
 // Map for dynamic route lookup (Slug -> Sanity Name)
