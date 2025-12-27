@@ -78,7 +78,8 @@ const EnquiryForm: React.FC<EnquiryFormProps> = ({ className = '', onSuccess }) 
                 recaptchaRef.current?.reset();
                 if (onSuccess) onSuccess();
             } else {
-                alert('Failed to send message. Please try again.');
+                const data = await response.json();
+                alert(data.error || 'Failed to send message. Please try again.');
             }
         } catch (error) {
             console.error('Error sending message:', error);

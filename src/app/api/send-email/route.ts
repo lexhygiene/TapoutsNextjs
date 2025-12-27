@@ -141,8 +141,8 @@ export async function POST(request: Request) {
         await Promise.all([sendEmailPromise, sanityPromise, ghlPromise]);
 
         return NextResponse.json({ message: 'Email sent, lead saved to Sanity and GHL' }, { status: 200 });
-    } catch (error) {
+    } catch (error: any) {
         console.error('Error sending email:', error);
-        return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
+        return NextResponse.json({ error: error.message || 'Failed to send email' }, { status: 500 });
     }
 }
