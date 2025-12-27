@@ -1,0 +1,4182 @@
+This file is a merged representation of a subset of the codebase, containing files not matching ignore patterns, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of a subset of the repository's contents that is considered the most important context.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching these patterns are excluded: docs/**, public/*.svg, src/app/favicon.ico, src/app/icon.svg, scripts/migrate-posts.*, .gitignore, postcss.config.mjs, eslint.config.mjs
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+next.config.ts
+package.json
+README.md
+redirects.ts
+sanity.config.ts
+scripts/generate-service-pages.js
+src/app/about/page.tsx
+src/app/api/send-email/route.ts
+src/app/blog/[slug]/page.tsx
+src/app/blog/page.tsx
+src/app/contact/page.tsx
+src/app/globals.css
+src/app/layout.tsx
+src/app/membership/page.tsx
+src/app/page.tsx
+src/app/robots.ts
+src/app/service-areas/page.tsx
+src/app/services/[serviceType]/[location]/page.tsx
+src/app/services/page.tsx
+src/app/sitemap.ts
+src/app/studio/[[...index]]/page.tsx
+src/app/web-development/page.tsx
+src/components/AnimatedHero.tsx
+src/components/Blog/BlogCard.tsx
+src/components/Blog/RichTextComponents.tsx
+src/components/BrandName.tsx
+src/components/Button.tsx
+src/components/EnquiryForm.tsx
+src/components/FeatureSection.tsx
+src/components/Footer.tsx
+src/components/Navbar.tsx
+src/components/Partners.tsx
+src/components/ServiceAreasList.tsx
+src/components/SidebarForm.tsx
+src/components/Testimonials.tsx
+src/lib/constants.ts
+src/lib/sanity/client.ts
+src/lib/sanity/queries.ts
+src/sanity/env.ts
+src/sanity/lib/client.ts
+src/sanity/lib/image.ts
+src/sanity/schemaTypes/author.ts
+src/sanity/schemaTypes/blockContent.ts
+src/sanity/schemaTypes/category.ts
+src/sanity/schemaTypes/index.ts
+src/sanity/schemaTypes/location.ts
+src/sanity/schemaTypes/post.ts
+src/sanity/schemaTypes/servicePage.ts
+src/types.ts
+tsconfig.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="next.config.ts">
+import type { NextConfig } from "next";
+
+import { redirects } from "./redirects";
+
+const nextConfig: NextConfig = {
+  async redirects() {
+    return redirects;
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      }
+    ],
+  },
+};
+
+export default nextConfig;
+</file>
+
+<file path="package.json">
+{
+  "name": "next-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@google/genai": "^1.34.0",
+    "@google/generative-ai": "^0.24.1",
+    "@portabletext/react": "^6.0.0",
+    "@sanity/image-url": "^2.0.2",
+    "@sanity/vision": "^5.1.0",
+    "framer-motion": "^12.23.26",
+    "groq": "^5.1.0",
+    "lucide-react": "^0.562.0",
+    "next": "16.1.1",
+    "next-sanity": "^12.0.5",
+    "nodemailer": "^7.0.12",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-google-recaptcha": "^3.1.0",
+    "retell-client-js-sdk": "^2.0.7",
+    "sanity": "^5.1.0",
+    "styled-components": "^6.1.19"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/nodemailer": "^7.0.4",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/react-google-recaptcha": "^2.1.9",
+    "csv-parse": "^6.1.0",
+    "dotenv": "^17.2.3",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.1",
+    "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5"
+  }
+}
+</file>
+
+<file path="README.md">
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+</file>
+
+<file path="redirects.ts">
+export const redirects = [
+    "omnichannel-marketing-boosting-customer-experiences-for-clients",
+    "omnichannel-reputation-management-protecting-your-online-presence",
+    "what-is-omnichannel-performance-marketing",
+    "maximizing-roi-with-omnichannel-marketing-strategies-and-best-practices",
+    "the-role-of-ai-in-omnichannel-marketing-opportunities-and-challenges",
+    "creating-a-seamless-omnichannel-customer-experience-a-step-by-step-guide",
+    "the-importance-of-omnichannel-marketing-in-todays-business-landscape-tapouts-co",
+    "omnichannel-marketing-vs-multi-channel-marketing-whats-the-difference",
+    "the-role-of-omnichannel-reputation-management-in-building-brand-trust-tapouts-co",
+    "how-to-develop-an-omnichannel-marketing-strategy-that-drives-results-tapouts-co",
+    "the-benefits-of-omnichannel-marketing-for-small-businesses",
+    "the-future-of-omnichannel-marketing-trends-and-predictions",
+    "best-practices-for-managing-your-brands-reputation-across-multiple-channels",
+    "the-impact-of-social-media-on-omnichannel-reputation-management-and-how-to-manage-it",
+    "omnichannel-marketing-strategy-a-comprehensive-guide-by-tapouts-co",
+    "the-importance-of-hiring-a-digital-marketing-agency-for-your-business-in-the-uk",
+    "maximizing-your-online-presence-with-the-best-digital-marketing-strategies-in-the-uk",
+    "unleashing-your-business-potential-with-the-expertise-of-a-digital-marketing-agency-in-the-uk",
+    "understanding-the-importance-of-seo-for-business-growth-and-how-an-seo-agency-can-help",
+    "the-role-of-an-seo-agency-in-enhancing-your-online-visibility-and-website-ranking",
+    "omnichannel-marketing-strategy-revolutionizing-customer-engagement",
+    "omnichannel-marketing-delivering-seamless-customer-experiences",
+    "omnichannel-marketing-agency-unlocking-success-for-your-business",
+    "omnichannel-marketing-examples",
+    "the-rise-of-the-omnichannel-market-revolutionizing-the-customer-experience",
+    "best-omnichannel-marketing-software-boost-your-marketing-efforts",
+    "how-does-omnichannel-marketing-work",
+    "integrated-marketing-vs-omnichannel-understanding-the-difference",
+    "comprehensive-guide-to-omnichannel-marketing",
+    "omnichannel-marketing-case-study-unlocking-success-through-seamless-integration",
+    "best-omnichannel-marketing-tools-enhancing-your-marketing-strategy",
+    "omnichannel-digital-marketing-revolutionizing-customer-engagement",
+    "email-marketing-omnichannel-boosting-engagement-and-conversions",
+    "how-does-omnichannel-marketing-work-for-customers",
+    "hero-how-omnichannel-marketing-can-skyrocket-your-sales",
+    "unleashing-the-power-of-omnichannel-strategies-transforming-fragmented-marketing-into-seamless-success",
+    "breaking-barriers-transform-your-business-with-omnichannel-marketing",
+    "from-digital-dreams-to-reality-omnichannel-marketings-triumph-in-india",
+    "code-maximizing-roi-with-omnichannel-marketing-strategies",
+    "the-future-of-marketing-in-india-a-deep-dive-into-the-omnichannel",
+    "why-is-omnichannel-important",
+    "crushing-the-competition-how-omnichannel-marketing-is-giving-indian-businesses-the-edge",
+    "when-did-omnichannel-start",
+    "what-omni-channel-do",
+    "what-omnichannel-means",
+    "who-is-doing-omnichannel-well",
+    "what-comes-after-omnichannel-the-evolution-of-customer-experience",
+    "best-omnichannel-brands-revolutionizing-customer-experiences",
+    "omnichannel-enablement-transforming-customer-engagement-in-the-digital-age",
+    "omnichannel-environment-bridging-the-gap-between-businesses-and-customers",
+    "omnichannel-b2b-revolutionizing-business-engagement",
+    "omnichannel-business-analyst-navigating-the-modern-business-landscape",
+    "omnichannel-marketing-and-social-media-revolutionizing-customer-engagement",
+    "unlocking-seamless-customer-experiences-the-power-of-an-omnichannel-approach-with-hubspot",
+    "omnichannel-lead-generation-maximizing-your-reach-and-impact",
+    "omnichannel-how-to-pronounce-and-master-the-concept",
+    "ga4-reports-builder-enhance-your-google-analytics-with-this-powerful-extension",
+    "google-one-dark-web-report-rolls-out-for-users-in-india-how-it-works",
+    "the-future-of-omnichannel-revolutionizing-customer-experiences",
+    "omnichannel-analytics"
+].map(slug => ({
+    source: `/${slug}`,
+    destination: `/blog/${slug}`,
+    permanent: true,
+}));
+</file>
+
+<file path="sanity.config.ts">
+'use client'
+
+/**
+ * This configuration is used to for the Sanity Studio that’s mounted on the `/app/studio/[[...index]]/page.tsx` route
+ */
+
+import { visionTool } from '@sanity/vision'
+import { defineConfig } from 'sanity'
+import { structureTool } from 'sanity/structure'
+
+// Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
+import { apiVersion, dataset, projectId } from '@/sanity/env'
+import { schema } from '@/sanity/schemaTypes'
+
+export default defineConfig({
+    basePath: '/studio',
+    projectId,
+    dataset,
+    // Add and edit the content schema in the './sanity/schema' folder
+    schema,
+    plugins: [
+        structureTool(),
+        // Vision is a tool that lets you query your content with GROQ in the studio
+        // https://www.sanity.io/docs/the-vision-plugin
+        visionTool({ defaultApiVersion: apiVersion }),
+    ],
+})
+</file>
+
+<file path="scripts/generate-service-pages.js">
+const { createClient } = require('next-sanity');
+const dotenv = require('dotenv');
+const fs = require('fs');
+const path = require('path');
+const { parse } = require('csv-parse/sync');
+
+// Load env vars
+dotenv.config({ path: '.env.local' });
+
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
+const token = process.env.SANITY_API_TOKEN;
+
+if (!projectId || !dataset || !token) {
+    console.error('Missing environment variables. Check .env.local');
+    process.exit(1);
+}
+
+const client = createClient({
+    projectId,
+    dataset,
+    apiVersion: '2024-02-06',
+    token,
+    useCdn: false,
+});
+
+const services = [
+    "Gen AI",
+    "Web Development",
+    "Performance Marketing",
+    "PPC Marketing",
+    "SEO Marketing",
+    "Reputation Management",
+    "Digital Marketing"
+];
+
+// Content Templates
+const generateBody = (service, location) => {
+    return [
+        {
+            _type: 'block',
+            style: 'h2',
+            children: [{ _type: 'span', text: `Best ${service} Services in ${location}` }]
+        },
+        {
+            _type: 'block',
+            style: 'normal',
+            children: [{ _type: 'span', text: `Are you looking for top-tier ${service} solutions in ${location}? At Tapouts, we specialize in delivering cutting-edge strategies tailored for businesses in ${location}. whether you are a startup or an established enterprise, our expert team helps you achieve measurable growth.` }]
+        },
+        {
+            _type: 'block',
+            style: 'h3',
+            children: [{ _type: 'span', text: `Why Choose Tapouts for ${service} in ${location}?` }]
+        },
+        {
+            _type: 'block',
+            style: 'normal',
+            children: [{ _type: 'span', text: `We understand the local market dynamics of ${location}. Our data-driven approach ensures that your ${service} campaigns resonate with your target audience. We combine creativity with technology to drive results that matter.` }]
+        },
+        {
+            _type: 'block',
+            style: 'bullet',
+            listItem: 'bullet',
+            children: [{ _type: 'span', text: `Customized ${service} strategies for ${location} businesses.` }]
+        },
+        {
+            _type: 'block',
+            style: 'bullet',
+            listItem: 'bullet',
+            children: [{ _type: 'span', text: `Proven track record of success in ${location}.` }]
+        },
+        {
+            _type: 'block',
+            style: 'bullet',
+            listItem: 'bullet',
+            children: [{ _type: 'span', text: `Dedicated support and transparent reporting.` }]
+        },
+        {
+            _type: 'block',
+            style: 'h3',
+            children: [{ _type: 'span', text: `Transform Your Business in ${location} Today` }]
+        },
+        {
+            _type: 'block',
+            style: 'normal',
+            children: [{ _type: 'span', text: `Don't let your competitors get ahead. Partner with Tapouts for the best ${service} in ${location}. Contact us today for a free consultation and let's discuss how we can elevate your brand.` }]
+        }
+    ];
+};
+
+async function generate() {
+    console.log('Starting Service Page Generation...');
+
+    const csvPath = path.join(process.cwd(), 'service-areas-template.csv');
+    const fileContent = fs.readFileSync(csvPath, 'utf-8');
+
+    const records = parse(fileContent, {
+        columns: true,
+        skip_empty_lines: true,
+        relax_quotes: true,
+        relax_column_count: true
+    });
+
+    console.log(`Found ${records.length} locations.`);
+
+    // 1. Create Locations Map (to handle parents)
+    const locationMap = new Map(); // Name -> ID
+
+    // Sort records to process parents first (if possible, simple check: if parent empty)
+    // Actually, multipass is safer. Pass 1: Create all locations. Pass 2: Link parents.
+
+    // Pass 1: Ensure all locations exist
+    console.log('Phase 1: Syncing Locations...');
+    for (const record of records) {
+        const name = record['Location Name'];
+        const type = record['Location Type'];
+        const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+
+        if (!name) continue;
+
+        let locId;
+        const existing = await client.fetch(`*[_type == "location" && slug.current == $slug][0]._id`, { slug });
+
+        if (existing) {
+            locId = existing;
+            console.log(`Location exists: ${name}`);
+        } else {
+            const doc = {
+                _type: 'location',
+                name: name,
+                type: type,
+                slug: { _type: 'slug', current: slug },
+                description: record['Description (Optional)']
+            };
+            const res = await client.create(doc);
+            locId = res._id;
+            console.log(`Created location: ${name}`);
+        }
+        locationMap.set(name, locId);
+    }
+
+    // Pass 2: Link Parents
+    console.log('Phase 2: Linking Parents...');
+    for (const record of records) {
+        const name = record['Location Name'];
+        const parentName = record['Parent Location'];
+
+        if (parentName && locationMap.has(parentName)) {
+            const childId = locationMap.get(name);
+            const parentId = locationMap.get(parentName);
+
+            await client.patch(childId).set({
+                parent: { _type: 'reference', _ref: parentId }
+            }).commit();
+            console.log(`Linked ${name} -> ${parentName}`);
+        }
+    }
+
+    // Pass 3: Generate Service Pages
+    console.log('Phase 3: Generating Service Pages...');
+    for (const record of records) {
+        const locationName = record['Location Name'];
+        const locationId = locationMap.get(locationName);
+
+        if (!locationId) continue;
+
+        for (const service of services) {
+            const slugBase = `${service.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-services-${locationName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+            const title = `${service} Services in ${locationName}`;
+
+            const doc = {
+                _type: 'servicePage',
+                title: title,
+                slug: { _type: 'slug', current: slugBase },
+                serviceType: service,
+                location: { _type: 'reference', _ref: locationId },
+                seoTitle: `${title} | Top Rated Agency Tapouts`,
+                seoDescription: `Looking for ${service} in ${locationName}? Tapouts offers expert ${service} strategies to grow your business in ${locationName}. Get a free quote today!`,
+                body: generateBody(service, locationName)
+            };
+
+            const existing = await client.fetch(`*[_type == "servicePage" && slug.current == $slug][0]._id`, { slug: slugBase });
+
+            if (existing) {
+                console.log(`Updating ${title}`);
+                await client.createOrReplace({ ...doc, _id: existing });
+            } else {
+                await client.create(doc);
+                console.log(`Created ${title}`);
+            }
+        }
+    }
+
+    console.log('Generation Complete! 🚀');
+}
+
+generate();
+</file>
+
+<file path="src/app/about/page.tsx">
+'use client';
+
+import React from 'react';
+import { motion } from 'framer-motion';
+import {
+    Globe,
+    Smartphone,
+    Share2,
+    FileText,
+    Cpu,
+    Zap,
+    Users,
+    ArrowRight
+} from 'lucide-react';
+import Button from '../../components/Button';
+import BrandName from '../../components/BrandName';
+
+const About: React.FC = () => {
+    const fadeInUp = {
+        initial: { opacity: 0, y: 60 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.6, ease: "easeOut" }
+    };
+
+    const staggerContainer = {
+        animate: {
+            transition: {
+                staggerChildren: 0.1
+            }
+        }
+    };
+
+    return (
+        <div className="bg-white min-h-screen font-sans overflow-hidden">
+            {/* Hero Section */}
+            <div className="relative bg-[#0a0f2c] text-white py-32 overflow-hidden">
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <h1 className="text-6xl md:text-8xl font-black mb-6">
+                            <BrandName className="text-white tracking-wide" />
+                        </h1>
+                        <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto font-light leading-relaxed">
+                            Redefining digital landscapes with AI-driven precision and human creativity.
+                        </p>
+                    </motion.div>
+                </div>
+            </div>
+
+            {/* Mission Statement - Kinetic Typography */}
+            <div className="bg-[#0a0f2c] py-20 relative z-20 -mt-1 overflow-hidden">
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <motion.div
+                        initial="initial"
+                        whileInView="animate"
+                        viewport={{ once: true }}
+                        variants={staggerContainer}
+                        className="text-center"
+                    >
+                        <motion.h2 variants={fadeInUp} className="text-4xl md:text-6xl font-bold text-white mb-2">
+                            OMNICHANNEL MARKETING
+                        </motion.h2>
+                        <motion.h2 variants={fadeInUp} className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-tapoutsPurple to-pink-500">
+                            #SIMPLIFIED
+                        </motion.h2>
+                    </motion.div>
+                </div>
+            </div>
+
+            {/* Feature Grid - Glassmorphism */}
+            <div className="py-24 bg-gray-50 relative">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[
+                            { title: '#LOCAL', icon: Globe, desc: 'GPS targeted to audiences.', color: 'bg-blue-500' },
+                            { title: '#MOBILE', icon: Smartphone, desc: 'Cross device & mobile ready.', color: 'bg-purple-500' },
+                            { title: '#SOCIAL', icon: Share2, desc: 'Cross network & social ready.', color: 'bg-pink-500' },
+                            { title: '#CONTENT', icon: FileText, desc: 'Omnichannel content ready.', color: 'bg-orange-500' }
+                        ].map((item, idx) => (
+                            <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: idx * 0.1 }}
+                                whileHover={{ y: -10 }}
+                                className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 relative overflow-hidden group"
+                            >
+                                <div className={`absolute top-0 right-0 w-24 h-24 ${item.color} opacity-10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150 duration-500`}></div>
+                                <div className={`w-12 h-12 ${item.color} text-white rounded-xl flex items-center justify-center mb-6 shadow-lg`}>
+                                    <item.icon className="w-6 h-6" />
+                                </div>
+                                <h3 className="text-2xl font-black text-gray-900 mb-2">{item.title}</h3>
+                                <p className="text-gray-600 font-medium">{item.desc}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {/* Stats Section - Dark Theme */}
+            <div className="bg-nexusDark py-24 text-white relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
+                        {[
+                            { label: 'Touchscreen Users', value: 90 },
+                            { label: 'Local Searches', value: 57 },
+                            { label: 'Social Engagements', value: 100 },
+                            { label: 'Video Views', value: 73 }
+                        ].map((stat, idx) => (
+                            <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: idx * 0.1 }}
+                                className="bg-white/5 p-8 rounded-2xl border border-white/10 backdrop-blur-sm"
+                            >
+                                <div className="flex justify-between items-end mb-4">
+                                    <span className="text-xl font-bold text-gray-300">{stat.label}</span>
+                                    <span className="text-4xl font-black text-tapoutsPurple">{stat.value}%</span>
+                                </div>
+                                <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+                                    <motion.div
+                                        initial={{ width: 0 }}
+                                        whileInView={{ width: `${stat.value}%` }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 1.5, ease: "easeOut" }}
+                                        className="bg-gradient-to-r from-tapoutsPurple to-blue-500 h-full rounded-full"
+                                    />
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    <div className="text-center max-w-4xl mx-auto">
+                        <h3 className="text-2xl md:text-4xl font-bold leading-tight">
+                            <BrandName className="text-tapoutsPurple" /> are omnichannel customer journeys touchpoints creating new experiences & enabling growth.
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            {/* Why Choose Us - GenAI Section */}
+            <div className="py-24 bg-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex flex-col md:flex-row items-center gap-16">
+                        <div className="flex-1">
+                            <div className="inline-flex items-center gap-2 bg-tapoutsPurple/10 px-4 py-1.5 rounded-full text-tapoutsPurple font-bold text-sm mb-6">
+                                <Cpu className="w-4 h-4" />
+                                <span>POWERED BY GEN AI</span>
+                            </div>
+                            <h2 className="text-4xl md:text-5xl font-black text-nexusDark mb-6">
+                                Future-Ready Marketing
+                            </h2>
+                            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                                We don't just follow trends; we set them. By leveraging the power of Generative AI and automation, we deliver marketing strategies that are smarter, faster, and more effective than ever before.
+                            </p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+                                <div className="flex items-start gap-3">
+                                    <Zap className="w-6 h-6 text-yellow-500 mt-1" />
+                                    <div>
+                                        <h4 className="font-bold text-gray-900">Instant Scalability</h4>
+                                        <p className="text-sm text-gray-500">Grow without limits.</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start gap-3">
+                                    <Users className="w-6 h-6 text-blue-500 mt-1" />
+                                    <div>
+                                        <h4 className="font-bold text-gray-900">Hyper-Personalization</h4>
+                                        <p className="text-sm text-gray-500">Connect on a deeper level.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <Button variant="primary">
+                                Explore Our Tech <ArrowRight className="ml-2 w-4 h-4" />
+                            </Button>
+                        </div>
+                        <div className="flex-1 relative">
+                            <div className="relative z-10 bg-gradient-to-br from-gray-900 to-nexusDark p-8 rounded-3xl shadow-2xl text-white transform rotate-2 hover:rotate-0 transition-transform duration-500">
+                                <div className="absolute top-0 right-0 p-8 opacity-20">
+                                    <Cpu className="w-32 h-32" />
+                                </div>
+                                <h3 className="text-2xl font-bold mb-4">The Tapouts Advantage</h3>
+                                <ul className="space-y-4">
+                                    {[
+                                        'AI-Driven Insights',
+                                        'Automated Content Generation',
+                                        'Real-Time Analytics',
+                                        'Cross-Platform Integration'
+                                    ].map((item, i) => (
+                                        <li key={i} className="flex items-center gap-3">
+                                            <div className="w-6 h-6 rounded-full bg-tapoutsPurple flex items-center justify-center text-xs font-bold">✓</div>
+                                            <span className="text-lg">{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div className="absolute inset-0 bg-tapoutsPurple transform -rotate-2 rounded-3xl opacity-20 scale-105 z-0"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default About;
+</file>
+
+<file path="src/app/api/send-email/route.ts">
+import { NextResponse } from 'next/server';
+import nodemailer from 'nodemailer';
+
+export async function POST(request: Request) {
+    try {
+        const { name, email, phone, topic, message, gdprConsent, newsletter, recaptchaToken } = await request.json();
+
+        if (!recaptchaToken) {
+            return NextResponse.json({ error: 'reCAPTCHA token is missing' }, { status: 400 });
+        }
+
+        const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`;
+        const verificationResponse = await fetch(verificationUrl, { method: 'POST' });
+        const verificationData = await verificationResponse.json();
+
+        if (!verificationData.success) {
+            console.error('reCAPTCHA verification failed:', verificationData);
+            return NextResponse.json({ error: 'reCAPTCHA verification failed' }, { status: 400 });
+        }
+
+        const transporter = nodemailer.createTransport({
+            host: process.env.SMTP_HOST,
+            port: Number(process.env.SMTP_PORT),
+            secure: true,
+            auth: {
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASS,
+            },
+        });
+
+        const mailOptions = {
+            from: '"Tapouts Website" <connect@komaknexus.com>',
+            to: process.env.SMTP_USER || "connect@komaknexus.com",
+            subject: `New Enquiry: ${topic} from ${name}`,
+            html: `
+              <h2>New Website Enquiry</h2>
+              <p><strong>Name:</strong> ${name}</p>
+              <p><strong>Email:</strong> ${email}</p>
+              <p><strong>Phone:</strong> ${phone}</p>
+              <p><strong>Topic:</strong> ${topic}</p>
+              <p><strong>Message:</strong></p>
+              <p>${message}</p>
+              <br>
+              <p><strong>GDPR Consent:</strong> ${gdprConsent ? 'Yes' : 'No'}</p>
+              <p><strong>Newsletter:</strong> ${newsletter ? 'Yes' : 'No'}</p>
+            `,
+        };
+
+        await transporter.sendMail(mailOptions);
+        return NextResponse.json({ message: 'Email sent successfully' }, { status: 200 });
+    } catch (error) {
+        console.error('Error sending email:', error);
+        return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
+    }
+}
+</file>
+
+<file path="src/app/blog/[slug]/page.tsx">
+import { client } from '@/sanity/lib/client';
+import { groq } from 'next-sanity';
+import Image from 'next/image';
+import { urlFor } from '@/sanity/lib/image';
+import { PortableText } from '@portabletext/react';
+import { RichTextComponents } from '@/components/Blog/RichTextComponents';
+import { Post as PostType } from '@/types';
+
+// Update Props to reflect params is a Promise
+import { Metadata } from 'next';
+
+interface Props {
+    params: Promise<{
+        slug: string;
+    }>;
+}
+
+export const revalidate = 86400; // Revalidate every 24 hours
+
+// ... imports and other code ...
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { slug } = await params;
+    const query = groq`*[_type=='post' && slug.current == $slug][0]{seoTitle, seoDescription, title, description}`;
+    const post: PostType = await client.fetch(query, { slug });
+
+    if (!post) return { title: 'Post Not Found' };
+
+    return {
+        title: post.seoTitle || post.title,
+        description: post.seoDescription || post.description,
+    };
+}
+
+// ... generateStaticParams ...
+
+export default async function Post({ params }: Props) {
+    const { slug } = await params;
+    const query = groq`
+    *[_type=='post' && slug.current == $slug][0]
+    {
+      ...,
+      author->,
+      categories[]->,
+    }
+  `;
+
+    const post: PostType = await client.fetch(query, { slug });
+
+    if (!post) {
+        return <div>Post not found</div>;
+    }
+
+    return (
+        <article className="px-4 pb-28 mx-auto max-w-4xl min-h-screen bg-white text-gray-900 pt-24">
+            <div className="space-y-2 border border-nexusDark/10 text-white bg-nexusDark rounded-3xl overflow-hidden mb-10">
+                <div className="relative min-h-56 flex flex-col md:flex-row justify-between">
+                    <div className="absolute top-0 w-full h-full opacity-10 p-10 blur-sm">
+                        {post.cloudinaryImage?.url ? (
+                            <img
+                                className="object-cover object-center mx-auto w-full h-full"
+                                src={post.cloudinaryImage.url}
+                                alt={post.cloudinaryImage.alt || post.title}
+                            />
+                        ) : post.mainImage ? (
+                            <Image
+                                className="object-cover object-center mx-auto"
+                                src={urlFor(post.mainImage).url()}
+                                alt={post.author?.name || post.title}
+                                fill
+                            />
+                        ) : null}
+                    </div>
+
+                    <section className="p-5 bg-nexusDark w-full">
+                        <div className="flex flex-col md:flex-row justify-between gap-y-5">
+                            <div>
+                                <h1 className="text-4xl font-bold">{post.title}</h1>
+                                <p>
+                                    {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                                        day: 'numeric',
+                                        month: 'long',
+                                        year: 'numeric',
+                                    })}
+                                </p>
+                            </div>
+
+                            <div className="flex items-center space-x-2">
+                                {post.author.image && (
+                                    <Image
+                                        className="rounded-full"
+                                        src={urlFor(post.author.image).url()}
+                                        alt={post.author.name}
+                                        height={40}
+                                        width={40}
+                                    />
+                                )}
+                                <div className="w-64">
+                                    <h3 className="text-lg font-bold">{post.author.name}</h3>
+                                    {/* <div>Author Bio</div> */}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h2 className="italic pt-10 text-white/60">{post.description}</h2>
+                            <div className="flex items-center justify-end mt-auto space-x-2">
+                                {post.categories?.map((category: any) => (
+                                    <p key={category._id} className="bg-gray-800 text-white px-3 py-1 rounded-full text-sm font-semibold mt-4">
+                                        {category.title}
+                                    </p>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div className="prose prose-lg prose-indigo mx-auto text-gray-800">
+                <PortableText value={post.body} components={RichTextComponents} />
+            </div>
+        </article>
+    );
+}
+</file>
+
+<file path="src/app/blog/page.tsx">
+import { client } from '@/sanity/lib/client';
+import { groq } from 'next-sanity';
+import BlogCard from '@/components/Blog/BlogCard';
+
+// Revalidate every 60 seconds
+export const revalidate = 60;
+
+const query = groq`
+  *[_type=='post'] {
+    ...,
+    author->,
+    categories[]->
+  } | order(publishedAt desc)
+`;
+
+export default async function BlogPage() {
+    const posts = await client.fetch(query);
+
+    return (
+        <div className="bg-white min-h-screen py-24">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 className="text-4xl font-bold mb-10 text-nexusDark">Our Blog</h1>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    {posts.map((post: any) => (
+                        <BlogCard key={post._id} post={post} />
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+}
+</file>
+
+<file path="src/app/contact/page.tsx">
+'use client';
+
+import React, { useState, useRef } from 'react';
+import Button from '../../components/Button';
+import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
+import ReCAPTCHA from 'react-google-recaptcha';
+
+const Contact: React.FC = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        topic: 'General Enquiry',
+        message: '',
+        gdprConsent: false,
+        newsletter: false
+    });
+    const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+    const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name, value, type } = e.target;
+        // @ts-ignore
+        const checked = (e.target as HTMLInputElement).checked;
+
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    };
+
+    const handleCaptchaChange = (token: string | null) => {
+        setRecaptchaToken(token);
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!recaptchaToken) {
+            alert('Please complete the reCAPTCHA verification.');
+            return;
+        }
+
+        try {
+            const baseUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
+            const response = await fetch(`${baseUrl}/send-email`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ...formData, recaptchaToken }),
+            });
+
+            if (response.ok) {
+                alert('Message sent successfully!');
+                setFormData({
+                    name: '',
+                    email: '',
+                    phone: '',
+                    topic: 'General Enquiry',
+                    message: '',
+                    gdprConsent: false,
+                    newsletter: false
+                });
+                setRecaptchaToken(null);
+                recaptchaRef.current?.reset();
+            } else {
+                alert('Failed to send message. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error sending message:', error);
+            alert('Error sending message. Please try again.');
+        }
+    };
+
+    return (
+        <div className="bg-white min-h-screen font-sans">
+            {/* Hero Section */}
+            <div className="relative bg-[#0a0f2c] text-white py-24 overflow-hidden">
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                    <h1 className="text-4xl md:text-6xl font-bold mb-6">Get in Touch</h1>
+                    <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+                        Have questions about membership or need immediate support? Our team and AI are here to help.
+                    </p>
+                </div>
+            </div>
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                    {/* Contact Info */}
+                    <div>
+                        <h2 className="text-3xl font-bold text-gray-900 mb-8">Contact Information</h2>
+                        <div className="space-y-8">
+                            <div className="flex items-start gap-4">
+                                <div className="bg-blue-50 p-4 rounded-full">
+                                    <Mail className="w-6 h-6 text-blue-600" />
+                                </div>
+                                <div>
+                                    <h3 className="text-lg font-bold text-gray-900">Email Us</h3>
+                                    <p className="text-gray-600 mb-1">Our friendly team is here to help.</p>
+                                    <p className="text-blue-600 font-medium">info@tapouts.co</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-4">
+                                <div className="bg-purple-50 p-4 rounded-full">
+                                    <Phone className="w-6 h-6 text-purple-600" />
+                                </div>
+                                <div>
+                                    <h3 className="text-lg font-bold text-gray-900">Call Us</h3>
+                                    <p className="text-gray-600 mb-1">Mon-Fri from 8am to 5pm.</p>
+                                    <p className="text-purple-600 font-medium">+447400085510</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-4">
+                                <div className="bg-red-50 p-4 rounded-full">
+                                    <MapPin className="w-6 h-6 text-red-600" />
+                                </div>
+                                <div>
+                                    <h3 className="text-lg font-bold text-gray-900">Visit Us</h3>
+                                    <p className="text-gray-600 mb-1">Come say hello at our office HQ.</p>
+                                    <p className="text-red-600 font-medium">London, United Kingdom</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="mt-12 bg-gray-50 p-8 rounded-2xl border border-gray-100">
+                            <h3 className="font-bold text-gray-900 text-lg mb-2">Need Instant Answers?</h3>
+                            <p className="text-gray-600 mb-4">Our AI assistant speaks 20+ languages and is available 24/7.</p>
+                            <div className="flex items-center gap-2 text-sm text-gray-500">
+                                <CheckCircle className="w-4 h-4 text-green-500" />
+                                <span>Click the chat bubble in the bottom right corner.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Form */}
+                    <div className="bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-gray-100">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label className="block text-sm font-bold text-gray-700 mb-2">Full Name</label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        required
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-gray-900 placeholder:text-gray-500"
+                                        placeholder="John Doe"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-bold text-gray-700 mb-2">Email Address</label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        required
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-gray-900 placeholder:text-gray-500"
+                                        placeholder="john@example.com"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label className="block text-sm font-bold text-gray-700 mb-2">Phone Number</label>
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        value={formData.phone}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-gray-900 placeholder:text-gray-500"
+                                        placeholder="+447400085510"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-bold text-gray-700 mb-2">Topic</label>
+                                    <select
+                                        name="topic"
+                                        value={formData.topic}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-gray-900 placeholder:text-gray-500"
+                                    >
+                                        <option>General Enquiry</option>
+                                        <option>Membership</option>
+                                        <option>Business Services</option>
+                                        <option>Education & Wellbeing</option>
+                                        <option>Legal Guidance</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-bold text-gray-700 mb-2">Message</label>
+                                <textarea
+                                    name="message"
+                                    rows={4}
+                                    required
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all resize-none text-gray-900 placeholder:text-gray-500"
+                                    placeholder="How can we help?"
+                                ></textarea>
+                            </div>
+
+                            <div className="space-y-3">
+                                <label className="flex items-start gap-3 cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        name="gdprConsent"
+                                        required
+                                        checked={formData.gdprConsent}
+                                        onChange={handleChange}
+                                        className="mt-1 w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                                    />
+                                    <span className="text-sm text-gray-600">
+                                        I agree to the <a href="#" className="text-blue-600 hover:underline font-medium">UK GDPR laws</a> and privacy policy.
+                                    </span>
+                                </label>
+
+                                <label className="flex items-start gap-3 cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        name="newsletter"
+                                        checked={formData.newsletter}
+                                        onChange={handleChange}
+                                        className="mt-1 w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                                    />
+                                    <span className="text-sm text-gray-600">
+                                        Subscribe to our newsletter for updates.
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div className="flex justify-center">
+                                <ReCAPTCHA
+                                    ref={recaptchaRef}
+                                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+                                    onChange={handleCaptchaChange}
+                                />
+                            </div>
+
+                            <Button type="submit" className="w-full py-4 text-lg font-bold shadow-lg hover:shadow-xl transition-all" variant="primary">
+                                Send Message <Send className="ml-2 w-5 h-5" />
+                            </Button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Contact;
+</file>
+
+<file path="src/app/globals.css">
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-anton: var(--font-anton);
+  --color-tapoutsPurple: #8b5cf6;
+  --color-nexusDark: #0a0f2c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+</file>
+
+<file path="src/app/layout.tsx">
+import type { Metadata } from "next";
+import { Inter, Outfit, Anton } from "next/font/google"; // Using Outfit as brand font replacement or similar
+import Script from "next/script";
+import "./globals.css";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import SidebarForm from "../components/SidebarForm";
+
+// Load fonts
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
+const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-anton" });
+
+export const metadata: Metadata = {
+  metadataBase: new URL('https://tapouts.co'),
+  title: "Tapouts | Smart Maintenance",
+  description: "Smart Maintenance. Unified Approach. Exponential Results.",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" className={`${inter.variable} ${outfit.variable} ${anton.variable}`}>
+      <body className="font-sans antialiased text-gray-800 bg-white min-h-screen flex flex-col">
+        {/* Navigation */}
+        <Navbar />
+
+        {/* Main Content */}
+        <main className="flex-grow">
+          {children}
+        </main>
+
+        {/* Footer */}
+        <Footer />
+
+        {/* Global Widgets */}
+        <SidebarForm />
+
+        {/* GoHighLevel Chat Widget */}
+        <Script
+          src="https://widgets.leadconnectorhq.com/loader.js"
+          data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+          data-widget-id="692b98d48fcc751d52c8c8de"
+          strategy="lazyOnload"
+        />
+      </body>
+    </html>
+  );
+}
+</file>
+
+<file path="src/app/membership/page.tsx">
+'use client';
+
+import React from 'react';
+import { Check, Zap, Shield, Rocket } from 'lucide-react';
+import Button from '../../components/Button';
+import { MembershipTier } from '../../types';
+
+const tiers: MembershipTier[] = [
+    {
+        name: 'Tapouts Core',
+        subtitle: '(The Foundation)',
+        price: '£97',
+        period: '/month',
+        bestFor: 'Established small businesses needing a professional, automated front office.',
+        description: 'This plan replaces your scattered tools with a single, unified system. We handle the heavy lifting of the initial build-out so you can start capturing leads on day one.',
+        benefits: [
+            'Fully Managed Onboarding: We build your initial lead-capture funnels and sync your existing customer data.',
+            'The "Missed-Call" Safety Net: Automated text-back systems so you never lose a lead.',
+            'Unified Communication: All your texts, emails, and social messages in one central "Command Center."',
+            'Automated Reputation Building: Review request system to boost your Google ranking.'
+        ],
+        icon: Zap
+    },
+    {
+        name: 'Tapouts Accelerator',
+        subtitle: '(The Growth Engine)',
+        price: '£297',
+        period: '/month',
+        bestFor: 'Scaling businesses that want to automate their sales pipeline and nurturing.',
+        description: 'This is our most popular plan. It’s designed to turn "interest" into "appointments" without you lifting a finger.',
+        recommended: true,
+        benefits: [
+            'Everything in Core, PLUS:',
+            'Advanced Workflow Design: Custom automated "nurture sequences" that follow up for months.',
+            'Smart Calendar Management: Integrated booking systems handling reminders/rescheduling.',
+            'Managed Social Ecosystem: Social channels connected to CRM for full tracking.',
+            'Monthly Performance Audits: Dedicated account manager reviews automation health every 30 days.'
+        ],
+        icon: Rocket
+    },
+    {
+        name: 'Tapouts Elite',
+        subtitle: '(The Total Hands-Off Solution)',
+        price: '£997',
+        period: '/month',
+        bestFor: 'High-growth companies and agencies wanting a full "Growth Department" as a service.',
+        description: 'For those who want to "tap out" of the technical side entirely. We act as your fractional COO/CMO, managing the entire ecosystem.',
+        benefits: [
+            'Everything in Accelerator, PLUS:',
+            'Bespoke System Architecture: Custom logic, API integrations, and advanced reporting dashboards.',
+            'AI-Powered Lead Handling: AI conversational agents to qualify leads and book appointments 24/7.',
+            'White-Glove Support: Priority "Front of the Line" technical support and unlimited workflow adjustments.',
+            'Done-For-You Content: Setup of email newsletters and recurring marketing broadcasts.'
+        ],
+        icon: Shield
+    }
+];
+
+const Membership: React.FC = () => {
+    return (
+        <div className="bg-gray-50 min-h-screen py-20 font-sans">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center max-w-4xl mx-auto mb-16">
+                    <h1 className="text-4xl md:text-5xl font-black text-nexusDark mb-6 tracking-tight">
+                        Fully Managed Growth Engines
+                    </h1>
+                    <p className="text-xl text-gray-600 mb-6 leading-relaxed">
+                        At Tapouts, we don’t just give you a login and wish you luck. Instead of hand-holding you through a software setup, we build, launch, and manage your systems for you.
+                    </p>
+                    <p className="text-lg text-gray-500 font-light max-w-3xl mx-auto">
+                        We’ve taken the most powerful marketing infrastructure on the market and "supercharged" it with our internal team of experts so you can focus on running your business, not your software.
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {tiers.map((tier) => (
+                        <div
+                            key={tier.name}
+                            className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col ${tier.recommended ? 'border-2 border-tapoutsPurple ring-4 ring-purple-50 transform scale-105 z-10' : 'border border-gray-100'
+                                }`}
+                        >
+                            {tier.recommended && (
+                                <div className="absolute top-0 right-0 transform translate-x-2 -translate-y-2">
+                                    <div className="bg-blue-500 text-white text-xs font-bold uppercase tracking-wide px-4 py-1 rounded-bl-lg shadow-md">
+                                        POPULAR
+                                    </div>
+                                </div>
+                            )}
+
+                            <div className="p-8 border-b border-gray-100 flex-grow-0 text-center">
+                                {tier.icon && (
+                                    <div className="w-16 h-16 mx-auto bg-gray-50 rounded-full flex items-center justify-center mb-6">
+                                        {/* @ts-ignore */}
+                                        <tier.icon className={`w-8 h-8 ${tier.recommended ? 'text-tapoutsPurple' : 'text-gray-600'}`} />
+                                    </div>
+                                )}
+                                <h3 className="text-2xl font-bold text-gray-900 mb-1">{tier.name}</h3>
+                                {tier.subtitle && <p className="text-sm font-semibold text-tapoutsPurple mb-3">{tier.subtitle}</p>}
+                                <p className="text-sm text-gray-600 font-medium mb-4 italic">"{tier.bestFor}"</p>
+                                <div className="flex items-baseline justify-center mb-4">
+                                    <span className="text-5xl font-black text-nexusDark">{tier.price}</span>
+                                    <span className="text-gray-500 ml-2">{tier.period}</span>
+                                </div>
+                                {tier.description && (
+                                    <p className="text-sm text-gray-500 leading-snug">{tier.description}</p>
+                                )}
+                            </div>
+
+                            <div className="p-8 flex-grow">
+                                <ul className="space-y-4">
+                                    {tier.benefits.map((benefit, idx) => (
+                                        <li key={idx} className="flex items-start text-sm text-gray-600">
+                                            <Check className="w-5 h-5 text-tapoutsPurple mr-3 flex-shrink-0 mt-0.5" />
+                                            <span>{benefit}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+
+                            <div className="p-8 pt-0 mt-auto">
+                                <Button
+                                    variant={tier.recommended ? 'primary' : 'outline'}
+                                    className="w-full"
+                                >
+                                    Get Started
+                                </Button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="mt-20 bg-white p-10 rounded-2xl shadow-sm border border-gray-100 text-center">
+                    <h3 className="text-2xl font-bold text-nexusDark mb-4">Why Tapouts?</h3>
+                    <p className="text-gray-600 mb-8 max-w-2xl mx-auto text-lg">
+                        Most platforms are "Do It Yourself." We are "Done With You" (Core) and "Done For You" (Accelerator/Elite). You get the power of a world-class CRM with the service of a boutique agency.
+                    </p>
+                    <Button variant="secondary" onClick={() => window.location.href = '/contact'}>Contact Sales</Button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Membership;
+</file>
+
+<file path="src/app/page.tsx">
+'use client';
+
+import React from 'react';
+import { useRouter } from 'next/navigation';
+import Button from '../components/Button';
+import AnimatedHero from '../components/AnimatedHero';
+import Partners from '../components/Partners';
+import FeatureSection from '../components/FeatureSection';
+import Testimonials from '../components/Testimonials';
+import BrandName from '../components/BrandName';
+
+export default function Home() {
+  const router = useRouter();
+
+  return (
+    <div className="bg-white">
+      {/* Hero Section */}
+      <AnimatedHero />
+
+      {/* Partners Section */}
+      <Partners />
+
+      {/* Feature 1: Visibility */}
+      <FeatureSection
+        title="VISIBILITY"
+        description="GenAI Content Ready. Omnichannel Visibility. Drive Traffic. Ensure your brand is seen where it matters most."
+        features={[
+          "GenAI Content Ready",
+          "Omnichannel Visibility",
+          "Drive Traffic"
+        ]}
+        imageSrc="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"
+        imageAlt="Visibility Dashboard"
+        badge="Awareness"
+      />
+
+      {/* Feature 2: Interest (Reversed) */}
+      <FeatureSection
+        title="INTEREST"
+        description={<span>GenAI Content Ready. Omnichannel Engagement. Validate Need. Capture your audience's attention and drive meaningful interactions.</span>}
+        features={[
+          "GenAI Content Ready",
+          "Omnichannel Engagement",
+          "Validate Need"
+        ]}
+        imageSrc="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
+        imageAlt="Interest Analytics"
+        reversed={true}
+        badge="Engagement"
+        className="bg-blue-50/50"
+      />
+
+      {/* Feature 3: Experiences */}
+      <FeatureSection
+        title="EXPERIENCES"
+        description={<span>GenAI Content Ready. Omnichannel CX. Create Experiences. Deliver seamless and personalized customer journeys.</span>}
+        features={[
+          "GenAI Content Ready",
+          "Omnichannel CX",
+          "Create Experiences"
+        ]}
+        imageSrc="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1974&auto=format&fit=crop"
+        imageAlt="Customer Experiences"
+        badge="Satisfaction"
+      />
+
+      {/* Feature 4: Growth Hacking (Reversed) */}
+      <FeatureSection
+        title="Growth Hacking"
+        description={<span>Driving 10x growth in performance. We combine the power of Search, Social & Remarketing optimised by a unique self-learning algorithm. Power by Generative BI, <BrandName /> enable you to tap into the full potential of performance marketing.</span>}
+        features={[
+          "Visibility",
+          "Interest",
+          "Growth"
+        ]}
+        imageSrc="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=2070&auto=format&fit=crop"
+        imageAlt="Growth Hacking"
+        reversed={true}
+        badge="Performance"
+        className="bg-blue-50/50"
+      />
+
+      {/* Feature 5: Reputation Matters */}
+      <FeatureSection
+        title="Reputation Matters"
+        description="We are being judged today every step of the way by our audiences. Reputation management enables you to ensure the information which is visible everywhere is the one which you want them to see."
+        features={[
+          "Reach",
+          "Interactions",
+          "Engagements"
+        ]}
+        imageSrc="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2032&auto=format&fit=crop"
+        imageAlt="Reputation Management"
+        badge="Trust"
+      />
+
+      {/* Recommended Section */}
+      <div className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">RECOMMENDED</h2>
+            <div className="w-20 h-1 bg-red-600 mx-auto rounded-full"></div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { title: "OMNICHANNEL CX", desc: <span>Powered by GenAI, <BrandName /> are 100% Personalised & Omnichannel Ready</span> },
+              { title: "UNLIMITED VIDEO", desc: <span>Powered by GenAI, <BrandName /> are 100% content ready marketing campaigns</span> },
+              { title: "SOCIAL MEDIA OPTIMISATION", desc: <span>Powered by GenAI, <BrandName /> automate social media optimisations</span> },
+              { title: "SEARCH ENGINE OPTIMISATION", desc: <span>Powered by GenAI, <BrandName /> automate search engine optimisations</span> },
+              { title: "FACEBOOK MANAGEMENT", desc: <span>Powered by GenAI, <BrandName /> automate Facebook community management.</span> },
+              { title: "GOOGLE SEO", desc: <span>Powered by GenAI, <BrandName /> automate Google SEO ranking improvements</span> },
+              { title: "TWITTER MANAGEMENT", desc: <span>Powered by GenAI, <BrandName /> automate Twitter community management.</span> },
+              { title: "LINKEDIN MANAGEMENT", desc: <span>Powered by GenAI, <BrandName /> automate LinkedIn community management.</span> },
+              { title: "INSTAGRAM MANAGEMENT", desc: <span>Powered by GenAI, <BrandName /> automate Instagram community management.</span> },
+              { title: "LOCAL SEO", desc: <span>Powered by GenAI, <BrandName /> automate Local SEO ranking improvements</span> },
+              { title: "SNAPCHAT MANAGEMENT", desc: <span>Powered by GenAI, <BrandName /> automate snapchat community management.</span> },
+              { title: "PINTEREST MANAGEMENT", desc: <span>Powered by GenAI, <BrandName /> automate pinterest community management.</span> },
+              { title: "ANALYTICS", desc: <span>Powered by GenAI, <BrandName /> are automated Generative BI.</span> },
+              { title: "BRAND CX", desc: <span>Powered by GenAI, <BrandName /> automate Brand community management.</span> },
+              { title: "COMPETITOR TRACKING", desc: <span>Powered by GenAI, <BrandName /> automates competitor tracking.</span> },
+              { title: "MARKETING STRATEGY", desc: <span>Powered by GenAI, <BrandName /> are automated marketing strategy</span> }
+            ].map((item, idx) => (
+              <div key={idx} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+                <h3 className="font-bold text-gray-900 mb-2 text-sm uppercase">{item.title}</h3>
+                <p className="text-gray-500 text-xs leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Testimonials */}
+      <Testimonials />
+
+      {/* CTA Section */}
+      <div className="bg-[#0a0f2c] text-white py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <h2 className="text-4xl md:text-5xl font-bold mb-8">Are you ready?</h2>
+          <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
+            Join thousands of businesses that are scaling faster and smarter with <BrandName className="text-white" />. Start your journey today.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Button variant="primary" size="lg" onClick={() => router.push('/membership')} className="border-none">
+              Get Started Now
+            </Button>
+            <Button variant="outline" className="border-white text-white hover:bg-white hover:text-nexusDark" size="lg" onClick={() => router.push('/contact')}>
+              Contact Sales
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/app/robots.ts">
+import { MetadataRoute } from 'next';
+
+export default function robots(): MetadataRoute.Robots {
+    return {
+        rules: {
+            userAgent: '*',
+            allow: '/',
+            disallow: '/studio/', // Hide Sanity Studio from search engines
+        },
+        sitemap: 'https://tapouts.co/sitemap.xml',
+    };
+}
+</file>
+
+<file path="src/app/service-areas/page.tsx">
+import { client } from '@/sanity/lib/client';
+import { groq } from 'next-sanity';
+import EnquiryForm from '@/components/EnquiryForm';
+import ServiceAreasList from '@/components/ServiceAreasList';
+import { Metadata } from 'next';
+
+export const revalidate = 86400;
+
+export const metadata: Metadata = {
+    title: 'Our Service Areas | Tapouts',
+    description: 'Explore the locations where we provide top-tier digital services.',
+};
+
+interface Location {
+    name: string;
+    slug: { current: string };
+    type: string;
+    parent?: {
+        name: string;
+        slug: { current: string };
+    };
+}
+
+export default async function ServiceAreasPage() {
+    const query = groq`
+        *[_type == "location"] | order(name asc) {
+            name,
+            slug,
+            type,
+            parent->{
+                name,
+                slug
+            }
+        }
+    `;
+
+    const locations: Location[] = await client.fetch(query);
+
+    return (
+        <main className="bg-white min-h-screen text-gray-900 pt-24 pb-20">
+            {/* Hero Section */}
+            <section className="bg-[#0a0f2c] text-white py-20 px-4 relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+                <div className="max-w-7xl mx-auto text-center relative z-10">
+                    <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
+                        Global Reach, <span className="text-tapoutsPurple italic">Local Impact.</span>
+                    </h1>
+                    <p className="text-xl text-gray-300 max-w-2xl mx-auto font-light">
+                        We deliver world-class digital solutions tailored to your specific location. Find your nearest service hub below.
+                    </p>
+                </div>
+            </section>
+
+            <div className="max-w-7xl mx-auto px-4 py-16 flex flex-col lg:flex-row gap-12">
+                {/* Main Content */}
+                <div className="lg:w-3/4">
+                    <ServiceAreasList locations={locations} />
+                </div>
+
+                {/* Sidebar */}
+                <aside className="lg:w-1/4 space-y-8 h-fit lg:sticky lg:top-24">
+                    <div className="bg-white p-6 rounded-3xl shadow-lg border border-gray-100">
+                        <h3 className="text-xl font-bold text-gray-900 mb-4">Get a Quote</h3>
+                        <p className="text-sm text-gray-600 mb-6">
+                            Ready to transform your business? Fill out the form below.
+                        </p>
+                        <EnquiryForm />
+                    </div>
+
+                    <div className="bg-[#0a0f2c] text-white p-8 rounded-3xl relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-tapoutsPurple/20 rounded-full blur-3xl -mr-10 -mt-10"></div>
+                        <h3 className="text-xl font-bold mb-6 relative z-10">Why Choose Us?</h3>
+                        <ul className="space-y-4 text-sm text-gray-300 relative z-10">
+                            <li className="flex items-start bg-white/5 p-3 rounded-xl border border-white/10">
+                                <span className="mr-3 text-tapoutsPurple font-bold">01.</span>
+                                <span>Data-Driven ROI Strategies</span>
+                            </li>
+                            <li className="flex items-start bg-white/5 p-3 rounded-xl border border-white/10">
+                                <span className="mr-3 text-tapoutsPurple font-bold">02.</span>
+                                <span>AI-Powered Insights</span>
+                            </li>
+                            <li className="flex items-start bg-white/5 p-3 rounded-xl border border-white/10">
+                                <span className="mr-3 text-tapoutsPurple font-bold">03.</span>
+                                <span>24/7 Dedicated Support</span>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </main>
+    );
+}
+</file>
+
+<file path="src/app/services/[serviceType]/[location]/page.tsx">
+import { client } from '@/sanity/lib/client';
+import { groq } from 'next-sanity';
+import { PortableText } from '@portabletext/react';
+import { RichTextComponents } from '@/components/Blog/RichTextComponents';
+import BrandName from '@/components/BrandName';
+import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
+import EnquiryForm from '@/components/EnquiryForm';
+
+
+import { SERVICE_TYPE_MAP } from '@/lib/constants';
+
+// Remove local map definition
+
+
+interface Props {
+    params: Promise<{
+        serviceType: string;
+        location: string;
+    }>;
+}
+
+export const revalidate = 86400; // Revalidate every 24 hours
+
+// Generate Metadata
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { serviceType, location } = await params;
+
+    // Normalize service type
+    const normalizedService = SERVICE_TYPE_MAP[serviceType];
+    if (!normalizedService) return { title: 'Service Not Found' };
+
+    const query = groq`
+        *[_type == "servicePage" && serviceType == $serviceType && location->slug.current == $locationSlug][0] {
+            seoTitle,
+            seoDescription
+        }
+    `;
+
+    const page = await client.fetch(query, {
+        serviceType: normalizedService,
+        locationSlug: location
+    });
+
+    if (!page) {
+        return {
+            title: 'Service Page Not Found',
+        };
+    }
+
+    return {
+        title: page.seoTitle,
+        description: page.seoDescription,
+    };
+}
+
+export default async function ServiceLocationPage({ params }: Props) {
+    const { serviceType, location } = await params;
+
+    const normalizedService = SERVICE_TYPE_MAP[serviceType];
+
+    if (!normalizedService) {
+        notFound();
+    }
+
+    const query = groq`
+        *[_type == "servicePage" && serviceType == $serviceType && location->slug.current == $locationSlug][0] {
+            ...,
+            location->
+        }
+    `;
+
+    const page = await client.fetch(query, {
+        serviceType: normalizedService,
+        locationSlug: location
+    });
+
+    if (!page) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gray-50 text-gray-900">
+                <div className="text-center">
+                    <h1 className="text-4xl font-bold mb-4">Page Not Found</h1>
+                    <p>We couldn't find a page for {normalizedService} in {location}.</p>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <main className="bg-white min-h-screen text-gray-900 pt-24 pb-20">
+            {/* Hero Section */}
+            <section className="bg-nexusDark text-white py-20 px-4">
+                <div className="max-w-4xl mx-auto text-center">
+                    <h1 className="text-4xl md:text-5xl font-bold mb-6">{page.title}</h1>
+                    <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+                        High-impact {normalizedService} tailored for the {page.location?.name} market.
+                    </p>
+                </div>
+            </section>
+
+            {/* Content Body & Sidebar */}
+            <section className="max-w-7xl mx-auto px-4 py-16 flex flex-col lg:flex-row gap-12">
+                <div className="lg:w-3/4">
+                    <div className="prose prose-lg prose-indigo mx-auto text-gray-800">
+                        <PortableText value={page.body} components={RichTextComponents} />
+                    </div>
+                </div>
+
+                {/* Sidebar */}
+                <aside className="lg:w-1/4 space-y-8 h-fit lg:sticky lg:top-24">
+                    <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                        <h3 className="text-xl font-bold text-gray-900 mb-4">Get a Quote</h3>
+                        <p className="text-sm text-gray-600 mb-6">
+                            Ready to transform your business in {page.location?.name}? Fill out the form below.
+                        </p>
+                        <EnquiryForm />
+                    </div>
+
+                    <div className="bg-nexusDark text-white p-6 rounded-2xl">
+                        <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                            Why <BrandName />?
+                        </h3>
+                        <ul className="space-y-3 text-sm text-gray-300">
+                            <li className="flex items-start">
+                                <span className="mr-2 text-tapoutsPurple">✓</span> Data-Driven Strategies
+                            </li>
+                            <li className="flex items-start">
+                                <span className="mr-2 text-tapoutsPurple">✓</span> AI-Powered Insights
+                            </li>
+                            <li className="flex items-start">
+                                <span className="mr-2 text-tapoutsPurple">✓</span> Proven ROI
+                            </li>
+                            <li className="flex items-start">
+                                <span className="mr-2 text-tapoutsPurple">✓</span> 24/7 Support
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+            </section>
+
+            {/* CTA Section */}
+            <section className="bg-indigo-600 text-white py-16 px-4">
+                <div className="max-w-4xl mx-auto text-center">
+                    <h2 className="text-3xl font-bold mb-4">Ready to Grow in {page.location?.name}?</h2>
+                    <p className="mb-8 text-indigo-100">Contact us today to discuss your {normalizedService} needs.</p>
+                    <a
+                        href="/contact"
+                        className="inline-block bg-white text-indigo-600 font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition-colors"
+                    >
+                        Get a Quote
+                    </a>
+                </div>
+            </section>
+        </main>
+    );
+}
+</file>
+
+<file path="src/app/services/page.tsx">
+'use client';
+
+import React from 'react';
+import { useRouter } from 'next/navigation';
+import {
+    Monitor,
+    Target,
+    TrendingUp,
+    BarChart3,
+    Search,
+    Megaphone,
+    Share2,
+    ShieldCheck,
+    Zap,
+    FileText,
+    ArrowRight
+} from 'lucide-react';
+import Button from '../../components/Button';
+import BrandName from '../../components/BrandName';
+
+const Services: React.FC = () => {
+    const router = useRouter();
+
+    return (
+        <div className="bg-white min-h-screen font-sans">
+            {/* Hero Section */}
+            <div className="bg-[#0a0f2c] text-white py-24 relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+                <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-tapoutsPurple opacity-20 rounded-full blur-3xl"></div>
+                <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-96 h-96 bg-blue-500 opacity-20 rounded-full blur-3xl"></div>
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                    <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tight">
+                        COMPREHENSIVE <span className="text-transparent bg-clip-text bg-gradient-to-r from-tapoutsPurple to-blue-400">DIGITAL SERVICES</span>
+                    </h1>
+                    <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                        From strategic planning to flawless execution, <BrandName className="text-white" /> provides the end-to-end digital solutions you need to dominate your market.
+                    </p>
+                </div>
+            </div>
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+
+                {/* 1. Website Development - Highlighted */}
+                <div className="mb-24">
+                    <div className="bg-gray-900 rounded-3xl p-8 md:p-16 text-white relative overflow-hidden shadow-2xl group">
+                        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800 z-0"></div>
+                        <div className="absolute right-0 top-0 h-full w-1/2 bg-tapoutsPurple/10 transform skew-x-12 translate-x-20"></div>
+
+                        <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
+                            <div className="flex-1">
+                                <div className="inline-flex items-center gap-2 bg-tapoutsPurple/20 px-4 py-1.5 rounded-full text-tapoutsPurple font-bold text-sm mb-6 border border-tapoutsPurple/30">
+                                    <Monitor className="w-4 h-4" />
+                                    <span>CORE SERVICE</span>
+                                </div>
+                                <h2 className="text-4xl md:text-5xl font-black mb-6">Website Development</h2>
+                                <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+                                    We build high-performance, visually stunning websites that are optimized for conversions. Our development process ensures your digital presence is robust, secure, and scalable.
+                                </p>
+                                <ul className="space-y-3 mb-8">
+                                    {['Custom React & Next.js Builds', 'Responsive & Mobile-First Design', 'SEO-Optimized Architecture', 'High-Speed Performance'].map((item, i) => (
+                                        <li key={i} className="flex items-center text-gray-300">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-tapoutsPurple mr-3"></div>
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <Button variant="primary" className="group-hover:translate-x-2 transition-transform duration-300">
+                                    Start Your Build <ArrowRight className="ml-2 w-4 h-4" />
+                                </Button>
+                            </div>
+                            <div className="flex-1 flex justify-center">
+                                <div className="relative">
+                                    <div className="absolute inset-0 bg-tapoutsPurple blur-3xl opacity-30"></div>
+                                    <Monitor className="w-64 h-64 text-white relative z-10 drop-shadow-2xl" strokeWidth={0.5} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* 2. Strategy Section */}
+                <div className="mb-24">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl font-black text-nexusDark mb-4">STRATEGY</h2>
+                        <div className="w-24 h-1.5 bg-tapoutsPurple mx-auto"></div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {[
+                            { title: 'Improve Visibility', icon: Search, desc: 'Dominate search results and get seen by your ideal customers.' },
+                            { title: 'Drive Traffic', icon: TrendingUp, desc: 'Targeted campaigns that bring high-quality traffic to your site.' },
+                            { title: 'Grow Conversions', icon: Target, desc: 'Turn visitors into loyal customers with optimized user journeys.' }
+                        ].map((item, idx) => (
+                            <div key={idx} className="bg-white p-10 rounded-2xl shadow-lg border border-gray-100 hover:-translate-y-2 transition-transform duration-300 group">
+                                <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-tapoutsPurple group-hover:text-white transition-colors duration-300 text-gray-900">
+                                    <item.icon className="w-8 h-8" />
+                                </div>
+                                <h3 className="text-2xl font-bold text-gray-900 mb-3">{item.title}</h3>
+                                <p className="text-gray-600 leading-relaxed">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* 3. Execution Section */}
+                <div>
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl font-black text-nexusDark mb-4">EXECUTION</h2>
+                        <div className="w-24 h-1.5 bg-tapoutsPurple mx-auto"></div>
+                        <p className="mt-4 text-xl text-gray-600">Precision execution across all digital channels.</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[
+                            { title: 'Digital Marketing', icon: Megaphone, color: 'bg-blue-50 text-blue-600' },
+                            { title: 'SEO Marketing', icon: Search, color: 'bg-green-50 text-green-600' },
+                            { title: 'PPC Marketing', icon: Target, color: 'bg-red-50 text-red-600' },
+                            { title: 'Social Media Marketing', icon: Share2, color: 'bg-pink-50 text-pink-600' },
+                            { title: 'Reputation Management', icon: ShieldCheck, color: 'bg-purple-50 text-purple-600' },
+                            { title: 'Performance Marketing', icon: Zap, color: 'bg-yellow-50 text-yellow-600' },
+                            { title: 'Content Marketing', icon: FileText, color: 'bg-indigo-50 text-indigo-600' },
+                        ].map((service, idx) => (
+                            <div key={idx} className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex flex-col items-center text-center group">
+                                <div className={`w-14 h-14 ${service.color} rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                                    <service.icon className="w-7 h-7" />
+                                </div>
+                                <h3 className="text-lg font-bold text-gray-900">{service.title}</h3>
+                            </div>
+                        ))}
+
+                        {/* CTA Card to fill the grid */}
+                        <div className="bg-nexusDark p-8 rounded-xl shadow-sm flex flex-col items-center justify-center text-center text-white">
+                            <h3 className="text-xl font-bold mb-2">Ready to Start?</h3>
+                            <p className="text-gray-400 text-sm mb-4">Let's build something great.</p>
+                            <Button variant="gold" size="sm" onClick={() => router.push('/contact')}>Get in Touch</Button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    );
+};
+
+export default Services;
+</file>
+
+<file path="src/app/sitemap.ts">
+import { MetadataRoute } from 'next';
+import { client } from '@/sanity/lib/client';
+import { groq } from 'next-sanity';
+import { SERVICES } from '@/lib/constants';
+
+const BASE_URL = 'https://tapouts.co'; // Update if using a different domain
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+    // 1. Static Routes
+    const routes = [
+        '',
+        '/about',
+        '/contact',
+        '/service-areas',
+        '/blog',
+        '/membership', // Assuming this exists based on folder structure
+        '/web-development', // Assuming this exists
+    ].map((route) => ({
+        url: `${BASE_URL}${route}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 1.0,
+    }));
+
+    // 2. Fetch Blog Posts
+    const postsQuery = groq`*[_type == "post"] { "slug": slug.current, _updatedAt }`;
+    const posts = await client.fetch(postsQuery);
+
+    const postRoutes = posts.map((post: any) => ({
+        url: `${BASE_URL}/blog/${post.slug}`,
+        lastModified: new Date(post._updatedAt),
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+    }));
+
+    // 3. Fetch Service Pages
+    // We need serviceType and locationSlug to build the URL
+    const servicePagesQuery = groq`*[_type == "servicePage"] { serviceType, "locationSlug": location->slug.current, _updatedAt }`;
+    const servicePages = await client.fetch(servicePagesQuery);
+
+    // Create a lookup map for Sanity Name -> URL Slug
+    const serviceSlugMap = SERVICES.reduce((acc, curr) => {
+        acc[curr.name] = curr.slug;
+        return acc;
+    }, {} as Record<string, string>);
+
+    const serviceRoutes = servicePages
+        .filter((page: any) => serviceSlugMap[page.serviceType]) // Only include known services
+        .map((page: any) => ({
+            url: `${BASE_URL}/services/${serviceSlugMap[page.serviceType]}/${page.locationSlug}`,
+            lastModified: new Date(page._updatedAt),
+            changeFrequency: 'monthly' as const,
+            priority: 0.9,
+        }));
+
+    return [...routes, ...postRoutes, ...serviceRoutes];
+}
+</file>
+
+<file path="src/app/studio/[[...index]]/page.tsx">
+import { NextStudio } from 'next-sanity/studio'
+import config from '../../../../sanity.config'
+
+export const dynamic = 'force-static'
+
+export { metadata, viewport } from 'next-sanity/studio'
+
+export default function StudioPage() {
+    return <NextStudio config={config} />
+}
+</file>
+
+<file path="src/app/web-development/page.tsx">
+'use client';
+
+import React from 'react';
+import { CheckCircle, Play, Globe, Server, Shield, Clock, BarChart } from 'lucide-react';
+import Button from '../../components/Button';
+import { useRouter } from 'next/navigation';
+import BrandName from '../../components/BrandName';
+import Testimonials from '../../components/Testimonials';
+
+const WebDevelopment: React.FC = () => {
+    const router = useRouter();
+
+    return (
+        <div className="bg-white font-sans">
+            {/* Hero Section */}
+            <div className="relative bg-[#0a0f2c] text-white overflow-hidden">
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20 md:py-32">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <div className="mb-6">
+                                <BrandName className="text-5xl md:text-6xl tracking-wide text-white" />
+                            </div>
+                            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                                Website Maintenance <br />
+                                <span className="text-white">#Simplified</span>
+                            </h1>
+                            <p className="text-xl text-gray-300 mb-8 max-w-lg leading-relaxed">
+                                Powered by GenAI, we simplify your website management and maintenance.
+                            </p>
+                            <Button variant="primary" size="lg" className="bg-red-600 hover:bg-red-700 border-none px-8 py-4 text-lg rounded-full">
+                                Get Started
+                            </Button>
+                        </div>
+                        <div className="relative">
+                            <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10">
+                                <img
+                                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
+                                    alt="Dashboard"
+                                    className="w-full h-auto"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/80 to-transparent flex items-center justify-center">
+                                    <div className="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform shadow-lg">
+                                        <Play className="w-8 h-8 text-white fill-current ml-1" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* SUM Banner */}
+            <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 py-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-6">
+                        <h3 className="text-white font-black text-2xl mb-1">SUM</h3>
+                        <p className="text-white/90 font-medium text-lg">Smart Maintenance. Unified Approach. Exponential Results</p>
+                    </div>
+                    <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-90 grayscale hover:grayscale-0 transition-all duration-500">
+                        {/* Placeholder Logos */}
+                        <div className="text-white font-bold text-2xl flex items-center gap-2"><div className="w-8 h-8 bg-white rounded-md"></div> Amazon</div>
+                        <div className="text-white font-bold text-2xl flex items-center gap-2"><div className="w-8 h-8 bg-white rounded-full"></div> Samsung</div>
+                        <div className="text-white font-bold text-2xl flex items-center gap-2"><div className="w-8 h-8 bg-white rounded-full border-2 border-gray-300"></div> BMW</div>
+                        <div className="text-white font-bold text-2xl flex items-center gap-2"><div className="w-8 h-8 bg-white rounded-t-lg"></div> Apple</div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Intro Text */}
+            <div className="py-16 text-center max-w-4xl mx-auto px-4">
+                <div className="mb-4 flex justify-center">
+                    <BrandName className="text-3xl text-black" />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-medium text-gray-800">
+                    We eliminate technical glitches to ensure a seamless and effective user experience.
+                </h2>
+            </div>
+
+            {/* Feature 1: Enhanced Customer Engagement */}
+            <div className="py-20 bg-blue-50/50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        <div>
+                            <h2 className="text-3xl font-bold text-gray-900 mb-6">Enhanced Customer Engagement</h2>
+                            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+                                A smooth, fast website keeps users engaged. Tapouts Maintenance ensures every click leads to a flawless experience—boosting credibility and trust.
+                            </p>
+                            <ul className="space-y-4 mb-8">
+                                {[
+                                    "Seamless Browsing Experience",
+                                    "Reduced Load Times",
+                                    "Higher On-Site Interaction"
+                                ].map((item, i) => (
+                                    <li key={i} className="flex items-center text-gray-700 font-medium">
+                                        <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                            <Button variant="primary" className="bg-red-600 hover:bg-red-700 border-none rounded-full px-8">
+                                Read More
+                            </Button>
+                        </div>
+                        <div className="relative">
+                            <img
+                                src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop"
+                                alt="Customer Engagement"
+                                className="rounded-2xl shadow-xl w-full"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Feature 2: Actionable Data Interpretation */}
+            <div className="py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center lg:flex-row-reverse">
+                        <div className="lg:order-2">
+                            <h2 className="text-3xl font-bold text-gray-900 mb-6">Actionable Data Interpretation</h2>
+                            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+                                We don’t just maintain your site—we monitor it. Get full visibility into uptime, errors, and performance so you’re always in control.
+                            </p>
+                            <ul className="space-y-4 mb-8">
+                                {[
+                                    "Real-Time Monitoring & Alerts",
+                                    "Monthly Health Reports",
+                                    "Performance & UX Audits"
+                                ].map((item, i) => (
+                                    <li key={i} className="flex items-center text-gray-700 font-medium">
+                                        <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                            <Button variant="primary" className="bg-red-600 hover:bg-red-700 border-none rounded-full px-8">
+                                Read More
+                            </Button>
+                        </div>
+                        <div className="lg:order-1">
+                            <img
+                                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
+                                alt="Data Interpretation"
+                                className="rounded-2xl shadow-xl w-full"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Feature 3: Cost-Effective Advertising */}
+            <div className="py-20 bg-blue-50/50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        <div>
+                            <h2 className="text-3xl font-bold text-gray-900 mb-6">Cost-Effective Advertising</h2>
+                            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+                                Your site is your best marketing tool. Our maintenance plans keep it sharp, secure, and conversion-ready—no redesigns or downtime needed.
+                            </p>
+                            <ul className="space-y-4 mb-8">
+                                {[
+                                    "Reliable Site Availability",
+                                    "Lower Bounce Rates",
+                                    "Built-In Conversion Support"
+                                ].map((item, i) => (
+                                    <li key={i} className="flex items-center text-gray-700 font-medium">
+                                        <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                            <Button variant="primary" className="bg-red-600 hover:bg-red-700 border-none rounded-full px-8">
+                                Read More
+                            </Button>
+                        </div>
+                        <div className="relative">
+                            <img
+                                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"
+                                alt="Cost Effective"
+                                className="rounded-2xl shadow-xl w-full"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* How Tapouts Work */}
+            <div className="py-24 bg-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl font-bold mb-4 text-gray-900">How Tapouts Work?</h2>
+                        <div className="w-20 h-1 bg-red-600 mx-auto rounded-full"></div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-5 gap-8 text-center">
+                        {[
+                            { icon: <Globe className="w-8 h-8" />, title: "Site Health Audit", desc: "Comprehensive analysis of current performance." },
+                            { icon: <Server className="w-8 h-8" />, title: "Monitoring & Backups", desc: "24/7 uptime checks and daily secure backups." },
+                            { icon: <Shield className="w-8 h-8" />, title: "Patch & Protect", desc: "Regular security updates and vulnerability scanning." },
+                            { icon: <Clock className="w-8 h-8" />, title: "Support & Reporting", desc: "Dedicated maintenance hours and monthly reports." },
+                            { icon: <BarChart className="w-8 h-8" />, title: "Iterate on Data", desc: "Continuous improvement based on user analytics." }
+                        ].map((step, idx) => (
+                            <div key={idx} className="relative group">
+                                <div className="w-16 h-16 mx-auto bg-white rounded-full flex items-center justify-center mb-4 shadow-lg border border-gray-100 group-hover:border-red-600 transition-colors">
+                                    <div className="text-gray-600 group-hover:text-red-600 transition-colors font-bold text-xs">{step.icon}</div>
+                                </div>
+                                <h3 className="font-bold text-gray-900 text-sm">{step.title}</h3>
+                                {idx < 4 && (
+                                    <div className="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-gray-200 -z-10 transform translate-x-1/2"></div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="mt-16 text-center">
+                        <Button variant="primary" className="bg-red-600 hover:bg-red-700 border-none rounded-full px-10 py-3 text-lg">
+                            Start Now
+                        </Button>
+                    </div>
+                </div>
+            </div>
+
+            {/* Stats/Info Grid */}
+            <div className="bg-gray-50 py-16 border-t border-gray-100">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+                        <div>
+                            <h4 className="font-bold text-gray-900 uppercase mb-2 text-sm tracking-wider">Insight Dashboard</h4>
+                            <p className="text-gray-500 text-sm">Customised Dashboard to understand insights.</p>
+                        </div>
+                        <div>
+                            <h4 className="font-bold text-gray-900 uppercase mb-2 text-sm tracking-wider">Results Driven</h4>
+                            <p className="text-gray-500 text-sm">Achieve 10x growth and create right visibility.</p>
+                        </div>
+                        <div>
+                            <h4 className="font-bold text-gray-900 uppercase mb-2 text-sm tracking-wider">Success Team</h4>
+                            <p className="text-gray-500 text-sm">Focused to ensure you drive the right experiences.</p>
+                        </div>
+                        <div>
+                            <h4 className="font-bold text-gray-900 uppercase mb-2 text-sm tracking-wider">Data Driven</h4>
+                            <p className="text-gray-500 text-sm">Simple dashboard enables you to make all decisions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Testimonials */}
+            <Testimonials />
+
+            {/* Footer Branding */}
+            <div className="bg-black py-12 text-center">
+                <BrandName className="text-5xl text-white tracking-wider" />
+                <p className="text-gray-500 mt-4 text-sm">Smart Maintenance. Unified Approach. Exponential Results.</p>
+            </div>
+        </div>
+    );
+};
+
+export default WebDevelopment;
+</file>
+
+<file path="src/components/AnimatedHero.tsx">
+'use client';
+
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowRight, Play } from 'lucide-react';
+import Link from 'next/link';
+import BrandName from './BrandName';
+
+const AnimatedHero: React.FC = () => {
+    const ref = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ["start start", "end start"]
+    });
+
+    const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+    const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
+    const y = useTransform(scrollYProgress, [0, 0.5], [0, 50]);
+
+    return (
+        <div ref={ref} className="relative min-h-[calc(100vh-5rem)] flex items-center overflow-hidden bg-[#0a0f2c]">
+            {/* Background decoration - Network/Constellation effect */}
+            <div className="absolute inset-0 z-0">
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-blue-900/20 to-[#0a0f2c]"></div>
+                {/* Animated Grid */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+            </div>
+
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+                    {/* Text Content */}
+                    <motion.div
+                        style={{ opacity, y }}
+                        className="text-left space-y-8"
+                    >
+                        <div className="inline-flex items-center space-x-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2 mb-4">
+                            <span className="flex h-2 w-2 rounded-full bg-green-400 animate-pulse"></span>
+                            <span className="text-sm text-gray-300 font-medium">New: AI-Powered Growth Engine</span>
+                        </div>
+
+                        <div className="mb-2">
+                            <BrandName className="text-5xl md:text-6xl tracking-wide text-white" />
+                        </div>
+
+                        <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight leading-tight mb-6">
+                            Stop guessing, <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">
+                                Start Scaling
+                            </span>
+                        </h1>
+                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                            Drive 10x Growth with AI
+                        </h2>
+
+                        <p className="text-xl text-gray-400 max-w-lg leading-relaxed">
+                            Powered by <BrandName className="text-white" /> GenAI. Digital marketing services to personalize and replace human every step.
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                            <Link href="/membership" className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-tapoutsPurple font-pj rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-opacity-90">
+                                Get Started
+                                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                            </Link>
+
+                            <button className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-white/10 border border-white/20 backdrop-blur-sm rounded-full hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
+                                <Play className="mr-2 w-5 h-5 fill-current" />
+                                Watch Demo
+                            </button>
+                        </div>
+                    </motion.div>
+
+                    {/* Hero Image/Visual */}
+                    <motion.div
+                        style={{ scale }}
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                        className="relative"
+                    >
+                        <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#1a1f3c]/50 backdrop-blur-md p-2">
+                            <img
+                                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
+                                alt="Dashboard Interface"
+                                className="w-full h-auto rounded-xl opacity-90"
+                            />
+
+                            {/* Floating UI Elements */}
+                            <motion.div
+                                animate={{ y: [0, -10, 0] }}
+                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                                className="absolute top-8 right-8 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl shadow-lg"
+                            >
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center">
+                                        <ArrowRight className="w-6 h-6 text-green-400 -rotate-45" />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-gray-400">Growth Rate</p>
+                                        <p className="text-xl font-bold text-white">+127%</p>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            <motion.div
+                                animate={{ y: [0, 10, 0] }}
+                                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                                className="absolute bottom-8 left-8 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl shadow-lg"
+                            >
+                                <div className="flex items-center gap-3">
+                                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                                    <p className="text-sm font-medium text-white">System Optimal</p>
+                                </div>
+                            </motion.div>
+                        </div>
+
+                        {/* Decorative Glow */}
+                        <div className="absolute -inset-4 bg-blue-500/20 blur-3xl -z-10 rounded-full"></div>
+                    </motion.div>
+
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default AnimatedHero;
+</file>
+
+<file path="src/components/Blog/BlogCard.tsx">
+import Image from 'next/image';
+import Link from 'next/link';
+import { urlFor } from '@/sanity/lib/image';
+import { Post } from '@/types';
+
+interface Props {
+    post: Post;
+}
+
+export default function BlogCard({ post }: Props) {
+    return (
+        <Link href={`/blog/${post.slug.current}`}>
+            <div className="flex flex-col group cursor-pointer">
+                <div className="relative w-full h-80 drop-shadow-xl group-hover:scale-105 transition-transform duration-200 ease-out">
+                    {post.cloudinaryImage?.url ? (
+                        <div className="relative w-full h-full">
+                            <img
+                                src={post.cloudinaryImage.url}
+                                alt={post.cloudinaryImage.alt || post.title}
+                                className="object-cover object-left lg:object-center rounded-t-2xl w-full h-full"
+                            />
+                        </div>
+                    ) : post.mainImage ? (
+                        <Image
+                            className="object-cover object-left lg:object-center rounded-t-2xl"
+                            src={urlFor(post.mainImage).url()}
+                            alt={post.author?.name || post.title}
+                            fill
+                        />
+                    ) : null}
+                    <div className="absolute bottom-0 w-full bg-opacity-20 bg-black backdrop-blur-lg rounded drop-shadow-lg text-white p-5 flex justify-between">
+                        <div>
+                            <p className="font-bold">{post.title}</p>
+                            <p>
+                                {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                                    day: 'numeric',
+                                    month: 'long',
+                                    year: 'numeric',
+                                })}
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div className="mt-5 flex-1 p-2">
+                    <p className="underline text-lg font-bold">{post.title}</p>
+                    <p className="text-gray-500 line-clamp-2">{post.description}</p>
+                </div>
+            </div>
+        </Link>
+    );
+}
+</file>
+
+<file path="src/components/Blog/RichTextComponents.tsx">
+import Image from 'next/image';
+import Link from 'next/link';
+import { urlFor } from '@/sanity/lib/image';
+import BrandName from '@/components/BrandName';
+
+// ...
+
+// Helper to style 'tapouts' in text
+const styleBrandName = (children: any) => {
+    if (typeof children !== 'string' && !Array.isArray(children)) return children;
+
+    // Flatten if array of strings (simple case)
+    const text = Array.isArray(children) ? children.join('') : children;
+
+    if (typeof text !== 'string') return children;
+
+    const parts = text.split(/(tapouts)/gi);
+
+    return parts.map((part, i) =>
+        part.toLowerCase() === 'tapouts' ? <BrandName key={i} /> : part
+    );
+};
+
+export const RichTextComponents = {
+    types: {
+        // ... (image type remains same)
+        image: ({ value }: any) => {
+            return (
+                <div className="relative w-full h-96 m-10 mx-auto">
+                    <Image
+                        className="object-contain"
+                        src={urlFor(value).url()}
+                        alt="Blog Post Image"
+                        fill
+                    />
+                </div>
+            );
+        },
+    },
+    list: {
+        bullet: ({ children }: any) => (
+            <ul className="ml-10 py-5 list-disc space-y-5">{styleBrandName(children)}</ul>
+        ),
+        number: ({ children }: any) => (
+            <ol className="mt-lg list-decimal text-lg">{styleBrandName(children)}</ol>
+        ),
+    },
+    block: {
+        h1: ({ children }: any) => (
+            <h1 className="text-5xl py-10 font-bold">{styleBrandName(children)}</h1>
+        ),
+        h2: ({ children }: any) => (
+            <h2 className="text-4xl py-10 font-bold">{styleBrandName(children)}</h2>
+        ),
+        h3: ({ children }: any) => (
+            <h3 className="text-3xl py-10 font-bold">{styleBrandName(children)}</h3>
+        ),
+        h4: ({ children }: any) => (
+            <h4 className="text-2xl py-10 font-bold">{styleBrandName(children)}</h4>
+        ),
+        normal: ({ children }: any) => (
+            <p className="py-2">{styleBrandName(children)}</p>
+        ),
+        blockquote: ({ children }: any) => (
+            <blockquote className="border-l-indigo-500 border-l-4 pl-5 py-5 my-5">
+                {styleBrandName(children)}
+            </blockquote>
+        ),
+    },
+    marks: {
+        // ...
+        link: ({ children, value }: any) => {
+            const rel = !value.href.startsWith('/')
+                ? 'noreferrer noopener'
+                : undefined;
+
+            return (
+                <Link
+                    href={value.href}
+                    rel={rel}
+                    className="underline decoration-indigo-500 hover:decoration-black"
+                >
+                    {children}
+                </Link>
+            );
+        },
+    },
+};
+</file>
+
+<file path="src/components/BrandName.tsx">
+import React from 'react';
+
+const BrandName: React.FC<{ className?: string }> = ({ className = '' }) => {
+    return (
+        <span className={`italic lowercase ${className}`} style={{ fontFamily: 'var(--font-anton), Impact, sans-serif' }}>
+            tapouts
+        </span>
+    );
+};
+
+export default BrandName;
+</file>
+
+<file path="src/components/Button.tsx">
+import React from 'react';
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'outline' | 'gold';
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const Button: React.FC<ButtonProps> = ({
+  children,
+  variant = 'primary',
+  size = 'md',
+  className = '',
+  ...props
+}) => {
+  const baseStyles = "inline-flex items-center justify-center rounded-md font-bold transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
+
+  const variants = {
+    primary: "bg-tapoutsPurple text-white hover:bg-opacity-90 focus:ring-tapoutsPurple",
+    secondary: "bg-gray-800 text-white hover:bg-gray-700 focus:ring-gray-800",
+    outline: "border-2 border-tapoutsPurple text-tapoutsPurple hover:bg-tapoutsPurple hover:text-white focus:ring-tapoutsPurple",
+    gold: "bg-nexusGold text-white hover:bg-opacity-90 focus:ring-nexusGold",
+  };
+
+  const sizes = {
+    sm: "px-3 py-1.5 text-sm",
+    md: "px-6 py-3 text-base",
+    lg: "px-8 py-4 text-lg",
+  };
+
+  return (
+    <button
+      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
+
+export default Button;
+</file>
+
+<file path="src/components/EnquiryForm.tsx">
+'use client';
+
+import React, { useState, useRef } from 'react';
+import Button from './Button';
+import ReCAPTCHA from 'react-google-recaptcha';
+
+interface EnquiryFormProps {
+    className?: string;
+    onSuccess?: () => void;
+}
+
+const EnquiryForm: React.FC<EnquiryFormProps> = ({ className = '', onSuccess }) => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        topic: 'General Enquiry',
+        message: '',
+        gdprConsent: false,
+        newsletter: false
+    });
+    const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+    const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name, value, type } = e.target;
+        // @ts-ignore
+        const checked = (e.target as HTMLInputElement).checked;
+
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    };
+
+    const handleCaptchaChange = (token: string | null) => {
+        setRecaptchaToken(token);
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!recaptchaToken) {
+            alert('Please complete the reCAPTCHA verification.');
+            return;
+        }
+
+        try {
+            const baseUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
+            const response = await fetch(`${baseUrl}/send-email`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ...formData, recaptchaToken }),
+            });
+
+            if (response.ok) {
+                alert('Message sent successfully!');
+                setFormData({
+                    name: '',
+                    email: '',
+                    phone: '',
+                    topic: 'General Enquiry',
+                    message: '',
+                    gdprConsent: false,
+                    newsletter: false
+                });
+                setRecaptchaToken(null);
+                recaptchaRef.current?.reset();
+                if (onSuccess) onSuccess();
+            } else {
+                alert('Failed to send message. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error sending message:', error);
+            alert('Error sending message. Please try again.');
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit} className={`space-y-4 ${className}`}>
+            <div>
+                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Full Name</label>
+                <input
+                    type="text"
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-tapoutsPurple focus:border-transparent outline-none transition-all text-sm"
+                    placeholder="John Doe"
+                />
+            </div>
+
+            <div>
+                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Email Address</label>
+                <input
+                    type="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-tapoutsPurple focus:border-transparent outline-none transition-all text-sm"
+                    placeholder="john@example.com"
+                />
+            </div>
+
+            <div>
+                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Phone Number</label>
+                <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-tapoutsPurple focus:border-transparent outline-none transition-all text-sm"
+                    placeholder="+447400085510"
+                />
+            </div>
+
+            <div>
+                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Topic</label>
+                <div className="relative">
+                    <select
+                        name="topic"
+                        value={formData.topic}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-tapoutsPurple focus:border-transparent outline-none transition-all text-sm appearance-none"
+                    >
+                        <option>Web Development</option>
+                        <option>Gen AI Services</option>
+                        <option>PPC Marketing</option>
+                        <option>Smart Maintenance</option>
+                        <option>Reputation Management</option>
+                        <option>Performance Marketing</option>
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                        <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Message</label>
+                <textarea
+                    name="message"
+                    rows={4}
+                    required
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-tapoutsPurple focus:border-transparent outline-none transition-all text-sm resize-none"
+                    placeholder="How can we help?"
+                ></textarea>
+            </div>
+
+            <div className="space-y-2">
+                <label className="flex items-start gap-2 cursor-pointer">
+                    <input
+                        type="checkbox"
+                        name="gdprConsent"
+                        required
+                        checked={formData.gdprConsent}
+                        onChange={handleChange}
+                        className="mt-1 w-4 h-4 text-tapoutsPurple rounded border-gray-300 focus:ring-tapoutsPurple"
+                    />
+                    <span className="text-xs text-gray-600">
+                        I agree to the <a href="#" className="text-tapoutsPurple hover:underline">UK GDPR laws</a> and privacy policy.
+                    </span>
+                </label>
+
+                <label className="flex items-start gap-2 cursor-pointer">
+                    <input
+                        type="checkbox"
+                        name="newsletter"
+                        checked={formData.newsletter}
+                        onChange={handleChange}
+                        className="mt-1 w-4 h-4 text-tapoutsPurple rounded border-gray-300 focus:ring-tapoutsPurple"
+                    />
+                    <span className="text-xs text-gray-600">
+                        Subscribe to our newsletter for updates.
+                    </span>
+                </label>
+            </div>
+
+            <div className="flex justify-center my-4">
+                <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+                    onChange={handleCaptchaChange}
+                    size="compact"
+                />
+            </div>
+
+            <Button type="submit" className="w-full" variant="primary">
+                Send Message
+            </Button>
+
+            <p className="text-[10px] text-gray-400 text-center mt-4">
+                Your data is secure. We never share your information with third parties.
+            </p>
+        </form>
+    );
+};
+
+export default EnquiryForm;
+</file>
+
+<file path="src/components/FeatureSection.tsx">
+'use client';
+
+import React from 'react';
+import { motion } from 'framer-motion';
+import { CheckCircle, ArrowRight } from 'lucide-react';
+
+interface FeatureSectionProps {
+    title: string;
+    description: string | React.ReactNode;
+    features: string[];
+    imageSrc: string;
+    imageAlt: string;
+    reversed?: boolean;
+    badge?: string;
+    className?: string;
+}
+
+const FeatureSection: React.FC<FeatureSectionProps> = ({
+    title,
+    description,
+    features,
+    imageSrc,
+    imageAlt,
+    reversed = false,
+    badge,
+    className
+}) => {
+    return (
+        <div className={`py-24 overflow-hidden ${className || 'bg-white'}`}>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className={`flex flex-col lg:flex-row items-center gap-16 ${reversed ? 'lg:flex-row-reverse' : ''}`}>
+
+                    {/* Content */}
+                    <div className="flex-1 space-y-8">
+                        {badge && (
+                            <span className="inline-block py-1 px-3 rounded-full bg-blue-50 text-blue-600 text-sm font-bold uppercase tracking-wide">
+                                {badge}
+                            </span>
+                        )}
+                        <h2 className="text-4xl font-bold text-gray-900 leading-tight">
+                            {title}
+                        </h2>
+                        <p className="text-lg text-gray-600 leading-relaxed">
+                            {description}
+                        </p>
+
+                        <ul className="space-y-4">
+                            {features.map((feature, idx) => (
+                                <li key={idx} className="flex items-start">
+                                    <CheckCircle className="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
+                                    <span className="text-gray-700 font-medium">{feature}</span>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <button className="group inline-flex items-center text-tapoutsPurple font-bold hover:text-opacity-80 transition-colors">
+                            Learn more <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </button>
+                    </div>
+
+                    {/* Image */}
+                    <div className="flex-1 w-full">
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8 }}
+                            className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-100 bg-gray-50"
+                        >
+                            <img
+                                src={imageSrc}
+                                alt={imageAlt}
+                                className="w-full h-auto object-cover"
+                            />
+                            {/* Decorative blob */}
+                            <div className={`absolute -z-10 w-full h-full top-10 ${reversed ? 'left-10' : 'right-10'} bg-gray-100 rounded-3xl`}></div>
+                        </motion.div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default FeatureSection;
+</file>
+
+<file path="src/components/Footer.tsx">
+import React from 'react';
+import Link from 'next/link';
+import { Globe, Users } from 'lucide-react';
+import BrandName from './BrandName';
+
+const Footer: React.FC = () => {
+    return (
+        <footer className="bg-[#0a0f2c] text-white relative overflow-hidden">
+            {/* CTA Strip */}
+            <div className="bg-tapoutsPurple text-white py-4 relative z-20">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+                    <div>
+                        <span className="font-bold uppercase tracking-wider text-xs opacity-80 block mb-1">National Coverage</span>
+                        <p className="font-bold text-lg">Serving businesses across the UK. See if we cover your area.</p>
+                    </div>
+                    <Link
+                        href="/service-areas"
+                        className="bg-white text-tapoutsPurple px-6 py-2 rounded-full font-bold text-sm hover:bg-gray-100 transition-colors shadow-lg flex items-center gap-2"
+                    >
+                        View Service Areas <Globe className="w-4 h-4" />
+                    </Link>
+                </div>
+            </div>
+
+            <div className="pt-16 pb-8 relative">
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none"></div>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                        <div>
+                            <div className="flex items-center gap-2 mb-6">
+                                <BrandName className="text-3xl tracking-wide text-white" />
+                            </div>
+                            <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                                Smart Maintenance. Unified Approach. Exponential Results.
+                            </p>
+                            <div className="flex space-x-4">
+                                {/* Social placeholders */}
+                                <div className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-tapoutsPurple transition cursor-pointer">
+                                    <Globe className="w-4 h-4" />
+                                </div>
+                                <div className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-tapoutsPurple transition cursor-pointer">
+                                    <Users className="w-4 h-4" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 className="text-lg font-bold mb-6 text-tapoutsPurple">Quick Links</h4>
+                            <ul className="space-y-3 text-sm text-gray-300">
+                                <li><Link href="/about" className="hover:text-white transition">About</Link></li>
+                                <li><Link href="/membership" className="hover:text-white transition">Plans</Link></li>
+                                <li><Link href="/services" className="hover:text-white transition">Services</Link></li>
+                                <li><Link href="/web-development" className="hover:text-white transition">Web Dev</Link></li>
+                                <li><Link href="/service-areas" className="hover:text-white transition text-tapoutsPurple font-bold">Service Areas</Link></li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 className="text-lg font-bold mb-6 text-tapoutsPurple">Contact</h4>
+                            <ul className="space-y-3 text-sm text-gray-300">
+                                <li>info@tapouts.co</li>
+                                <li>+447400085510</li>
+                                <li>London, United Kingdom</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 className="text-lg font-bold mb-6 text-tapoutsPurple">Legal</h4>
+                            <ul className="space-y-3 text-sm text-gray-300">
+                                <li><a href="#" className="hover:text-white transition">Privacy Policy</a></li>
+                                <li><a href="#" className="hover:text-white transition">Terms of Service</a></li>
+                                <li><a href="#" className="hover:text-white transition">Cookie Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                        <p>&copy; {new Date().getFullYear()} Tapouts. All Rights Reserved.</p>
+                        <div className="flex space-x-6 mt-4 md:mt-0">
+                            {/* Admin path might change, keeping generic for now */}
+                            <a href="/admin" target="_blank" rel="noopener noreferrer" className="hover:text-white">Admin Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    );
+};
+
+export default Footer;
+</file>
+
+<file path="src/components/Navbar.tsx">
+'use client';
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Menu, X } from 'lucide-react';
+import BrandName from './BrandName';
+
+interface NavItem {
+    label: string;
+    path: string;
+}
+
+const navItems: NavItem[] = [
+    { label: 'Home', path: '/' },
+    { label: 'About', path: '/about' },
+    { label: 'Plans', path: '/membership' },
+    { label: 'Services', path: '/services' },
+    { label: 'Web Dev', path: '/web-development' },
+    { label: 'Blog', path: '/blog' },
+    { label: 'Contact', path: '/contact' },
+];
+
+const Navbar: React.FC = () => {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const pathname = usePathname();
+
+    return (
+        <nav className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between h-20 items-center">
+                    {/* Logo */}
+                    <Link href="/" className="flex-shrink-0 flex items-center gap-2 hover:opacity-90 transition-opacity">
+                        <BrandName className="text-3xl tracking-wide text-nexusDark" />
+                    </Link>
+
+                    {/* Desktop Menu */}
+                    <div className="hidden md:flex items-center space-x-8">
+                        {navItems.map((item) => {
+                            const isActive = pathname === item.path;
+                            return (
+                                <Link
+                                    key={item.path}
+                                    href={item.path}
+                                    className={`text-sm font-bold transition-colors duration-200 ${isActive ? 'text-tapoutsPurple' : 'text-gray-600 hover:text-tapoutsPurple'
+                                        }`}
+                                >
+                                    {item.label}
+                                </Link>
+                            );
+                        })}
+                        <Link href="/membership" className="bg-tapoutsPurple text-white px-5 py-2 rounded-full font-bold text-sm hover:bg-opacity-90 transition shadow-md hover:shadow-lg">
+                            Get Started
+                        </Link>
+                    </div>
+
+                    {/* Mobile Menu Button */}
+                    <div className="md:hidden flex items-center">
+                        <button
+                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            className="text-gray-600 hover:text-tapoutsPurple focus:outline-none"
+                        >
+                            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {/* Mobile Menu Dropdown */}
+            {isMobileMenuOpen && (
+                <div className="md:hidden bg-white border-b border-gray-100">
+                    <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                        {navItems.map((item) => {
+                            const isActive = pathname === item.path;
+                            return (
+                                <Link
+                                    key={item.path}
+                                    href={item.path}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className={`block px-3 py-4 rounded-md text-base font-medium ${isActive ? 'bg-gray-50 text-tapoutsPurple' : 'text-gray-600 hover:bg-gray-50 hover:text-tapoutsPurple'
+                                        }`}
+                                >
+                                    {item.label}
+                                </Link>
+                            );
+                        })}
+                    </div>
+                </div>
+            )}
+        </nav>
+    );
+};
+
+export default Navbar;
+</file>
+
+<file path="src/components/Partners.tsx">
+import React from 'react';
+
+const Partners: React.FC = () => {
+    return (
+        <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <p className="text-white/80 text-sm font-bold uppercase tracking-widest mb-8">Our Partners</p>
+                <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-80 grayscale hover:grayscale-0 transition-all duration-500">
+                    {/* Placeholder Logos */}
+                    <div className="flex items-center gap-2 text-white font-bold text-xl">
+                        <div className="w-8 h-8 bg-white rounded-md"></div> TechCorp
+                    </div>
+                    <div className="flex items-center gap-2 text-white font-bold text-xl">
+                        <div className="w-8 h-8 bg-white rounded-full"></div> GlobalSol
+                    </div>
+                    <div className="flex items-center gap-2 text-white font-bold text-xl">
+                        <div className="w-8 h-8 bg-white rotate-45"></div> InnovateX
+                    </div>
+                    <div className="flex items-center gap-2 text-white font-bold text-xl">
+                        <div className="w-8 h-8 bg-white rounded-tr-xl"></div> FutureNet
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Partners;
+</file>
+
+<file path="src/components/ServiceAreasList.tsx">
+'use client';
+
+import React, { useState, useMemo } from 'react';
+import Link from 'next/link';
+import { ArrowRight, Code, Sparkles, TrendingUp, BarChart, Globe, Search, Shield } from 'lucide-react';
+
+interface Location {
+    name: string;
+    slug: { current: string };
+    type: string;
+    parent?: {
+        name: string;
+        slug: { current: string };
+    };
+}
+
+import { SERVICES as SERVICES_DATA } from '@/lib/constants';
+
+const ICON_MAP: Record<string, any> = {
+    'web-development': Code,
+    'gen-ai-services': Sparkles,
+    'seo-marketing': Search,
+    'ppc-marketing': BarChart,
+    'performance-marketing': TrendingUp,
+    'digital-marketing': Globe,
+    'reputation-management': Shield,
+};
+
+const SERVICES = SERVICES_DATA.map(service => ({
+    name: service.title,
+    slug: service.slug,
+    icon: ICON_MAP[service.slug] || Globe,
+    primary: service.primary
+}));
+
+export default function ServiceAreasList({ locations }: { locations: Location[] }) {
+    const [searchQuery, setSearchQuery] = useState('');
+
+    // Grouping and Filtering Logic
+    const { displayedParents, groupedLocations } = useMemo(() => {
+        const groups: Record<string, Location[]> = {};
+        const parents: Location[] = [];
+
+        // First pass: Organize all data
+        locations.forEach(loc => {
+            if (!loc.parent) {
+                parents.push(loc);
+                if (!groups[loc.name]) groups[loc.name] = [];
+            } else {
+                const parentName = loc.parent.name;
+                if (!groups[parentName]) groups[parentName] = [];
+                groups[parentName].push(loc);
+            }
+        });
+
+        // Filter based on search query
+        const query = searchQuery.toLowerCase().trim();
+
+        if (!query) {
+            return { displayedParents: parents, groupedLocations: groups };
+        }
+
+        const filteredParents = parents.filter(parent => {
+            const parentName = parent.name.toLowerCase();
+            const children = groups[parent.name] || [];
+            const hasMatchingChild = children.some(child => child.name.toLowerCase().includes(query));
+
+            return parentName.includes(query) || hasMatchingChild;
+        });
+
+        return { displayedParents: filteredParents, groupedLocations: groups };
+    }, [locations, searchQuery]);
+
+    return (
+        <div className="flex flex-col gap-8">
+            {/* Search Input */}
+            <div className="relative max-w-md w-full">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Search className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                    type="text"
+                    className="block w-full pl-10 pr-3 py-4 border border-gray-200 rounded-xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-tapoutsPurple focus:border-tapoutsPurple sm:text-sm shadow-sm transition-shadow"
+                    placeholder="Search for your city or town..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+            </div>
+
+            {/* Results Grid */}
+            {displayedParents.length > 0 ? (
+                <div className="grid grid-cols-1 gap-12">
+                    {displayedParents.map((parent) => (
+                        <div key={parent.slug.current} className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 hover:border-tapoutsPurple/20 transition-all duration-300 relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-tapoutsPurple/5 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-700"></div>
+
+                            <div className="relative z-10">
+                                <h2 className="text-3xl font-bold text-gray-900 mb-2">{parent.name}</h2>
+                                <p className="text-gray-500 mb-8">Serving businesses across the entire {parent.name} region.</p>
+
+                                {/* Primary Service Highlight - Web Development */}
+                                <div className="mb-8">
+                                    <Link
+                                        href={`/services/web-development/${parent.slug.current}`}
+                                        className="block bg-gradient-to-r from-[#0a0f2c] to-[#1a1f3c] text-white p-6 rounded-2xl hover:shadow-lg hover:shadow-tapoutsPurple/20 transition-all group/card border border-gray-800"
+                                    >
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-4">
+                                                <div className="bg-tapoutsPurple/20 p-3 rounded-xl text-tapoutsPurple">
+                                                    <Code className="w-8 h-8" />
+                                                </div>
+                                                <div>
+                                                    <h3 className="text-xl font-bold group-hover/card:text-tapoutsPurple transition-colors">
+                                                        Web Development in {parent.name}
+                                                    </h3>
+                                                    <p className="text-gray-400 text-sm mt-1">
+                                                        Custom websites, e-commerce, and high-performance web apps.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <ArrowRight className="text-tapoutsPurple opacity-0 -translate-x-4 group-hover/card:opacity-100 group-hover/card:translate-x-0 transition-all duration-300" />
+                                        </div>
+                                    </Link>
+                                </div>
+
+                                {/* Other Services Grid */}
+                                <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">Other Services in {parent.name}</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
+                                    {SERVICES.filter(s => !s.primary).map((service) => (
+                                        <Link
+                                            key={service.slug}
+                                            href={`/services/${service.slug}/${parent.slug.current}`}
+                                            className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 border border-transparent hover:border-gray-100 transition-all group/link"
+                                        >
+                                            <service.icon className="w-5 h-5 text-gray-400 group-hover/link:text-tapoutsPurple transition-colors" />
+                                            <span className="text-gray-700 font-medium group-hover/link:text-gray-900">
+                                                {service.name}
+                                            </span>
+                                        </Link>
+                                    ))}
+                                </div>
+
+                                {/* Sub-Location Pills */}
+                                {groupedLocations[parent.name] && groupedLocations[parent.name].length > 0 && (
+                                    <div className="pt-6 border-t border-gray-100">
+                                        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                                            <span className="w-1 h-1 bg-tapoutsPurple rounded-full"></span>
+                                            Areas covered in {parent.name}
+                                        </h3>
+                                        <div className="flex flex-wrap gap-2">
+                                            {groupedLocations[parent.name].map((child) => (
+                                                <Link
+                                                    key={child.slug.current}
+                                                    href={`/services/web-development/${child.slug.current}`}
+                                                    className={`px-3 py-1 text-sm rounded-full transition-colors border ${searchQuery && child.name.toLowerCase().includes(searchQuery.toLowerCase())
+                                                        ? 'bg-tapoutsPurple/10 text-tapoutsPurple border-tapoutsPurple/20 font-medium ring-1 ring-tapoutsPurple/20'
+                                                        : 'bg-gray-50 text-gray-600 border-gray-100 hover:bg-tapoutsPurple/10 hover:text-tapoutsPurple'
+                                                        }`}
+                                                >
+                                                    {child.name}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <div className="text-center py-20 bg-gray-50 rounded-3xl border border-gray-100 border-dashed">
+                    <p className="text-gray-500 text-lg">No locations found via search.</p>
+                    <button
+                        onClick={() => setSearchQuery('')}
+                        className="mt-4 text-tapoutsPurple font-bold hover:underline"
+                    >
+                        Clear Search
+                    </button>
+                </div>
+            )}
+        </div>
+    );
+}
+</file>
+
+<file path="src/components/SidebarForm.tsx">
+'use client';
+
+import React, { useState } from 'react';
+import { X } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import EnquiryForm from './EnquiryForm';
+
+const SidebarForm: React.FC = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const pathname = usePathname();
+
+    // Hide global sidebar on service pages where the form is already embedded
+    const shouldHide = pathname && (
+        pathname.startsWith('/services') ||
+        pathname.startsWith('/service-areas') ||
+        pathname.includes('/contact') // Also hide on contact page if needed
+    );
+
+    if (shouldHide) return null;
+
+    return (
+        <>
+            {/* Toggle Button */}
+            <button
+                onClick={() => setIsOpen(!isOpen)}
+                className={`fixed right-0 top-1/2 transform -translate-y-1/2 z-50 bg-tapoutsPurple text-white py-4 px-1 rounded-l-lg shadow-lg hover:bg-nexusDark transition-colors duration-300 flex items-center justify-center ${isOpen ? 'translate-x-full' : 'translate-x-0'}`}
+                style={{ width: '40px', height: '160px' }}
+            >
+                <span
+                    className="text-xs font-bold uppercase tracking-widest whitespace-nowrap"
+                    style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+                >
+                    {isOpen ? 'Close' : 'Enquire Now'}
+                </span>
+            </button>
+
+            {/* Sidebar Panel */}
+            <aside
+                className={`fixed top-20 bottom-0 right-0 w-[320px] bg-white shadow-2xl z-40 transform transition-transform duration-300 ease-in-out border-l border-gray-100 flex flex-col ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
+            >
+                <div className="p-6 overflow-y-auto h-full scrollbar-hide">
+                    <div className="flex justify-between items-start mb-6">
+                        <div>
+                            <h3 className="text-2xl font-bold text-nexusDark">Contact Us</h3>
+                            <div className="w-12 h-1 bg-tapoutsPurple mt-2"></div>
+                        </div>
+                        <button onClick={() => setIsOpen(false)} className="p-1 hover:bg-gray-100 rounded-md transition">
+                            <X className="w-5 h-5 text-gray-500" />
+                        </button>
+                    </div>
+
+                    <p className="text-sm text-gray-600 mb-6">
+                        Interested in membership or our services? Leave your details below.
+                    </p>
+
+                    <EnquiryForm onSuccess={() => setIsOpen(false)} />
+                </div>
+
+                {/* Footer of Sidebar */}
+                <div className="p-4 bg-gray-50 border-t border-gray-100 text-center">
+                    <p className="text-xs text-nexusDark font-bold">Or call us 24/7</p>
+                    <p className="text-sm text-tapoutsPurple font-bold mt-1">+447400085510</p>
+                </div>
+            </aside>
+
+            {/* Overlay */}
+            {isOpen && (
+                <div
+                    className="fixed inset-0 bg-black/20 backdrop-blur-sm z-30 transition-opacity"
+                    onClick={() => setIsOpen(false)}
+                    aria-hidden="true"
+                ></div>
+            )}
+        </>
+    );
+};
+
+export default SidebarForm;
+</file>
+
+<file path="src/components/Testimonials.tsx">
+import React from 'react';
+import { Star } from 'lucide-react';
+
+interface TestimonialItem {
+    name: string;
+    role: string;
+    quote: string;
+}
+
+interface TestimonialsProps {
+    items?: TestimonialItem[];
+}
+
+const Testimonials: React.FC<TestimonialsProps> = ({ items }) => {
+    const defaultItems: TestimonialItem[] = [
+        {
+            name: "Amit Parmar",
+            role: "General Manager Sales & Marketing, Rolls Royce India",
+            quote: "Tapouts has completely transformed how we approach our business growth. The technical expertise they bring is unmatched."
+        },
+        {
+            name: "Franky DeSouza",
+            role: "Head of Marketing, Oysters Beach",
+            quote: "A seamless experience from start to finish. Our website performance has improved significantly since working with Tapouts."
+        },
+        {
+            name: "Ian Harris",
+            role: "Founder, Cost Assist UK",
+            quote: "Reliable, efficient, and results-driven. They simplified our web maintenance so we could focus on our core business."
+        }
+    ];
+
+    const testimonials = items || defaultItems;
+
+    return (
+        <div className="bg-gray-50 py-24">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 className="text-3xl font-bold text-gray-900 mb-16">See what our clients say</h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {testimonials.map((item, idx) => (
+                        <div key={idx} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 text-left hover:shadow-md transition-shadow">
+                            <div className="flex text-yellow-400 mb-4">
+                                {[...Array(5)].map((_, i) => (
+                                    <Star key={i} className="w-5 h-5 fill-current" />
+                                ))}
+                            </div>
+                            <p className="text-gray-600 mb-6 leading-relaxed">
+                                "{item.quote}"
+                            </p>
+                            <div className="flex items-center">
+                                <div className="w-10 h-10 bg-gray-200 rounded-full mr-3"></div>
+                                <div>
+                                    <div className="font-bold text-gray-900">{item.name}</div>
+                                    <div className="text-sm text-gray-500">{item.role}</div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Testimonials;
+</file>
+
+<file path="src/lib/constants.ts">
+export interface ServiceDef {
+    name: string; // The Sanity value
+    title: string; // The Frontend display title
+    slug: string; // The URL slug
+    primary?: boolean;
+}
+
+export const SERVICES: ServiceDef[] = [
+    { name: 'Web Development', title: 'Web Development', slug: 'web-development', primary: true },
+    { name: 'Gen AI', title: 'Gen AI Services', slug: 'gen-ai-services' },
+    { name: 'SEO Marketing', title: 'SEO Marketing', slug: 'seo-marketing' },
+    { name: 'PPC Marketing', title: 'PPC Marketing', slug: 'ppc-marketing' },
+    { name: 'Performance Marketing', title: 'Performance Marketing', slug: 'performance-marketing' },
+    { name: 'Digital Marketing', title: 'Digital Marketing', slug: 'digital-marketing' },
+    { name: 'Reputation Management', title: 'Reputation Management', slug: 'reputation-management' },
+];
+
+// Map for dynamic route lookup (Slug -> Sanity Name)
+export const SERVICE_TYPE_MAP: Record<string, string> = SERVICES.reduce((acc, curr) => {
+    acc[curr.slug] = curr.name;
+    // Legacy support for 'gen-ai' slug if accidentally generated
+    if (curr.name === 'Gen AI') acc['gen-ai'] = curr.name;
+    return acc;
+}, {} as Record<string, string>);
+</file>
+
+<file path="src/lib/sanity/client.ts">
+import { createClient } from "next-sanity";
+
+export const client = createClient({
+    projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+    dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+    apiVersion: "2024-01-01",
+    useCdn: false,
+});
+</file>
+
+<file path="src/lib/sanity/queries.ts">
+import { groq } from "next-sanity";
+
+// Placeholder queries for future use
+export const GET_POSTS = groq`*[_type == "post"] { _id, title, slug, publishedAt }`;
+export const GET_POST_BY_SLUG = groq`*[_type == "post" && slug.current == $slug][0]`;
+</file>
+
+<file path="src/sanity/env.ts">
+export const apiVersion =
+    process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2024-02-26'
+
+export const dataset = assertValue(
+    process.env.NEXT_PUBLIC_SANITY_DATASET,
+    'Missing environment variable: NEXT_PUBLIC_SANITY_DATASET'
+)
+
+export const projectId = assertValue(
+    process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+    'Missing environment variable: NEXT_PUBLIC_SANITY_PROJECT_ID'
+)
+
+export const useCdn = false
+
+function assertValue<T>(v: T | undefined, errorMessage: string): T {
+    if (v === undefined) {
+        throw new Error(errorMessage)
+    }
+    return v
+}
+</file>
+
+<file path="src/sanity/lib/client.ts">
+import { createClient } from 'next-sanity'
+
+import { apiVersion, dataset, projectId, useCdn } from '../env'
+
+export const client = createClient({
+    projectId,
+    dataset,
+    apiVersion,
+    useCdn,
+    perspective: 'published',
+})
+</file>
+
+<file path="src/sanity/lib/image.ts">
+import createImageUrlBuilder from '@sanity/image-url'
+import { dataset, projectId } from '../env'
+
+// https://www.sanity.io/docs/image-url
+const builder = createImageUrlBuilder({ projectId, dataset })
+
+export const urlFor = (source: any) => {
+    return builder.image(source)
+}
+</file>
+
+<file path="src/sanity/schemaTypes/author.ts">
+import { defineField, defineType } from 'sanity'
+
+export default defineType({
+    name: 'author',
+    title: 'Author',
+    type: 'document',
+    fields: [
+        defineField({
+            name: 'name',
+            title: 'Name',
+            type: 'string',
+        }),
+        defineField({
+            name: 'slug',
+            title: 'Slug',
+            type: 'slug',
+            options: {
+                source: 'name',
+                maxLength: 96,
+            },
+        }),
+        defineField({
+            name: 'image',
+            title: 'Image',
+            type: 'image',
+            options: {
+                hotspot: true,
+            },
+        }),
+        defineField({
+            name: 'bio',
+            title: 'Bio',
+            type: 'array',
+            of: [
+                {
+                    title: 'Block',
+                    type: 'block',
+                    styles: [{ title: 'Normal', value: 'normal' }],
+                    lists: [],
+                },
+            ],
+        }),
+    ],
+    preview: {
+        select: {
+            title: 'name',
+            media: 'image',
+        },
+    },
+})
+</file>
+
+<file path="src/sanity/schemaTypes/blockContent.ts">
+/**
+ * This is the schema definition for the rich text fields used for
+ * for this blog studio. When you import it in schemas.js it can be
+ * reused in other parts of the studio with:
+ *  {
+ *    name: 'someName',
+ *    title: 'Some title',
+ *    type: 'blockContent'
+ *  }
+ */
+import { defineType, defineArrayMember } from 'sanity'
+
+export default defineType({
+    title: 'Block Content',
+    name: 'blockContent',
+    type: 'array',
+    of: [
+        defineArrayMember({
+            title: 'Block',
+            type: 'block',
+            // Styles let you set what your user can mark up blocks with. These
+            // correspond with HTML tags, but you can set any title or value
+            // you want and decide how you want to deal with it where you want to
+            // use your content.
+            styles: [
+                { title: 'Normal', value: 'normal' },
+                { title: 'H1', value: 'h1' },
+                { title: 'H2', value: 'h2' },
+                { title: 'H3', value: 'h3' },
+                { title: 'H4', value: 'h4' },
+                { title: 'Quote', value: 'blockquote' },
+            ],
+            lists: [{ title: 'Bullet', value: 'bullet' }],
+            // Marks let you mark up inline text in the block editor.
+            marks: {
+                // Decorators usually describe a single property – e.g. a typographic
+                // preference or highlighting by editors.
+                decorators: [
+                    { title: 'Strong', value: 'strong' },
+                    { title: 'Emphasis', value: 'em' },
+                ],
+                // Annotations can be any object structure – e.g. a link or a footnote.
+                annotations: [
+                    {
+                        title: 'URL',
+                        name: 'link',
+                        type: 'object',
+                        fields: [
+                            {
+                                title: 'URL',
+                                name: 'href',
+                                type: 'url',
+                            },
+                        ],
+                    },
+                ],
+            },
+        }),
+        // You can add additional types here. Note that you can't use
+        // primitive types such as 'string' and 'number' in the same array
+        // as a block type.
+        defineArrayMember({
+            type: 'image',
+            options: { hotspot: true },
+        }),
+    ],
+})
+</file>
+
+<file path="src/sanity/schemaTypes/category.ts">
+import { defineField, defineType } from 'sanity'
+
+export default defineType({
+    name: 'category',
+    title: 'Category',
+    type: 'document',
+    fields: [
+        defineField({
+            name: 'title',
+            title: 'Title',
+            type: 'string',
+        }),
+        defineField({
+            name: 'description',
+            title: 'Description',
+            type: 'text',
+        }),
+    ],
+})
+</file>
+
+<file path="src/sanity/schemaTypes/index.ts">
+import { type SchemaTypeDefinition } from 'sanity'
+
+import blockContent from './blockContent'
+import category from './category'
+import post from './post'
+import author from './author'
+import location from './location'
+import servicePage from './servicePage'
+
+export const schema: { types: SchemaTypeDefinition[] } = {
+    types: [post, author, category, blockContent, location, servicePage],
+}
+</file>
+
+<file path="src/sanity/schemaTypes/location.ts">
+import { defineField, defineType } from 'sanity'
+
+export default defineType({
+    name: 'location',
+    title: 'Location',
+    type: 'document',
+    fields: [
+        defineField({
+            name: 'name',
+            title: 'Name',
+            type: 'string',
+        }),
+        defineField({
+            name: 'slug',
+            title: 'Slug',
+            type: 'slug',
+            options: {
+                source: 'name',
+                maxLength: 96,
+            },
+        }),
+        defineField({
+            name: 'type',
+            title: 'Type',
+            type: 'string',
+            options: {
+                list: [
+                    { title: 'City', value: 'City' },
+                    { title: 'Town', value: 'Town' },
+                    { title: 'County', value: 'County' },
+                    { title: 'District', value: 'District' },
+                    { title: 'Village', value: 'Village' },
+                    { title: 'Borough', value: 'Borough' },
+                ],
+            },
+        }),
+        defineField({
+            name: 'parent',
+            title: 'Parent Location',
+            type: 'reference',
+            to: [{ type: 'location' }],
+        }),
+        defineField({
+            name: 'description',
+            title: 'Description',
+            type: 'text',
+        }),
+    ],
+})
+</file>
+
+<file path="src/sanity/schemaTypes/post.ts">
+import { defineField, defineType } from 'sanity'
+
+export default defineType({
+    name: 'post',
+    title: 'Post',
+    type: 'document',
+    fields: [
+        defineField({
+            name: 'title',
+            title: 'Title',
+            type: 'string',
+        }),
+        defineField({
+            name: 'slug',
+            title: 'Slug',
+            type: 'slug',
+            options: {
+                source: 'title',
+                maxLength: 96,
+            },
+        }),
+        defineField({
+            name: 'author',
+            title: 'Author',
+            type: 'reference',
+            to: { type: 'author' },
+        }),
+        defineField({
+            name: 'mainImage',
+            title: 'Main image',
+            type: 'image',
+            options: {
+                hotspot: true,
+            },
+            fields: [
+                {
+                    name: 'alt',
+                    type: 'string',
+                    title: 'Alternative Text',
+                }
+            ]
+        }),
+        defineField({
+            name: 'cloudinaryImage',
+            title: 'Cloudinary Image (External)',
+            type: 'object',
+            description: 'Use this for external Cloudinary images. This will take precedence over Main Image if provided.',
+            fields: [
+                defineField({
+                    name: 'url',
+                    title: 'Cloudinary URL',
+                    type: 'url',
+                }),
+                defineField({
+                    name: 'alt',
+                    title: 'Alt Text',
+                    type: 'string',
+                }),
+            ],
+        }),
+        defineField({
+            name: 'categories',
+            title: 'Categories',
+            type: 'array',
+            of: [{ type: 'reference', to: { type: 'category' } }],
+        }),
+        defineField({
+            name: 'publishedAt',
+            title: 'Published at',
+            type: 'datetime',
+        }),
+        defineField({
+            name: 'body',
+            title: 'Body',
+            type: 'blockContent',
+        }),
+        defineField({
+            name: 'seoTitle',
+            title: 'SEO Title',
+            type: 'string',
+            description: 'Title for search engines (defaults to Main Title if empty)',
+        }),
+        defineField({
+            name: 'seoDescription',
+            title: 'SEO Description',
+            type: 'text',
+            rows: 3,
+            description: 'Meta description for search engines',
+        }),
+        defineField({
+            name: 'seoKeywords',
+            title: 'SEO Keywords',
+            type: 'array',
+            of: [{ type: 'string' }],
+        }),
+    ],
+
+    preview: {
+        select: {
+            title: 'title',
+            author: 'author.name',
+            media: 'mainImage',
+        },
+        prepare(selection) {
+            const { author } = selection
+            return { ...selection, subtitle: author && `by ${author}` }
+        },
+    },
+})
+</file>
+
+<file path="src/sanity/schemaTypes/servicePage.ts">
+import { defineField, defineType } from 'sanity'
+
+export default defineType({
+    name: 'servicePage',
+    title: 'Service Page',
+    type: 'document',
+    fields: [
+        defineField({
+            name: 'title',
+            title: 'Title',
+            type: 'string',
+        }),
+        defineField({
+            name: 'slug',
+            title: 'Slug',
+            type: 'slug',
+            options: {
+                source: 'title',
+                maxLength: 96,
+            },
+        }),
+        defineField({
+            name: 'serviceType',
+            title: 'Service Type',
+            type: 'string',
+            options: {
+                list: [
+                    { title: 'Gen AI', value: 'Gen AI' },
+                    { title: 'Web Development', value: 'Web Development' },
+                ],
+            },
+        }),
+        defineField({
+            name: 'location',
+            title: 'Location',
+            type: 'reference',
+            to: [{ type: 'location' }],
+        }),
+        defineField({
+            name: 'seoTitle',
+            title: 'SEO Title',
+            type: 'string',
+        }),
+        defineField({
+            name: 'seoDescription',
+            title: 'SEO Description',
+            type: 'text',
+        }),
+        defineField({
+            name: 'body',
+            title: 'Body',
+            type: 'blockContent',
+        }),
+    ],
+    preview: {
+        select: {
+            title: 'title',
+            location: 'location.name',
+        },
+        prepare(selection) {
+            const { location } = selection
+            return { ...selection, subtitle: location ? `in ${location}` : '' }
+        },
+    },
+})
+</file>
+
+<file path="src/types.ts">
+export interface NavItem {
+    label: string;
+    path: string;
+}
+
+export interface MembershipTier {
+    name: string;
+    subtitle?: string;
+    description?: string;
+    price: string;
+    period: string;
+    bestFor: string;
+    benefits: string[];
+    recommended?: boolean;
+    icon?: React.ElementType;
+}
+
+export interface ServiceCategory {
+    title: string;
+    description: string;
+    icon: string;
+    items: string[];
+}
+
+export interface ChatMessage {
+    role: 'user' | 'model';
+    text: string;
+    isError?: boolean;
+}
+
+export interface Base {
+    _createdAt: string;
+    _id: string;
+    _rev: string;
+    _type: string;
+    _updatedAt: string;
+}
+
+export interface Post extends Base {
+    author: Author;
+    body: Block[];
+    categories: Category[];
+    mainImage: Image;
+    cloudinaryImage?: {
+        url: string;
+        alt: string;
+    };
+    slug: Slug;
+    title: string;
+    description: string;
+    publishedAt: string;
+    seoTitle?: string;
+    seoDescription?: string;
+    seoKeywords?: string[];
+}
+
+export interface Author extends Base {
+    bio: Block[];
+    image: Image;
+    name: string;
+    slug: Slug;
+}
+
+export interface Image {
+    _type: 'image';
+    asset: Reference;
+}
+
+export interface Reference {
+    _ref: string;
+    _type: 'reference';
+}
+
+export interface Slug {
+    _type: 'slug';
+    current: string;
+}
+
+export interface Block {
+    _key: string;
+    _type: 'block';
+    children: Span[];
+    markDefs: any[];
+    style: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'blockquote';
+}
+
+export interface Span {
+    _key: string;
+    _type: 'span';
+    marks: string[];
+    text: string;
+}
+
+export interface Category extends Base {
+    description: string;
+    title: string;
+}
+
+export interface MembershipTier {
+    name: string;
+    subtitle?: string;
+    description?: string;
+    price: string;
+    period: string;
+    bestFor: string;
+    benefits: string[];
+    recommended?: boolean;
+    icon?: React.ElementType;
+}
+</file>
+
+<file path="tsconfig.json">
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules"]
+}
+</file>
+
+</files>
