@@ -191,12 +191,18 @@ const EnquiryForm: React.FC<EnquiryFormProps> = ({ className = '', onSuccess }) 
             </div>
 
             <div className="flex justify-center my-4">
-                <ReCAPTCHA
-                    ref={recaptchaRef}
-                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
-                    onChange={handleCaptchaChange}
-                    size="compact"
-                />
+                {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ? (
+                    <ReCAPTCHA
+                        ref={recaptchaRef}
+                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                        onChange={handleCaptchaChange}
+                        size="compact"
+                    />
+                ) : (
+                    <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative" role="alert">
+                        <span className="block sm:inline">reCAPTCHA not configured in dev</span>
+                    </div>
+                )}
             </div>
 
             <Button type="submit" className="w-full" variant="primary">
