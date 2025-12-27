@@ -36,8 +36,8 @@ export async function POST(request: Request) {
         });
 
         const mailOptions = {
-            from: '"Tapouts Website" <connect@komaknexus.com>',
-            to: process.env.SMTP_USER || "connect@komaknexus.com",
+            from: '"Tapouts Website" <info@tapouts.co>',
+            to: process.env.SMTP_USER || "info@tapouts.co",
             subject: `New Enquiry: ${topic} from ${name}`,
             html: `
               <h2>New Website Enquiry</h2>

@@ -98,3 +98,13 @@ export interface Category extends Base {
 }
 
 
+
+export interface Location {
+    name: string;
+    slug: { current: string };
+    type: string;
+    parent?: {
+        name: string;
+        slug: { current: string };
+    };
+}

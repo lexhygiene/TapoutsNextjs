@@ -14,8 +14,25 @@ export const SERVICES: ServiceDef[] = [
     { name: 'Performance Marketing', title: 'Performance Marketing', slug: 'performance-marketing' },
     { name: 'Digital Marketing', title: 'Digital Marketing', slug: 'digital-marketing' },
     { name: 'Reputation Management', title: 'Reputation Management', slug: 'reputation-management' },
-    { name: 'Smart Maintenance', title: 'Smart Maintenance', slug: 'smart-maintenance' },
 ];
+
+export const LOCATION_RANKS: Record<string, number> = {
+    'london': 1,
+    'birmingham': 2,
+    'manchester': 3,
+    'leeds': 4,
+    'liverpool': 5,
+    'glasgow': 6,
+    'sheffield': 7,
+    'bristol': 8
+};
+
+export const DEFAULT_LOCATION_RANK = 999;
+
+export const SORT_ORDER_ASC = 'asc';
+export const SORT_ORDER_DESC = 'desc';
+export const SORT_BY_DATE = 'date';
+export const SORT_BY_RANK = 'rank';
 
 // Map for dynamic route lookup (Slug -> Sanity Name)
 export const SERVICE_TYPE_MAP: Record<string, string> = SERVICES.reduce((acc, curr) => {

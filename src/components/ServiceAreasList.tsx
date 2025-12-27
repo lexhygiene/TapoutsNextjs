@@ -4,15 +4,7 @@ import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Code, Sparkles, TrendingUp, BarChart, Globe, Search, Shield } from 'lucide-react';
 
-interface Location {
-    name: string;
-    slug: { current: string };
-    type: string;
-    parent?: {
-        name: string;
-        slug: { current: string };
-    };
-}
+import { Location } from '@/types';
 
 import { SERVICES as SERVICES_DATA } from '@/lib/constants';
 
@@ -67,6 +59,8 @@ export default function ServiceAreasList({ locations }: { locations: Location[] 
 
             return parentName.includes(query) || hasMatchingChild;
         });
+
+
 
         return { displayedParents: filteredParents, groupedLocations: groups };
     }, [locations, searchQuery]);

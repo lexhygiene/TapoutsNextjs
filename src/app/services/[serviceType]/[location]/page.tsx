@@ -95,8 +95,8 @@ export default async function ServiceLocationPage({ params }: Props) {
         );
     }
 
-    // Get other services (excluding current one)
-    const otherServices = SERVICES.filter(s => s.name !== normalizedService);
+    // Get other services (excluding current one and Smart Maintenance for balanced grid)
+    const otherServices = SERVICES.filter(s => s.name !== normalizedService && s.name !== 'Smart Maintenance');
 
     return (
         <main className="bg-white min-h-screen text-gray-900 pt-24 pb-20">

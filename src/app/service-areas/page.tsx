@@ -11,15 +11,8 @@ export const metadata: Metadata = {
     description: 'Explore the locations where we provide top-tier digital services.',
 };
 
-interface Location {
-    name: string;
-    slug: { current: string };
-    type: string;
-    parent?: {
-        name: string;
-        slug: { current: string };
-    };
-}
+import { Location } from '@/types';
+import { LOCATION_RANKS, DEFAULT_LOCATION_RANK } from '@/lib/constants';
 
 export default async function ServiceAreasPage() {
     const query = groq`
@@ -35,6 +28,18 @@ export default async function ServiceAreasPage() {
     `;
 
     const locations: Location[] = await client.fetch(query);
+
+
+    // SERVER-SIDE SORTING
+    locations.sort((a, b) => {
+        const nameA = a.name.toLowerCase().trim();
+        const nameB = b.name.toLowerCase().trim();
+        const rankA = LOCATION_RANKS[nameA] || DEFAULT_LOCATION_RANK;
+        const rankB = LOCATION_RANKS[nameB] || DEFAULT_LOCATION_RANK;
+
+        if (rankA !== rankB) return rankA - rankB;
+        return a.name.localeCompare(b.name);
+    });
 
     return (
         <main className="bg-white min-h-screen text-gray-900 pt-24 pb-20">

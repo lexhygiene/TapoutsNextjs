@@ -9,14 +9,7 @@ const SidebarForm: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
 
-    // Hide global sidebar on service pages where the form is already embedded
-    const shouldHide = pathname && (
-        pathname.startsWith('/services') ||
-        pathname.startsWith('/service-areas') ||
-        pathname.includes('/contact') // Also hide on contact page if needed
-    );
 
-    if (shouldHide) return null;
 
     return (
         <>

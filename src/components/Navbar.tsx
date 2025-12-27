@@ -66,10 +66,10 @@ const Navbar: React.FC = () => {
                 </div>
             </div>
 
-            {/* Mobile Menu Dropdown */}
+            {/* Mobile Menu Dropdown - Classy Card Style */}
             {isMobileMenuOpen && (
-                <div className="md:hidden bg-white border-b border-gray-100">
-                    <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <div className="absolute top-24 left-4 md:hidden w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 p-2 transform transition-all duration-300 origin-top-left z-50">
+                    <div className="space-y-1">
                         {navItems.map((item) => {
                             const isActive = pathname === item.path;
                             return (
@@ -77,13 +77,27 @@ const Navbar: React.FC = () => {
                                     key={item.path}
                                     href={item.path}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className={`block px-3 py-4 rounded-md text-base font-medium ${isActive ? 'bg-gray-50 text-tapoutsPurple' : 'text-gray-600 hover:bg-gray-50 hover:text-tapoutsPurple'
+                                    className={`block px-4 py-3 rounded-xl text-sm font-bold transition-all ${isActive
+                                        ? 'bg-tapoutsPurple/10 text-tapoutsPurple'
+                                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 group'
                                         }`}
                                 >
-                                    {item.label}
+                                    <div className="flex items-center justify-between">
+                                        {item.label}
+                                        {isActive && <div className="w-1.5 h-1.5 rounded-full bg-tapoutsPurple" />}
+                                    </div>
                                 </Link>
                             );
                         })}
+                        <div className="pt-2 mt-2 border-t border-gray-100">
+                            <Link
+                                href="/membership"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="block w-full text-center bg-tapoutsPurple text-white px-4 py-3 rounded-xl font-bold text-sm hover:shadow-lg transition-transform active:scale-95"
+                            >
+                                Get Started
+                            </Link>
+                        </div>
                     </div>
                 </div>
             )}

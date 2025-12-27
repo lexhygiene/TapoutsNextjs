@@ -533,7 +533,7 @@ SMTP_PASS=your_password
 
 3. **Generate Service Pages Script**: The CSV file `service-areas-template.csv` format needs verification with actual data.
 
-4. **Contact Form Email**: Currently sends to `connect@komaknexus.com` - this is hardcoded and needs updating.
+4. **Contact Form Email**: Sends to `info@tapouts.co` (via SMTP credentials in env).
 
 ---
 

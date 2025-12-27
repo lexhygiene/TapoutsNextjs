@@ -29,8 +29,21 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Environment Variables (Netlify)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+When deploying to Netlify, you MUST add the following environment variables in the **Site Settings > Build & Deploy > Environment** section:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Sanity
+- `NEXT_PUBLIC_SANITY_PROJECT_ID`: (Your Project ID)
+- `NEXT_PUBLIC_SANITY_DATASET`: production
+- `SANITY_API_TOKEN`: (Your write token - Keep Secret!)
+
+### Stripe
+- `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`: pk_live_...
+- `STRIPE_SECRET_KEY`: sk_live_... (Keep Secret!)
+
+### GoHighLevel
+- `GHL_CLIENT_ID`: (Your App Client ID)
+- `GHL_CLIENT_SECRET`: (Your App Secret - Keep Secret!)
+
+> **Note**: Never commit your `.env` or `.env.local` files to GitHub. They are ignored by default.
