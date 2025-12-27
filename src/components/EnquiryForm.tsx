@@ -96,7 +96,7 @@ const EnquiryForm: React.FC<EnquiryFormProps> = ({ className = '', onSuccess }) 
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-tapoutsPurple focus:border-transparent outline-none transition-all text-sm"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-tapoutsPurple focus:border-transparent outline-none transition-all text-sm text-gray-900"
                     placeholder="John Doe"
                 />
             </div>
@@ -109,7 +109,7 @@ const EnquiryForm: React.FC<EnquiryFormProps> = ({ className = '', onSuccess }) 
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-tapoutsPurple focus:border-transparent outline-none transition-all text-sm"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-tapoutsPurple focus:border-transparent outline-none transition-all text-sm text-gray-900"
                     placeholder="john@example.com"
                 />
             </div>
@@ -121,7 +121,7 @@ const EnquiryForm: React.FC<EnquiryFormProps> = ({ className = '', onSuccess }) 
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-tapoutsPurple focus:border-transparent outline-none transition-all text-sm"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-tapoutsPurple focus:border-transparent outline-none transition-all text-sm text-gray-900"
                     placeholder="+447400085510"
                 />
             </div>
@@ -133,7 +133,7 @@ const EnquiryForm: React.FC<EnquiryFormProps> = ({ className = '', onSuccess }) 
                         name="topic"
                         value={formData.topic}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-tapoutsPurple focus:border-transparent outline-none transition-all text-sm appearance-none"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-tapoutsPurple focus:border-transparent outline-none transition-all text-sm appearance-none text-gray-900"
                     >
                         <option>Web Development</option>
                         <option>Gen AI Services</option>
@@ -156,7 +156,7 @@ const EnquiryForm: React.FC<EnquiryFormProps> = ({ className = '', onSuccess }) 
                     required
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-tapoutsPurple focus:border-transparent outline-none transition-all text-sm resize-none"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-tapoutsPurple focus:border-transparent outline-none transition-all text-sm resize-none text-gray-900"
                     placeholder="How can we help?"
                 ></textarea>
             </div>
