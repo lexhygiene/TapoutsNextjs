@@ -2,19 +2,22 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import Button from '../components/Button';
 import AnimatedHero from '../components/AnimatedHero';
-import Partners from '../components/Partners';
-import FeatureSection from '../components/FeatureSection';
-import Testimonials from '../components/Testimonials';
 import BrandName from '../components/BrandName';
+
+// Dynamic imports for below-the-fold components
+const Partners = dynamic(() => import('../components/Partners'), { ssr: true });
+const FeatureSection = dynamic(() => import('../components/FeatureSection'), { ssr: true });
+const Testimonials = dynamic(() => import('../components/Testimonials'), { ssr: true });
 
 export default function Home() {
   const router = useRouter();
 
   return (
     <div className="bg-white">
-      {/* Hero Section */}
+      {/* Hero Section - Kept static for LCP */}
       <AnimatedHero />
 
       {/* Partners Section */}

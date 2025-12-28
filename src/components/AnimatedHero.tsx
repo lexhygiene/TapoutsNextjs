@@ -82,6 +82,8 @@ const AnimatedHero: React.FC = () => {
                                 width={1000}
                                 height={600}
                                 className="w-full h-auto rounded-xl opacity-90"
+                                priority
+                                sizes="(max-width: 1024px) 100vw, 50vw"
                             />
 
                             {/* Floating UI Elements */}

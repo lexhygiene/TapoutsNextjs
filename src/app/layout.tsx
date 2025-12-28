@@ -29,6 +29,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${outfit.variable} ${anton.variable}`}>
       <head>
         <link rel="preconnect" href="https://grainy-gradients.vercel.app" />
+        <link rel="preconnect" href="https://fonts.bunny.net" />
       </head>
       <body className="font-sans antialiased text-gray-800 bg-white min-h-screen flex flex-col">
         {/* Navigation */}
@@ -46,11 +47,17 @@ export default function RootLayout({
         <SidebarForm />
         <Schema />
 
-        {/* GoHighLevel Chat Widget */}
         <Script
           src="https://widgets.leadconnectorhq.com/loader.js"
           data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
           data-widget-id="692b98d48fcc751d52c8c8de"
+          strategy="lazyOnload"
+        />
+
+        {/* GoHighLevel External Tracking */}
+        <Script
+          src="https://links.tapouts.co/js/external-tracking.js"
+          data-tracking-id="tk_d1d543f534424690b501ce3218260667"
           strategy="lazyOnload"
         />
       </body>

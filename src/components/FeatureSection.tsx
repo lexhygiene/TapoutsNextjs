@@ -81,6 +81,7 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
                                 width={800}
                                 height={600}
                                 className="w-full h-auto object-cover"
+                                sizes="(max-width: 1024px) 100vw, 50vw"
                             />
                             {/* Decorative blob */}
                             <div className={`absolute -z-10 w-full h-full top-10 ${reversed ? 'left-10' : 'right-10'} bg-gray-100 rounded-3xl`}></div>
