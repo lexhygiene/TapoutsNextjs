@@ -79,7 +79,6 @@ export default function RootLayout({
         <Script
           src="https://links.tapouts.co/js/external-tracking.js"
           data-tracking-id="tk_d1d543f534424690b501ce3218260667"
-          strategy="afterInteractive"
         />
       </body>
     </html>
