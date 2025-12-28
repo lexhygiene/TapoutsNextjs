@@ -1,7 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import { Globe, Users } from 'lucide-react';
+import { Globe, Users, Linkedin, MapPin } from 'lucide-react';
 import BrandName from './BrandName';
+import { CONTACT_INFO, SOCIAL_LINKS } from '@/lib/constants';
 
 const Footer: React.FC = () => {
     return (
@@ -15,6 +16,7 @@ const Footer: React.FC = () => {
                     </div>
                     <Link
                         href="/service-areas"
+                        prefetch={false}
                         className="bg-white text-tapoutsPurple px-6 py-2 rounded-full font-bold text-sm hover:bg-gray-100 transition-colors shadow-lg flex items-center gap-2"
                     >
                         View Service Areas <Globe className="w-4 h-4" />
@@ -28,48 +30,73 @@ const Footer: React.FC = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                         <div>
                             <div className="flex items-center gap-2 mb-6">
-                                <BrandName className="text-3xl tracking-wide text-white" />
+                                <Link href="/" prefetch={false} className="hover:opacity-80 transition-opacity">
+                                    <BrandName className="text-3xl tracking-wide text-white" />
+                                </Link>
                             </div>
                             <p className="text-gray-400 text-sm leading-relaxed mb-6">
                                 Smart Maintenance. Unified Approach. Exponential Results.
                             </p>
                             <div className="flex space-x-4">
-                                {/* Social placeholders */}
-                                <div className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-tapoutsPurple transition cursor-pointer">
-                                    <Globe className="w-4 h-4" />
-                                </div>
-                                <div className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-tapoutsPurple transition cursor-pointer">
-                                    <Users className="w-4 h-4" />
-                                </div>
+                                <a
+                                    href={SOCIAL_LINKS.linkedin}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-tapoutsPurple transition cursor-pointer"
+                                    aria-label="LinkedIn"
+                                >
+                                    <Linkedin className="w-4 h-4" />
+                                </a>
+                                <a
+                                    href={SOCIAL_LINKS.google}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-tapoutsPurple transition cursor-pointer"
+                                    aria-label="Google Profile"
+                                >
+                                    <MapPin className="w-4 h-4" />
+                                </a>
                             </div>
                         </div>
 
                         <div>
                             <h4 className="text-lg font-bold mb-6 text-tapoutsPurple">Quick Links</h4>
                             <ul className="space-y-3 text-sm text-gray-300">
-                                <li><Link href="/about" className="hover:text-white transition">About</Link></li>
-                                <li><Link href="/membership" className="hover:text-white transition">Plans</Link></li>
-                                <li><Link href="/services" className="hover:text-white transition">Services</Link></li>
-                                <li><Link href="/web-development" className="hover:text-white transition">Web Dev</Link></li>
-                                <li><Link href="/service-areas" className="hover:text-white transition text-tapoutsPurple font-bold">Service Areas</Link></li>
+                                <li><Link href="/about" prefetch={false} className="hover:text-white transition">About</Link></li>
+                                <li><Link href="/membership" prefetch={false} className="hover:text-white transition">Plans</Link></li>
+                                <li><Link href="/services" prefetch={false} className="hover:text-white transition">Services</Link></li>
+                                <li><Link href="/web-development" prefetch={false} className="hover:text-white transition">Web Dev</Link></li>
+                                <li><Link href="/service-areas" prefetch={false} className="hover:text-white transition text-tapoutsPurple font-bold">Service Areas</Link></li>
                             </ul>
                         </div>
 
                         <div>
                             <h4 className="text-lg font-bold mb-6 text-tapoutsPurple">Contact</h4>
                             <ul className="space-y-3 text-sm text-gray-300">
-                                <li>info@tapouts.co</li>
-                                <li>+447400085510</li>
-                                <li>London, United Kingdom</li>
+                                <li>
+                                    <a href={`mailto:${CONTACT_INFO.email}`} className="hover:text-white transition">
+                                        {CONTACT_INFO.email}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href={`tel:${CONTACT_INFO.phone}`} className="hover:text-white transition">
+                                        {CONTACT_INFO.phone}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href={CONTACT_INFO.addressMapLink} target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+                                        {CONTACT_INFO.address}
+                                    </a>
+                                </li>
                             </ul>
                         </div>
 
                         <div>
                             <h4 className="text-lg font-bold mb-6 text-tapoutsPurple">Legal</h4>
                             <ul className="space-y-3 text-sm text-gray-300">
-                                <li><Link href="/privacy-policy" className="hover:text-white transition">Privacy Policy</Link></li>
-                                <li><Link href="/terms-of-service" className="hover:text-white transition">Terms of Service</Link></li>
-                                <li><Link href="/cookie-policy" className="hover:text-white transition">Cookie Policy</Link></li>
+                                <li><Link href="/privacy-policy" prefetch={false} className="hover:text-white transition">Privacy Policy</Link></li>
+                                <li><Link href="/terms-of-service" prefetch={false} className="hover:text-white transition">Terms of Service</Link></li>
+                                <li><Link href="/cookie-policy" prefetch={false} className="hover:text-white transition">Cookie Policy</Link></li>
                             </ul>
                         </div>
                     </div>
@@ -77,8 +104,7 @@ const Footer: React.FC = () => {
                     <div className="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
                         <p>&copy; {new Date().getFullYear()} Tapouts. All Rights Reserved.</p>
                         <div className="flex space-x-6 mt-4 md:mt-0">
-                            {/* Admin path might change, keeping generic for now */}
-                            <a href="/admin" target="_blank" rel="noopener noreferrer" className="hover:text-white">Admin Login</a>
+                            {/* Admin login removed */}
                         </div>
                     </div>
                 </div>

@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 import Image from 'next/image';
 
 interface FeatureSectionProps {
@@ -14,6 +15,8 @@ interface FeatureSectionProps {
     reversed?: boolean;
     badge?: string;
     className?: string;
+    ctaLink?: string;
+    ctaText?: string;
 }
 
 const FeatureSection: React.FC<FeatureSectionProps> = ({
@@ -24,7 +27,9 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
     imageAlt,
     reversed = false,
     badge,
-    className
+    className,
+    ctaLink = '/services', // Default fallback
+    ctaText = 'Learn more'
 }) => {
     return (
         <div className={`py-24 overflow-hidden ${className || 'bg-white'}`}>
@@ -54,9 +59,11 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
                             ))}
                         </ul>
 
-                        <button className="group inline-flex items-center text-tapoutsPurple font-bold hover:text-opacity-80 transition-colors">
-                            Learn more <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </button>
+                        {ctaLink && (
+                            <Link href={ctaLink} prefetch={false} className="group inline-flex items-center text-tapoutsPurple font-bold hover:text-opacity-80 transition-colors">
+                                {ctaText} <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </Link>
+                        )}
                     </div>
 
                     {/* Image */}

@@ -10,9 +10,9 @@ import Schema from "../components/Schema";
 
 
 // Load fonts
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
-const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-anton" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: 'swap' });
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit", display: 'swap' });
+const anton = Anton({ weight: "400", subsets: ["latin"], variable: "--font-anton", display: 'swap' });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://tapouts.co'),
@@ -27,6 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable} ${anton.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://grainy-gradients.vercel.app" />
+      </head>
       <body className="font-sans antialiased text-gray-800 bg-white min-h-screen flex flex-col">
         {/* Navigation */}
         <Navbar />

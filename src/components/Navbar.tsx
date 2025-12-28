@@ -30,7 +30,7 @@ const Navbar: React.FC = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-20 items-center">
                     {/* Logo */}
-                    <Link href="/" className="flex-shrink-0 flex items-center gap-2 hover:opacity-90 transition-opacity">
+                    <Link href="/" prefetch={false} className="flex-shrink-0 flex items-center gap-2 hover:opacity-90 transition-opacity">
                         <BrandName className="text-3xl tracking-wide text-nexusDark" />
                     </Link>
 
@@ -42,6 +42,7 @@ const Navbar: React.FC = () => {
                                 <Link
                                     key={item.path}
                                     href={item.path}
+                                    prefetch={false}
                                     className={`text-sm font-bold transition-colors duration-200 ${isActive ? 'text-tapoutsPurple' : 'text-gray-600 hover:text-tapoutsPurple'
                                         }`}
                                 >
@@ -49,7 +50,7 @@ const Navbar: React.FC = () => {
                                 </Link>
                             );
                         })}
-                        <Link href="/membership" className="bg-tapoutsPurple text-white px-5 py-2 rounded-full font-bold text-sm hover:bg-opacity-90 transition shadow-md hover:shadow-lg">
+                        <Link href="/membership" prefetch={false} className="bg-tapoutsPurple text-white px-5 py-2 rounded-full font-bold text-sm hover:bg-opacity-90 transition shadow-md hover:shadow-lg">
                             Get Started
                         </Link>
                     </div>
@@ -58,6 +59,7 @@ const Navbar: React.FC = () => {
                     <div className="md:hidden flex items-center">
                         <button
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            aria-label="Toggle menu"
                             className="text-gray-600 hover:text-tapoutsPurple focus:outline-none"
                         >
                             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -76,6 +78,7 @@ const Navbar: React.FC = () => {
                                 <Link
                                     key={item.path}
                                     href={item.path}
+                                    prefetch={false}
                                     onClick={() => setIsMobileMenuOpen(false)}
                                     className={`block px-4 py-3 rounded-xl text-sm font-bold transition-all ${isActive
                                         ? 'bg-tapoutsPurple/10 text-tapoutsPurple'
@@ -92,6 +95,7 @@ const Navbar: React.FC = () => {
                         <div className="pt-2 mt-2 border-t border-gray-100">
                             <Link
                                 href="/membership"
+                                prefetch={false}
                                 onClick={() => setIsMobileMenuOpen(false)}
                                 className="block w-full text-center bg-tapoutsPurple text-white px-4 py-3 rounded-xl font-bold text-sm hover:shadow-lg transition-transform active:scale-95"
                             >

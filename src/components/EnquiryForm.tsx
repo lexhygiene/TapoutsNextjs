@@ -20,6 +20,7 @@ const EnquiryForm: React.FC<EnquiryFormProps> = ({ className = '', onSuccess }) 
         newsletter: false
     });
     const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+    const [showRecaptcha, setShowRecaptcha] = useState(false); // Lazy load state
     const recaptchaRef = useRef<ReCAPTCHA>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -31,6 +32,12 @@ const EnquiryForm: React.FC<EnquiryFormProps> = ({ className = '', onSuccess }) 
             ...prev,
             [name]: type === 'checkbox' ? checked : value
         }));
+    };
+
+    const handleFocus = () => {
+        if (!showRecaptcha) {
+            setShowRecaptcha(true);
+        }
     };
 
     const handleCaptchaChange = (token: string | null) => {
@@ -54,8 +61,8 @@ const EnquiryForm: React.FC<EnquiryFormProps> = ({ className = '', onSuccess }) 
         }
 
         try {
-            const baseUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
-            const response = await fetch(`${baseUrl}/send-email`, {
+            // FIX: Use relative path to avoid environment variable misconfiguration on Netlify
+            const response = await fetch('/api/send-email', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -88,7 +95,7 @@ const EnquiryForm: React.FC<EnquiryFormProps> = ({ className = '', onSuccess }) 
     };
 
     return (
-        <form onSubmit={handleSubmit} className={`space-y-4 ${className}`}>
+        <form onSubmit={handleSubmit} className={`space-y-4 ${className}`} onFocus={handleFocus}>
             <div>
                 <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Full Name</label>
                 <input
@@ -128,9 +135,10 @@ const EnquiryForm: React.FC<EnquiryFormProps> = ({ className = '', onSuccess }) 
             </div>
 
             <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Topic</label>
+                <label htmlFor="topic-select" className="block text-xs font-bold text-gray-700 uppercase mb-1">Topic</label>
                 <div className="relative">
                     <select
+                        id="topic-select"
                         name="topic"
                         value={formData.topic}
                         onChange={handleChange}
@@ -173,7 +181,7 @@ const EnquiryForm: React.FC<EnquiryFormProps> = ({ className = '', onSuccess }) 
                         className="mt-1 w-4 h-4 text-tapoutsPurple rounded border-gray-300 focus:ring-tapoutsPurple"
                     />
                     <span className="text-xs text-gray-600">
-                        I agree to the <a href="#" className="text-tapoutsPurple hover:underline">UK GDPR laws</a> and privacy policy.
+                        I agree to the <a href="/privacy-policy" className="text-tapoutsPurple hover:underline">UK GDPR laws</a> and privacy policy.
                     </span>
                 </label>
 
@@ -191,17 +199,23 @@ const EnquiryForm: React.FC<EnquiryFormProps> = ({ className = '', onSuccess }) 
                 </label>
             </div>
 
-            <div className="flex justify-center my-4">
-                {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ? (
-                    <ReCAPTCHA
-                        ref={recaptchaRef}
-                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                        onChange={handleCaptchaChange}
-                        size="compact"
-                    />
+            <div className="flex justify-center my-4 min-h-[78px]">
+                {showRecaptcha ? (
+                    process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ? (
+                        <ReCAPTCHA
+                            ref={recaptchaRef}
+                            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                            onChange={handleCaptchaChange}
+                            size="compact"
+                        />
+                    ) : (
+                        <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative" role="alert">
+                            <span className="block sm:inline">reCAPTCHA not configured in dev</span>
+                        </div>
+                    )
                 ) : (
-                    <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative" role="alert">
-                        <span className="block sm:inline">reCAPTCHA not configured in dev</span>
+                    <div className="text-xs text-gray-400 italic py-4">
+                        Security check loads upon interaction...
                     </div>
                 )}
             </div>

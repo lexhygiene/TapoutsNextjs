@@ -52,7 +52,7 @@ const SidebarForm: React.FC = () => {
                 {/* Footer of Sidebar */}
                 <div className="p-4 bg-gray-50 border-t border-gray-100 text-center">
                     <p className="text-xs text-nexusDark font-bold">Or call us 24/7</p>
-                    <p className="text-sm text-tapoutsPurple font-bold mt-1">+447400085510</p>
+                    <a href="tel:+447400085510" className="text-sm text-tapoutsPurple font-bold mt-1 block hover:underline">+447400085510</a>
                 </div>
             </aside>
 

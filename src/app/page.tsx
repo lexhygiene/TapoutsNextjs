@@ -32,6 +32,7 @@ export default function Home() {
         imageSrc="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"
         imageAlt="Visibility Dashboard"
         badge="Awareness"
+        ctaLink="/web-development"
       />
 
       {/* Feature 2: Interest (Reversed) */}
@@ -48,6 +49,7 @@ export default function Home() {
         reversed={true}
         badge="Engagement"
         className="bg-blue-50/50"
+        ctaLink="/services"
       />
 
       {/* Feature 3: Experiences */}
@@ -62,6 +64,7 @@ export default function Home() {
         imageSrc="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1974&auto=format&fit=crop"
         imageAlt="Customer Experiences"
         badge="Satisfaction"
+        ctaLink="/services"
       />
 
       {/* Feature 4: Growth Hacking (Reversed) */}
@@ -78,6 +81,8 @@ export default function Home() {
         reversed={true}
         badge="Performance"
         className="bg-blue-50/50"
+        ctaLink="/membership"
+        ctaText="View Plans"
       />
 
       {/* Feature 5: Reputation Matters */}
@@ -92,6 +97,8 @@ export default function Home() {
         imageSrc="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2032&auto=format&fit=crop"
         imageAlt="Reputation Management"
         badge="Trust"
+        ctaLink="/contact"
+        ctaText="Talk to Us"
       />
 
       {/* Recommended Section */}
@@ -145,7 +152,7 @@ export default function Home() {
             <Button variant="primary" size="lg" onClick={() => router.push('/membership')} className="border-none">
               Get Started Now
             </Button>
-            <Button variant="outline" className="border-white text-white hover:bg-white hover:text-nexusDark" size="lg" onClick={() => router.push('/contact')}>
+            <Button variant="outline" className="border-white text-white hover:bg-white hover:!text-gray-900" size="lg" onClick={() => router.push('/contact')}>
               Contact Sales
             </Button>
           </div>

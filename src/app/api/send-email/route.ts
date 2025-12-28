@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { CONTACT_INFO } from '@/lib/constants';
 
 export async function POST(request: Request) {
     try {
@@ -37,8 +38,10 @@ export async function POST(request: Request) {
         });
 
         const mailOptions = {
-            from: '"Tapouts Website" <info@tapouts.co>',
-            to: process.env.SMTP_USER || "info@tapouts.co",
+            // ... inside the sendMail config
+            from: `"Tapouts Website" <${CONTACT_INFO.email}>`,
+            to: process.env.SMTP_USER || CONTACT_INFO.email,
+            cc: 'tapouts.co@gmail.com', // CC the backup email
             subject: `New Enquiry: ${topic} from ${name}`,
             html: `
               <h2>New Website Enquiry</h2>

@@ -49,7 +49,6 @@ const Testimonials: React.FC<TestimonialsProps> = ({ items }) => {
                                 "{item.quote}"
                             </p>
                             <div className="flex items-center">
-                                <div className="w-10 h-10 bg-gray-200 rounded-full mr-3"></div>
                                 <div>
                                     <div className="font-bold text-gray-900">{item.name}</div>
                                     <div className="text-sm text-gray-500">{item.role}</div>

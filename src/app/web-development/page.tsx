@@ -29,7 +29,7 @@ const WebDevelopment: React.FC = () => {
                             <p className="text-xl text-gray-300 mb-8 max-w-lg leading-relaxed">
                                 Powered by GenAI, we simplify your website management and maintenance.
                             </p>
-                            <Button variant="primary" size="lg" className="bg-red-600 hover:bg-red-700 border-none px-8 py-4 text-lg rounded-full">
+                            <Button variant="primary" size="lg" className="border-none px-8 py-4 text-lg rounded-full">
                                 Get Started
                             </Button>
                         </div>
@@ -43,7 +43,7 @@ const WebDevelopment: React.FC = () => {
                                     className="w-full h-auto"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/80 to-transparent flex items-center justify-center">
-                                    <div className="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform shadow-lg">
+                                    <div className="w-20 h-20 bg-purple-600 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform shadow-lg">
                                         <Play className="w-8 h-8 text-white fill-current ml-1" />
                                     </div>
                                 </div>
@@ -101,9 +101,7 @@ const WebDevelopment: React.FC = () => {
                                     </li>
                                 ))}
                             </ul>
-                            <Button variant="primary" className="bg-red-600 hover:bg-red-700 border-none rounded-full px-8">
-                                Read More
-                            </Button>
+
                         </div>
                         <div className="relative">
                             <Image
@@ -139,9 +137,7 @@ const WebDevelopment: React.FC = () => {
                                     </li>
                                 ))}
                             </ul>
-                            <Button variant="primary" className="bg-red-600 hover:bg-red-700 border-none rounded-full px-8">
-                                Read More
-                            </Button>
+
                         </div>
                         <div className="lg:order-1">
                             <Image
@@ -177,9 +173,7 @@ const WebDevelopment: React.FC = () => {
                                     </li>
                                 ))}
                             </ul>
-                            <Button variant="primary" className="bg-red-600 hover:bg-red-700 border-none rounded-full px-8">
-                                Read More
-                            </Button>
+
                         </div>
                         <div className="relative">
                             <Image
@@ -199,7 +193,7 @@ const WebDevelopment: React.FC = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl font-bold mb-4 text-gray-900">How Tapouts Work?</h2>
-                        <div className="w-20 h-1 bg-red-600 mx-auto rounded-full"></div>
+                        <div className="w-20 h-1 bg-purple-600 mx-auto rounded-full"></div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-8 text-center">
@@ -211,8 +205,8 @@ const WebDevelopment: React.FC = () => {
                             { icon: <BarChart className="w-8 h-8" />, title: "Iterate on Data", desc: "Continuous improvement based on user analytics." }
                         ].map((step, idx) => (
                             <div key={idx} className="relative group">
-                                <div className="w-16 h-16 mx-auto bg-white rounded-full flex items-center justify-center mb-4 shadow-lg border border-gray-100 group-hover:border-red-600 transition-colors">
-                                    <div className="text-gray-600 group-hover:text-red-600 transition-colors font-bold text-xs">{step.icon}</div>
+                                <div className="w-16 h-16 mx-auto bg-white rounded-full flex items-center justify-center mb-4 shadow-lg border border-gray-100 group-hover:border-purple-600 transition-colors">
+                                    <div className="text-gray-600 group-hover:text-purple-600 transition-colors font-bold text-xs">{step.icon}</div>
                                 </div>
                                 <h3 className="font-bold text-gray-900 text-sm">{step.title}</h3>
                                 {idx < 4 && (
@@ -223,7 +217,7 @@ const WebDevelopment: React.FC = () => {
                     </div>
 
                     <div className="mt-16 text-center">
-                        <Button variant="primary" className="bg-red-600 hover:bg-red-700 border-none rounded-full px-10 py-3 text-lg">
+                        <Button variant="primary" className="border-none rounded-full px-10 py-3 text-lg" onClick={() => router.push('/contact')}>
                             Start Now
                         </Button>
                     </div>

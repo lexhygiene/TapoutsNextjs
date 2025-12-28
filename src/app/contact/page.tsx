@@ -4,6 +4,7 @@ import React, { useState, useRef } from 'react';
 import Button from '../../components/Button';
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { CONTACT_INFO } from '@/lib/constants';
 
 const Contact: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ const Contact: React.FC = () => {
         newsletter: false
     });
     const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+    const [showRecaptcha, setShowRecaptcha] = useState(false); // Lazy load state
     const recaptchaRef = useRef<ReCAPTCHA>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -27,6 +29,12 @@ const Contact: React.FC = () => {
             ...prev,
             [name]: type === 'checkbox' ? checked : value
         }));
+    };
+
+    const handleFocus = () => {
+        if (!showRecaptcha) {
+            setShowRecaptcha(true);
+        }
     };
 
     const handleCaptchaChange = (token: string | null) => {
@@ -50,8 +58,8 @@ const Contact: React.FC = () => {
         }
 
         try {
-            const baseUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
-            const response = await fetch(`${baseUrl}/send-email`, {
+            // FIX: Use relative path to avoid environment variable misconfiguration on Netlify
+            const response = await fetch('/api/send-email', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -107,7 +115,7 @@ const Contact: React.FC = () => {
                                 <div>
                                     <h3 className="text-lg font-bold text-gray-900">Email Us</h3>
                                     <p className="text-gray-600 mb-1">Our friendly team is here to help.</p>
-                                    <p className="text-blue-600 font-medium">info@tapouts.co</p>
+                                    <a href={`mailto:${CONTACT_INFO.email}`} className="text-blue-600 font-medium hover:underline">{CONTACT_INFO.email}</a>
                                 </div>
                             </div>
                             <div className="flex items-start gap-4">
@@ -117,7 +125,7 @@ const Contact: React.FC = () => {
                                 <div>
                                     <h3 className="text-lg font-bold text-gray-900">Call Us</h3>
                                     <p className="text-gray-600 mb-1">Mon-Fri from 8am to 5pm.</p>
-                                    <p className="text-purple-600 font-medium">+447400085510</p>
+                                    <a href={`tel:${CONTACT_INFO.phone}`} className="text-purple-600 font-medium hover:underline">{CONTACT_INFO.phone}</a>
                                 </div>
                             </div>
                             <div className="flex items-start gap-4">
@@ -145,7 +153,7 @@ const Contact: React.FC = () => {
                     {/* Form */}
                     <div className="bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-gray-100">
                         <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
-                        <form onSubmit={handleSubmit} className="space-y-6">
+                        <form onSubmit={handleSubmit} className="space-y-6" onFocus={handleFocus}>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label className="block text-sm font-bold text-gray-700 mb-2">Full Name</label>
@@ -186,8 +194,9 @@ const Contact: React.FC = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Topic</label>
+                                    <label htmlFor="topic-select" className="block text-sm font-bold text-gray-700 mb-2">Topic</label>
                                     <select
+                                        id="topic-select"
                                         name="topic"
                                         value={formData.topic}
                                         onChange={handleChange}
@@ -227,7 +236,7 @@ const Contact: React.FC = () => {
                                         className="mt-1 w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
                                     />
                                     <span className="text-sm text-gray-600">
-                                        I agree to the <a href="#" className="text-blue-600 hover:underline font-medium">UK GDPR laws</a> and privacy policy.
+                                        I agree to the <a href="/privacy-policy" className="text-blue-600 hover:underline font-medium">UK GDPR laws</a> and privacy policy.
                                     </span>
                                 </label>
 
@@ -245,12 +254,24 @@ const Contact: React.FC = () => {
                                 </label>
                             </div>
 
-                            <div className="flex justify-center">
-                                <ReCAPTCHA
-                                    ref={recaptchaRef}
-                                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
-                                    onChange={handleCaptchaChange}
-                                />
+                            <div className="flex justify-center min-h-[78px]">
+                                {showRecaptcha ? (
+                                    process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ? (
+                                        <ReCAPTCHA
+                                            ref={recaptchaRef}
+                                            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+                                            onChange={handleCaptchaChange}
+                                        />
+                                    ) : (
+                                        <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative" role="alert">
+                                            <span className="block sm:inline">reCAPTCHA not configured in dev</span>
+                                        </div>
+                                    )
+                                ) : (
+                                    <div className="text-sm text-gray-400 italic py-6">
+                                        Security check loads upon interaction...
+                                    </div>
+                                )}
                             </div>
 
                             <Button type="submit" className="w-full py-4 text-lg font-bold shadow-lg hover:shadow-xl transition-all" variant="primary">
