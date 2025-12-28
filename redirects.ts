@@ -58,9 +58,19 @@ export const redirects = [
     "ga4-reports-builder-enhance-your-google-analytics-with-this-powerful-extension",
     "google-one-dark-web-report-rolls-out-for-users-in-india-how-it-works",
     "the-future-of-omnichannel-revolutionizing-customer-experiences",
-    "omnichannel-analytics"
-].map(slug => ({
-    source: `/${slug}`,
-    destination: `/blog/${slug}`,
-    permanent: true,
-}));
+    "omnichannel-analytics",
+    // New Redirects from 404 Logs
+    "how-genai-is-changing-the-landscape-of-automation",
+    "genai-content-marketing-crwating-content-at-scale"
+})).concat([
+        {
+            source: '/about-us',
+            destination: '/about',
+            permanent: true,
+        },
+        {
+            source: '/why-tapouts',
+            destination: '/about',
+            permanent: true,
+        }
+    ]);
