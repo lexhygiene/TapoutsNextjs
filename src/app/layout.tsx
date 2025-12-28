@@ -38,9 +38,9 @@ export default function RootLayout({
         <Navbar />
 
         {/* Main Content */}
-        <div className="flex-grow pt-20">
+        <main className="flex-grow">
           {children}
-        </div>
+        </main>
 
         {/* Sidebar Form */}
         <SidebarForm />
