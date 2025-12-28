@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
+// Middleware to handle geo-blocking
+
 export function middleware(request: NextRequest) {
     // Get country from Next.js legacy geo object or Netlify/Vercel headers
     const country = request.geo?.country ||
