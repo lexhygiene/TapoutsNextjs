@@ -95,24 +95,13 @@ export async function POST(request: Request) {
             }
         })();
 
-        // Push to GoHighLevel
+        // Push to GoHighLevel (via Webhook or API)
         const ghlPromise = (async () => {
-            const apiKey = process.env.GHL_API_KEY;
-
-            if (!apiKey) {
-                console.warn('⚠️ GHL_API_KEY not found, skipping GHL push');
-                return;
-            }
-
-            try {
-                // Split name into First and Last
-                const nameParts = name.trim().split(' ');
-                const firstName = nameParts[0];
-                const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : '';
-
+            // Push to GoHighLevel (V1 API)
+            if (apiKey) {
                 const ghlPayload = {
-                    firstName,
-                    lastName,
+                    firstName: name.split(' ')[0],
+                    lastName: name.split(' ').slice(1).join(' ') || '',
                     email,
                     phone,
                     tags: ['website-lead', topic],
@@ -120,25 +109,27 @@ export async function POST(request: Request) {
                     locationId: 'yff1Mji6qXOEUZ85xpwg'
                 };
 
-                const response = await fetch('https://services.leadconnectorhq.com/contacts/', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${apiKey}`,
-                        'Version': '2021-07-28',
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify(ghlPayload)
-                });
+                try {
+                    const response = await fetch('https://rest.gohighlevel.com/v1/contacts/', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${apiKey}`,
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(ghlPayload)
+                    });
 
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error(`❌ GHL API Failed: ${response.status} ${response.statusText}`, errorText);
-                } else {
-                    console.log('✅ Lead pushed to GoHighLevel successfully');
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        console.error(`❌ GHL API Failed: ${response.status} ${errorText}`);
+                    } else {
+                        console.log('✅ Lead pushed to GoHighLevel API');
+                    }
+                } catch (error) {
+                    console.error('❌ Error pushing to GHL API:', error);
                 }
-            } catch (ghlError) {
-                console.error('❌ Error pushing to GHL:', ghlError);
+            } else {
+                console.warn('⚠️ No GHL Configuration (API Key or Webhook) found');
             }
         })();
 
