@@ -95,9 +95,10 @@ export async function POST(request: Request) {
             }
         })();
 
-        // Push to GoHighLevel (via Webhook or API)
+        // Push to GoHighLevel (V1 API)
         const ghlPromise = (async () => {
-            // Push to GoHighLevel (V1 API)
+            const apiKey = process.env.GHL_API_KEY;
+
             if (apiKey) {
                 const ghlPayload = {
                     firstName: name.split(' ')[0],

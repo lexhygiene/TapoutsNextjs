@@ -30,7 +30,7 @@ const Services: React.FC = () => {
                 <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-96 h-96 bg-blue-500 opacity-20 rounded-full blur-3xl"></div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-                    <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tight">
+                    <h1 className="text-3xl md:text-7xl font-black mb-6 tracking-tight">
                         COMPREHENSIVE <span className="text-transparent bg-clip-text bg-gradient-to-r from-tapoutsPurple to-blue-400">DIGITAL SERVICES</span>
                     </h1>
                     <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
