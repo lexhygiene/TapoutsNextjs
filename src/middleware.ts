@@ -4,13 +4,15 @@ import type { NextRequest } from 'next/server';
 // Middleware to handle geo-blocking
 
 export function middleware(request: NextRequest) {
-    // Get country from Next.js legacy geo object or Netlify/Vercel headers
-    const country = request.geo?.country ||
-        request.headers.get('x-vercel-ip-country') ||
-        request.headers.get('x-nf-country-code');
+    // Get country from Netlify (x-nf-country-code) or Vercel (x-vercel-ip-country) headers
+    // We removed request.geo as it causes TS errors and isn't supported on Netlify
+    const country = request.headers.get('x-nf-country-code') ||
+        request.headers.get('x-vercel-ip-country');
 
-    // Block traffic from China (CN)
-    if (country === 'CN') {
+    // Block traffic from: Russia, China, Brazil, Germany, Vietnam, Pakistan, Turkey, Indonesia
+    const BLOCKED_COUNTRIES = ['RU', 'CN', 'BR', 'DE', 'VN', 'PK', 'TR', 'ID'];
+
+    if (country && BLOCKED_COUNTRIES.includes(country)) {
         return new NextResponse('Access Denied', { status: 403 });
     }
 
