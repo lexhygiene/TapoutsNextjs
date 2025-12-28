@@ -40,7 +40,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Create a lookup map for Sanity Name -> URL Slug
     const serviceSlugMap = SERVICES.reduce((acc, curr) => {
-        acc[curr.name] = curr.slug;
+        acc[curr.title] = curr.slug;
         return acc;
     }, {} as Record<string, string>);
 

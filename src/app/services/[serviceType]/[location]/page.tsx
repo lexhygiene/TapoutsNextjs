@@ -96,7 +96,7 @@ export default async function ServiceLocationPage({ params }: Props) {
     }
 
     // Get other services (excluding current one and Smart Maintenance for balanced grid)
-    const otherServices = SERVICES.filter(s => s.name !== normalizedService && s.name !== 'Smart Maintenance');
+    const otherServices = SERVICES.filter(s => s.title !== normalizedService && s.title !== 'Smart Maintenance');
 
     return (
         <main className="bg-white min-h-screen text-gray-900 pt-24 pb-20">
@@ -124,7 +124,7 @@ export default async function ServiceLocationPage({ params }: Props) {
                         </h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {otherServices.map((service) => {
-                                const Icon = SERVICE_ICONS[service.name] || Globe;
+                                const Icon = SERVICE_ICONS[service.title] || Globe;
                                 return (
                                     <Link
                                         key={service.slug}
