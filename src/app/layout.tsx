@@ -28,6 +28,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable} ${anton.variable}`}>
       <head>
+        {/* Google Search Console Verification */}
+        <meta name="google-site-verification" content="-EFbi4-Y7jxWYxZpvpANHDB_ZMeQBkDQrbTaGUeuxY4" />
         <link rel="preconnect" href="https://grainy-gradients.vercel.app" />
         <link rel="preconnect" href="https://fonts.bunny.net" />
       </head>
@@ -36,17 +38,35 @@ export default function RootLayout({
         <Navbar />
 
         {/* Main Content */}
-        <main className="flex-grow">
+        <div className="flex-grow pt-20">
           {children}
-        </main>
+        </div>
+
+        {/* Sidebar Form */}
+        <SidebarForm />
 
         {/* Footer */}
         <Footer />
 
-        {/* Global Widgets */}
-        <SidebarForm />
+        {/* Schema Markup */}
         <Schema />
 
+        {/* Google Analytics & Ads (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-E4CXDVWGXY"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-E4CXDVWGXY');
+          `}
+        </Script>
+
+        {/* GoHighLevel Chat Widget */}
         <Script
           src="https://widgets.leadconnectorhq.com/loader.js"
           data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
@@ -58,7 +78,7 @@ export default function RootLayout({
         <Script
           src="https://links.tapouts.co/js/external-tracking.js"
           data-tracking-id="tk_d1d543f534424690b501ce3218260667"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
         />
       </body>
     </html>

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import Button from './Button';
 import ReCAPTCHA from 'react-google-recaptcha';
 
@@ -10,6 +11,7 @@ interface EnquiryFormProps {
 }
 
 const EnquiryForm: React.FC<EnquiryFormProps> = ({ className = '', onSuccess }) => {
+    const router = useRouter();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -84,6 +86,7 @@ const EnquiryForm: React.FC<EnquiryFormProps> = ({ className = '', onSuccess }) 
                 setRecaptchaToken(null);
                 recaptchaRef.current?.reset();
                 if (onSuccess) onSuccess();
+                router.push('/thank-you');
             } else {
                 const data = await response.json();
                 alert(data.error || 'Failed to send message. Please try again.');

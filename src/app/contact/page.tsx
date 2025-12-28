@@ -1,12 +1,14 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import Button from '../../components/Button';
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { CONTACT_INFO } from '@/lib/constants';
 
 const Contact: React.FC = () => {
+    const router = useRouter();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -79,7 +81,9 @@ const Contact: React.FC = () => {
                     newsletter: false
                 });
                 setRecaptchaToken(null);
+                setRecaptchaToken(null);
                 recaptchaRef.current?.reset();
+                router.push('/thank-you');
             } else {
                 alert('Failed to send message. Please try again.');
             }

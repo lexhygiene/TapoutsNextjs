@@ -23,51 +23,57 @@ export default function Home() {
       {/* Partners Section */}
       <Partners />
 
-      {/* Feature 1: Visibility */}
+      {/* Feature 1: Web Development */}
       <FeatureSection
-        title="VISIBILITY"
-        description="GenAI Content Ready. Omnichannel Visibility. Drive Traffic. Ensure your brand is seen where it matters most."
+        title="High-Performance Web Development"
+        description="We build lightning-fast, SEO-optimized websites that convert visitors into customers. From custom designs to complex web applications, our team delivers excellence."
         features={[
-          "GenAI Content Ready",
-          "Omnichannel Visibility",
-          "Drive Traffic"
+          "Custom React & Next.js Development",
+          "Mobile-First & Responsive Design",
+          "SEO & Performance Optimization",
+          "Secure & Scalable Architecture"
         ]}
         imageSrc="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"
-        imageAlt="Visibility Dashboard"
-        badge="Awareness"
+        imageAlt="Web Development"
+        badge="Web Development"
         ctaLink="/web-development"
+        ctaText="View Web Development Services"
       />
 
-      {/* Feature 2: Interest (Reversed) */}
+      {/* Feature 2: Gen AI Services */}
       <FeatureSection
-        title="INTEREST"
-        description={<span>GenAI Content Ready. Omnichannel Engagement. Validate Need. Capture your audience's attention and drive meaningful interactions.</span>}
+        title="Generative AI Solutions"
+        description="Leverage the power of AI to automate workflows, generate content, and gain data-driven insights. We integrate cutting-edge AI models into your business processes."
         features={[
-          "GenAI Content Ready",
-          "Omnichannel Engagement",
-          "Validate Need"
+          "Custom AI Chatbots & Assistants",
+          "Automated Content Generation",
+          "Data Analysis & Predictive Modeling",
+          "Workflow Automation with AI"
         ]}
-        imageSrc="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
-        imageAlt="Interest Analytics"
+        imageSrc="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop"
+        imageAlt="AI Technology"
         reversed={true}
-        badge="Engagement"
+        badge="Artificial Intelligence"
         className="bg-blue-50/50"
         ctaLink="/services"
+        ctaText="Explore AI Solutions"
       />
 
-      {/* Feature 3: Experiences */}
+      {/* Feature 3: Smart Maintenance */}
       <FeatureSection
-        title="EXPERIENCES"
-        description={<span>GenAI Content Ready. Omnichannel CX. Create Experiences. Deliver seamless and personalized customer journeys.</span>}
+        title="Smart Maintenance & Support"
+        description="Keep your digital assets secure and up-to-date with our proactive maintenance plans. We monitor, update, and optimize your systems 24/7."
         features={[
-          "GenAI Content Ready",
-          "Omnichannel CX",
-          "Create Experiences"
+          "24/7 Security Monitoring",
+          "Regular Updates & Backups",
+          "Performance Optimization",
+          "Priority Support"
         ]}
-        imageSrc="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1974&auto=format&fit=crop"
-        imageAlt="Customer Experiences"
-        badge="Satisfaction"
+        imageSrc="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
+        imageAlt="Maintenance Dashboard"
+        badge="Maintenance"
         ctaLink="/services"
+        ctaText="See Maintenance Plans"
       />
 
       {/* Feature 4: Growth Hacking (Reversed) */}
