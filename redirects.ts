@@ -61,16 +61,40 @@ export const redirects = [
     "omnichannel-analytics",
     // New Redirects from 404 Logs
     "how-genai-is-changing-the-landscape-of-automation",
-    "genai-content-marketing-crwating-content-at-scale"
+    "genai-content-marketing-crwating-content-at-scale",
+    "creating-an-omnichannel-strategy-with-genai-marketing-automation",
+    "genai-automation-tools-for-seamless-content-marketing",
+    "creating-compelling-campaigns-with-genai-content-marketing",
+    "ai-driven-customer-experiences",
+    "increase-awareness"
+].map(slug => ({
+    source: `/${slug}`,
+    destination: `/blog/${slug}`,
+    permanent: true,
 })).concat([
-        {
-            source: '/about-us',
-            destination: '/about',
-            permanent: true,
-        },
-        {
-            source: '/why-tapouts',
-            destination: '/about',
-            permanent: true,
-        }
-    ]);
+    {
+        source: '/about-us',
+        destination: '/about',
+        permanent: true,
+    },
+    {
+        source: '/why-tapouts',
+        destination: '/about',
+        permanent: true,
+    },
+    {
+        source: '/services/service001',
+        destination: '/services',
+        permanent: true,
+    },
+    {
+        source: '/services/service002',
+        destination: '/services',
+        permanent: true,
+    },
+    {
+        source: '/testimonials/:slug*',
+        destination: '/',
+        permanent: true,
+    }
+]);
