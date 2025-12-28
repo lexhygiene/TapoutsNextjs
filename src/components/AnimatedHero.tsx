@@ -19,7 +19,7 @@ const AnimatedHero: React.FC = () => {
     const y = useTransform(scrollYProgress, [0, 0.5], [0, 50]);
 
     return (
-        <div ref={ref} className="relative min-h-[calc(100vh-5rem)] flex items-center overflow-hidden bg-[#0a0f2c]">
+        <div ref={ref} className="relative min-h-[calc(100vh-5rem)] flex items-center overflow-hidden bg-[#0a0f2c] pt-12 lg:pt-0">
             {/* Background decoration - Network/Constellation effect */}
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
