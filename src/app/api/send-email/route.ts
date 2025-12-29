@@ -95,7 +95,7 @@ export async function POST(request: Request) {
             }
         })();
 
-        // Push to GoHighLevel (V1 API)
+        // Push to GoHighLevel (V2 API)
         const ghlPromise = (async () => {
             const apiKey = process.env.GHL_API_KEY;
 
@@ -111,26 +111,27 @@ export async function POST(request: Request) {
                 };
 
                 try {
-                    const response = await fetch('https://rest.gohighlevel.com/v1/contacts/', {
+                    const response = await fetch('https://services.leadconnectorhq.com/contacts/', {
                         method: 'POST',
                         headers: {
                             'Authorization': `Bearer ${apiKey}`,
                             'Content-Type': 'application/json',
+                            'Version': '2021-07-28'
                         },
                         body: JSON.stringify(ghlPayload)
                     });
 
                     if (!response.ok) {
                         const errorText = await response.text();
-                        console.error(`❌ GHL API Failed: ${response.status} ${errorText}`);
+                        console.error(`❌ GHL V2 API Failed: ${response.status} ${errorText}`);
                     } else {
-                        console.log('✅ Lead pushed to GoHighLevel API');
+                        console.log('✅ Lead pushed to GoHighLevel V2 API');
                     }
                 } catch (error) {
-                    console.error('❌ Error pushing to GHL API:', error);
+                    console.error('❌ Error pushing to GHL V2 API:', error);
                 }
             } else {
-                console.warn('⚠️ No GHL Configuration (API Key or Webhook) found');
+                console.warn('⚠️ No GHL Configuration (API Key) found');
             }
         })();
 
