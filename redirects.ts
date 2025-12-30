@@ -66,7 +66,13 @@ export const redirects = [
     "genai-automation-tools-for-seamless-content-marketing",
     "creating-compelling-campaigns-with-genai-content-marketing",
     "ai-driven-customer-experiences",
-    "increase-awareness"
+    "increase-awareness",
+    // New Redirects from Logs (2025-12-30)
+    "genai-automation-transforming-the-way-we-work",
+    "achieving-brand-growth-with-genai-marketing-automation-2",
+    "how-genai-automation-enhances-data-driven-marketing",
+    "10-benefits-of-genai-marketing-automation-for-marketers",
+    "boosting-seo-with-genai-content-marketing-strategies"
 ].map(slug => ({
     source: `/${slug}`,
     destination: `/blog/${slug}`,
@@ -90,6 +96,21 @@ export const redirects = [
     {
         source: '/services/service002',
         destination: '/services',
+        permanent: true,
+    },
+    {
+        source: '/contact-us',
+        destination: '/contact',
+        permanent: true,
+    },
+    {
+        source: '/wp-sitemap.xml',
+        destination: '/sitemap.xml',
+        permanent: true,
+    },
+    {
+        source: '/wp-content/:path*',
+        destination: '/',
         permanent: true,
     },
     {
